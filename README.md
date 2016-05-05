@@ -1,8 +1,8 @@
 <b>Review of biological data compression tools:</b>
 <ul> 
-	<li>download</li>
-	<li>install</li>
-	<li>run</li>
+	<li>download the datasets</li>
+	<li>install the programs</li>
+	<li>run the programs</li>
 </ul>
 
 To get the repository type the following:
