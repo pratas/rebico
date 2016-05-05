@@ -1,28 +1,42 @@
 #!/bin/bash
+DOWNLOAD_GOOSE=1;
+#
 DOWNLOAD_SEQ=1;
-DOWNLOAD_REF_SEQ=1;
-DOWNLOAD_FASTA=1;
-DOWNLOAD_FASTQ=1;
-DOWNLOAD_BAM=1;
+DOWNLOAD_REF_SEQ=0;
+DOWNLOAD_FASTA=0;
+DOWNLOAD_FASTQ=0;
+DOWNLOAD_BAM=0;
 # =============================================================================
 mkdir -p datasets
 # =============================================================================
 rm -fr tmp/
 mkdir tmp
 cd tmp/
+# =============================================================================
+# GET GOOSE DOWNLOAD SCRIPTS ==================================================
+if [[ "$DOWNLOAD_GOOSE" -eq "1" ]]; then
+git clone https://github.com/pratas/goose.git
+cd goose/src/
+make
+cd ../../
+fi
+# =============================================================================
 ###############################################################################
 ############################## DOWNLOAD DATASETS ##############################
 ###############################################################################
 # DOWNLOAD SEQ ================================================================
 if [[ "$DOWNLOAD_SEQ" -eq "1" ]]; then
-
-
+cp goose/scripts/GetHumanParse.sh .
+cp goose/scripts/GetChimpParse.sh .
+. GetHumanParse.sh
+. GetChimpParse.sh
+cat HS* > ../datasets/human.fna;
+cat PT* > ../datasets/chimpanze.fna;
 fi
 ###############################################################################
 # DOWNLOAD REF_SEQ ============================================================
 if [[ "$DOWNLOAD_REF_SEQ" -eq "1" ]]; then
-
-
+;
 fi
 ###############################################################################
 # DOWNLOAD FASTA ==============================================================
@@ -31,10 +45,6 @@ if [[ "$DOWNLOAD_FASTA" -eq "1" ]]; then
 git clone https://github.com/pratas/goose.git
 cd goose/src/
 make
-cd ../scripts/
-. GetHumanParse.sh
-cat HS* > ../../../datasets/sapiens.seq;
-cd ../../
 # GET CAMERA DATA (MULTI-FASTA: 43 GB) ========================================
 wget ftp://ftp.imicrobe.us/camera/camera_reference_datasets/10572.V10.fa.gz
 gunzip 10572.V10.fa.gz
