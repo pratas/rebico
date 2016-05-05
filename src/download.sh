@@ -28,10 +28,16 @@ fi
 if [[ "$DOWNLOAD_SEQ" -eq "1" ]]; then
 cp goose/scripts/GetHumanParse.sh .
 cp goose/scripts/GetChimpParse.sh .
+cp goose/scripts/GetOSativaV5.sh .
+cp goose/scripts/GetOSativaV7.sh .
 . GetHumanParse.sh
-. GetChimpParse.sh
 cat HS* > ../datasets/human.fna;
+. GetChimpParse.sh
 cat PT* > ../datasets/chimpanze.fna;
+. GetOSativaV5.sh
+cat OS5-* > ../datasets/rice5.fna;
+. GetOSativaV7.sh
+cat OS7-* > ../datasets/rice7.fna;
 fi
 ###############################################################################
 # DOWNLOAD REF_SEQ ============================================================
