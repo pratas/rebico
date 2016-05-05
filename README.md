@@ -1,8 +1,8 @@
 <b>Review of biological data compression tools:</b>
 <ul> 
-	<li>download,</li>
-	<li>install,<li>
-	<li>run.</li>
+	<li>download</li>
+	<li>install</li>
+	<li>run</li>
 </ul>
 
 To run all, in a linux environment, type the following:
