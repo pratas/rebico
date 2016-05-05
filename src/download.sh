@@ -40,6 +40,12 @@ cat PT* > ../datasets/chimpanze.fna;
 cat OS5-* > ../datasets/rice5.fna;
 . GetOSativaV7.sh
 cat OS7-* > ../datasets/rice7.fna;
+# * HUMAN GENOME CITATION:
+#
+# * RICE GENOME CITATION:
+# Ouyang,S., Zhu,W., Hamilton,J., Lin,H., Campbell,M., Childs,K.,
+# Thibaud-Nissen,F., Malek,R.L., Lee,Y., Zheng,L. et al . (2007) The TIGR Rice 
+# Genome Annotation Resource: improvements and new features. NAR, 35, D883–D887
 fi
 ###############################################################################
 # DOWNLOAD FASTA ==============================================================
