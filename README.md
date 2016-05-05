@@ -5,7 +5,7 @@
 	<li>run</li>
 </ul>
 
-To run all, in a linux environment, type the following:
+To run all, in a Linux environment, type the following:
 <pre>
 git clone https://github.com/pratas/rebico.git
 cd rebico/src/
