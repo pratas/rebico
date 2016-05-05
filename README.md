@@ -10,5 +10,6 @@ To run all, in a Linux environment, type the following:
 git clone https://github.com/pratas/rebico.git
 cd rebico/src/
 . download.sh
+. install.sh
 . run.sh
 </pre>
