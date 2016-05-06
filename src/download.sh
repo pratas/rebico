@@ -6,7 +6,6 @@ DOWNLOAD_FASTA=1;
 DOWNLOAD_FASTQ=1;
 DOWNLOAD_BAM=1;
 # URL SHORTCUTS ===============================================================
-G1000="ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference";
 EBI="ftp://ftp.sra.ebi.ac.uk/vol1";
 # =============================================================================
 mkdir -p datasets
@@ -29,11 +28,14 @@ fi
 # DOWNLOAD SEQ ================================================================
 if [[ "$DOWNLOAD_SEQ" -eq "1" ]]; then
 cp goose/scripts/GetHumanParse.sh .
+cp goose/scripts/GetHumanCHMParse.sh .
 cp goose/scripts/GetChimpParse.sh .
 cp goose/scripts/GetOSativaV5.sh .
 cp goose/scripts/GetOSativaV7.sh .
 . GetHumanParse.sh
 cat HS* > ../datasets/human.fna;
+. GetHumanCHMParse.sh
+cat CHM* > ../datasets/human2.fna;
 . GetChimpParse.sh
 cat PT* > ../datasets/chimpanze.fna;
 . GetOSativaV5.sh
