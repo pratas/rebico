@@ -1,4 +1,8 @@
 #!/bin/bash
+###############################################################################
+# DOWNLOAD DATA: IT WILL DOWNLOAD +\- 1 TB
+# DEPENDENCIES: GOOSE FRAMEWORK, wget, git, gunzip, external online links
+###############################################################################
 DOWNLOAD_GOOSE=1;
 #
 DOWNLOAD_SEQ=1;
@@ -67,24 +71,24 @@ mv ERR194146_1.fastq ../datasets/
 wget $EBI/fastq/ERR194/ERR194146/ERR194146_2.fastq.gz # 51x
 gunzip ERR194146_2.fastq.gz;
 mv ERR194146_2.fastq ../datasets/
-wget $EBI/fastq/ERR174/ERR174310/ERR174310_1.fastq.gz # 7x
+wget $EBI/fastq/ERR174/ERR174310/ERR174310_1.fastq.gz # 7x [MPEG standard]
 gunzip ERR174310_1.fastq.gz;
 mv ERR174310_1.fastq ../datasets/
-wget $EBI/fastq/ERR174/ERR174310/ERR174310_2.fastq.gz # 7x
+wget $EBI/fastq/ERR174/ERR174310/ERR174310_2.fastq.gz # 7x [MPEG standard]
 gunzip ERR174310_2.fastq.gz;
 mv ERR174310_2.fastq ../datasets/
 fi
 ###############################################################################
 # DOWNLOAD BAM ================================================================
 if [[ "$DOWNLOAD_BAM" -eq "1" ]]; then
-wget $EBI/ERA207/ERA207860/bam/NA12877_S1.bam # 122G #52x
+wget $EBI/ERA207/ERA207860/bam/NA12877_S1.bam # 122G #52x [MPEG standard]
 mv NA12877_S1.bam ../datasets/
-wget $EBI/ERA207/ERA207860/bam/NA12878_S1.bam # 114G #52x
+wget $EBI/ERA207/ERA207860/bam/NA12878_S1.bam # 114G #52x [MPEG standard]
 mv NA12878_S1.bam ../datasets/
-wget $EBI/ERA207/ERA207860/bam/NA12882_S1.bam # 101G #52x
+wget $EBI/ERA207/ERA207860/bam/NA12882_S1.bam # 101G #52x [MPEG standard]
 mv NA12882_S1.bam ../datasets/
 wget $EBI/ERA242/ERA242167/bam/9827_2%2349.bam -O ERR317482.bam # 1.9x
-mv ERR317482.bam ../datasets/
+mv ERR317482.bam ../datasets/ # [MPEG standard]
 fi
 ###############################################################################
 cd ..
