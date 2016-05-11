@@ -29,6 +29,8 @@ INSTALL_GRS=1;
 INSTALL_NGC=1;
 INSTALL_DEEZ=1;
 INSTALL_SCALCE=1;
+INSTALL_LWFQZIP=1;
+INSTALL_LEON=1;
 ###############################################################################
 # CREATE PROGS FOLDER =========================================================
 rm -fr progs;
@@ -320,6 +322,27 @@ cd scalce
 make download
 make
 cp scalce ../scalce-bin
+cd ../
+fi
+###############################################################################
+# GET LWFQZIP =================================================================
+if [[ "$INSTALL_LWFQZIP" -eq "1" ]]; then
+rm -rf LWFQZip-v1.02.zip
+wget http://csse.szu.edu.cn/staff/zhuzx/LWFQZip/LWFQZip-v1.02.zip
+unzip LWFQZip-v1.02.zip
+cd LWFQZip-v1.02
+make
+make clean;
+make
+cd ../
+fi
+###############################################################################
+# GET LEON ====================================================================
+if [[ "$INSTALL_LEON" -eq "1" ]]; then
+git clone --recursive https://github.com/GATB/leon.git
+# compile the code an run a simple test on your computer
+cd leon
+sh INSTALL
 cd ../
 fi
 ###############################################################################

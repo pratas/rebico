@@ -17,6 +17,8 @@ RUN_GRS=1;
 RUN_NGC=1;
 RUN_DEEZ=1;
 RUN_SCALCE=1;
+RUN_LWFQZIP=1;
+RUN_LEON=1;
 ###############################################################################
 ############################## F U N C T I O N S ##############################
 ###############################################################################
@@ -187,6 +189,17 @@ scalce input_1.fastq -r -o result -n library
 #the names and setting library name to library
 scalce input_1.scalcen -d -o something.fastq
 #Decompress the scalce file to something.fast
+fi
+##############################################################################
+if [[ "$RUN_LWFQZIP" -eq "1" ]]; then
+cd LWFQZip-v1.02/
+./LWFQZip -c -i IN > OUT
+./LWFQZip -d -i OUT > IN.2
+fi
+##############################################################################
+if [[ "$RUN_LEON" -eq "1" ]]; then
+./leon -c -nb-cores 4 -file IN > OUT
+./leon -d -nb-cores 4 -file OUT > IN.2
 fi
 ##############################################################################
 
