@@ -34,6 +34,7 @@ INSTALL_DEEZ=1;
 INSTALL_SCALCE=1;
 INSTALL_LWFQZIP=1;
 INSTALL_LEON=1;
+INSTALL_SAMCOMP=1;
 ###############################################################################
 # CREATE PROGS FOLDER =========================================================
 rm -fr progs;
@@ -283,6 +284,19 @@ make
 #cp fqz_comp ../
 cd ..
 rm -f fqzcomp-4.6.tar.gz
+fi
+###############################################################################
+# GET SAM_COMP ================================================================
+if [[ "$INSTALL_SAMCOMP" -eq "1" ]]; then
+rm -f sam_comp2-0.2.tar.gz
+wget http://downloads.sourceforge.net/project/samcomp/sam_comp2-0.2.tar.gz
+tar -xzf sam_comp2-0.2.tar.gz
+mv sam_comp2-0.2 samcomp/
+cd samcomp/
+make
+#cp sam_comp2 ../
+cd ..
+rm -f sam_comp2-0.2.tar.gz
 fi
 ###############################################################################
 # GET QUIP ====================================================================
