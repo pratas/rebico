@@ -126,7 +126,21 @@ if [[ "$RUN_FRESCO" -eq "1" ]]; then
 ./FRESCO-BIN FRESCO/config.ini COMRESS /bio/uncompressed/ /bio/compressed/ 
 ./FRESCO-BIN FRESCO/config.ini DECOMRESS /bio/compressed/ /bio/decompressed/ 
 fi
+##############################################################################
+if [[ "$RUN_GRS" -eq "1" ]]; then
+cp REF.seq Compress/bin/
+cp TAR.seq Compress/bin/
+cd Compress/bin/
+./GRS.sh REF.seq TAR.seq
+cd ../../
+cp REF.seq Decompress/bin/
+echo "THIS IS REPUGNANT!";
+fi
 ###############################################################################
+#
+##############################################################################
+################################### FASTQ ####################################
+##############################################################################
 if [[ "$RUN_ORCOM" -eq "1" ]]; then
 /orcom_bin e -f”NA19238_1.fastq NA19238_2.fastq” -oNA19238.bin
 fi
@@ -134,11 +148,6 @@ fi
 if [[ "$RUN_DSRC" -eq "1" ]]; then
 ./dsrc c SRR001471.fastq SRR001471.dsrc
 ./dsrc d SRR001471.dsrc SRR001471.out.fastq
-fi
-###############################################################################
-if [[ "$RUN_MFCOMPRESS" -eq "1" ]]; then
-./MFCompressC -3 -v -o OUT FILE
-./MFCompressD -v -o FIL2 OUT
 fi
 ###############################################################################
 if [[ "$RUN_FQC" -eq "1" ]]; then
@@ -151,39 +160,9 @@ if [[ "$RUN_FQZCOMP" -eq "1" ]]; then
 ./fqz_comp -d < out > sample.out.fastq
 fi
 ###############################################################################
-if [[ "$RUN_SAMCOMP" -eq "1" ]]; then
-sam_comp2 [-r ref_dir] [-f format] < file.sam > file.zam
-sam_comp2 [-r ref_dir] [-f format] -d < file.zam > file.sam
-fi
-###############################################################################
 if [[ "$RUN_QUIP" -eq "1" ]]; then
 ./quip sample.fastq > out
 ./quip -d 
-fi
-##############################################################################
-if [[ "$RUN_GRS" -eq "1" ]]; then
-cp REF.seq Compress/bin/
-cp TAR.seq Compress/bin/
-cd Compress/bin/
-./GRS.sh REF.seq TAR.seq
-cd ../../
-cp REF.seq Decompress/bin/
-echo "THIS IS REPUGNANT!";
-fi
-##############################################################################
-if [[ "$RUN_NGC" -eq "1" ]]; then
-# http://www.cibiv.at/~niko/ngc/download.html
-cp REF.seq NGC/
-java -jar -Xmx4G ngc-core-0.0.1-standalone.jar compress -i data.bam \
--o data.ngc -r hg19.fa
-java -jar -Xmx4G ngc-core-0.0.1-standalone.jar decompress -i data.ngc \
--o data-decompressed.bam -r hg19.fa
-cd ../
-fi
-##############################################################################
-if [[ "$RUN_DEEZ" -eq "1" ]]; then
-./deez -r [reference] [input.sam] -o [output]
-./deez -r [reference] [input.dz] -o [output] ([region])
 fi
 ##############################################################################
 if [[ "$RUN_SCALCE" -eq "1" ]]; then
@@ -203,9 +182,42 @@ cd LWFQZip-v1.02/
 ./LWFQZip -d -i OUT > IN.2
 fi
 ##############################################################################
+#
+##############################################################################
+################################### FASTA ####################################
+##############################################################################
 if [[ "$RUN_LEON" -eq "1" ]]; then
 ./leon -c -nb-cores 4 -file IN > OUT
 ./leon -d -nb-cores 4 -file OUT > IN.2
+fi
+###############################################################################
+if [[ "$RUN_MFCOMPRESS" -eq "1" ]]; then
+./MFCompressC -3 -v -o OUT FILE
+./MFCompressD -v -o FIL2 OUT
+fi
+##############################################################################
+#
+##############################################################################
+################################# SAM / BAM ##################################
+##############################################################################
+if [[ "$RUN_NGC" -eq "1" ]]; then
+# http://www.cibiv.at/~niko/ngc/download.html
+cp REF.seq NGC/
+java -jar -Xmx4G ngc-core-0.0.1-standalone.jar compress -i data.bam \
+-o data.ngc -r hg19.fa
+java -jar -Xmx4G ngc-core-0.0.1-standalone.jar decompress -i data.ngc \
+-o data-decompressed.bam -r hg19.fa
+cd ../
+fi
+##############################################################################
+if [[ "$RUN_DEEZ" -eq "1" ]]; then
+./deez -r [reference] [input.sam] -o [output]
+./deez -r [reference] [input.dz] -o [output] ([region])
+fi
+##############################################################################
+if [[ "$RUN_SAMCOMP" -eq "1" ]]; then
+sam_comp2 [-r ref_dir] [-f format] < file.sam > file.zam
+sam_comp2 [-r ref_dir] [-f format] -d < file.zam > file.sam
 fi
 ##############################################################################
 
