@@ -23,8 +23,20 @@ RUN_LEON=1;
 ###############################################################################
 ############################## F U N C T I O N S ##############################
 ###############################################################################
-# MEMORY ======================================================================
-function ProgMemory {
+# MEMORY1 =====================================================================
+function ProgMemoryStart {
+  echo "0" > mem_ps;
+  while true
+    do
+    ps aux | grep $1 | head -n 1 | awk '{ print $6; }' >> mem_ps;
+    sleep 5;
+    done
+  }
+function ProgMemoryStop {
+  cat mem_ps | sort -V | head -n 1 > $1;
+  }
+# MEMORY2 =====================================================================
+function ProgMemory2 {
   valgrind --tool=massif --pages-as-heap=yes --massif-out-file=massif.out ./$1; 
   cat massif.out | \
   grep mem_heap_B | \
@@ -211,8 +223,34 @@ cd ../
 fi
 ##############################################################################
 if [[ "$RUN_DEEZ" -eq "1" ]]; then
-./deez -r [reference] [input.sam] -o [output]
-./deez -r [reference] [input.dz] -o [output] ([region])
+cd progs/deez/
+mv ../../datasets/human.fna .
+# NA12877_S1.bam
+mv ../../datasets/NA12877_S1.bam .
+(time ./deez -r human.fna NA12877_S1.bam -o OUT.dz ) &> C_DEEZ_NA12877_S1
+(time ./deez -r human.fna OUT.dz -o NA12877_S1.dec ) &> D_DEEZ_NA12877_S1
+cmp NA12877_S1.dec NA12877_S1.bam > V_DEEZ_NA12877_S1
+mv NA12877_S1.bam ../../datasets/
+# NA12878_S1.bam
+mv ../../datasets/NA12878_S1.bam .
+(time ./deez -r human.fna NA12878_S1.bam -o OUT.dz ) &> C_DEEZ_NA12878_S1
+(time ./deez -r human.fna OUT.dz -o NA12878_S1.dec ) &> D_DEEZ_NA12878_S1
+cmp NA12878_S1.dec NA12878_S1.bam > V_DEEZ_NA12878_S1
+mv NA12878_S1.bam ../../datasets/
+# NA12882_S1
+mv ../../datasets/NA12882_S1.bam .
+(time ./deez -r human.fna NA12882_S1.bam -o OUT.dz ) &> C_DEEZ_NA12882_S1
+(time ./deez -r human.fna OUT.dz -o NA12882_S1.dec ) &> D_DEEZ_NA12882_S1
+cmp NA12882_S1.dec NA12882_S1.bam > V_DEEZ_NA12882_S1
+mv NA12882_S1.bam ../../datasets/
+# ERR317482.bam
+mv ../../datasets/ERR317482.bam .
+(time ./deez -r human.fna ERR317482.bam -o OUT.dz ) &> C_DEEZ_ERR317482
+(time ./deez -r human.fna OUT.dz -o ERR317482.dec ) &> D_DEEZ_ERR317482
+cmp ERR317482.dec ERR317482.bam > V_DEEZ_ERR317482
+mv ERR317482.bam ../../datasets/
+#
+mv human.fna ../../datasets/
 fi
 ##############################################################################
 if [[ "$RUN_SAMCOMP" -eq "1" ]]; then
