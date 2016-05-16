@@ -33,7 +33,8 @@ function ProgMemoryStart {
     done
   }
 function ProgMemoryStop {
-  cat mem_ps | sort -V | head -n 1 > $1;
+  kill $1 >/dev/null 2>&1
+  cat mem_ps | sort -V | head -n 1 > $2;
   }
 # MEMORY2 =====================================================================
 function ProgMemory2 {
@@ -227,8 +228,14 @@ cd progs/deez/
 mv ../../datasets/human.fna .
 # NA12877_S1.bam
 mv ../../datasets/NA12877_S1.bam .
+ProgMemoryStart "./deez" &
+MEMPID=$!
 (time ./deez -r human.fna NA12877_S1.bam -o OUT.dz ) &> C_DEEZ_NA12877_S1
+ProgMemoryEnd $MEMPID "MC_DEEZ_NA12877_S1";
+ProgMemoryStart "./deez" &
+MEMPID=$!
 (time ./deez -r human.fna OUT.dz -o NA12877_S1.dec ) &> D_DEEZ_NA12877_S1
+rogMemoryEnd $MEMPID "MD_DEEZ_NA12877_S1";
 cmp NA12877_S1.dec NA12877_S1.bam > V_DEEZ_NA12877_S1
 mv NA12877_S1.bam ../../datasets/
 # NA12878_S1.bam
