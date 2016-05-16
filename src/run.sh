@@ -12,6 +12,7 @@ RUN_DSRC=1;
 RUN_MFCOMPRESS=1;
 RUN_FQC=1;
 RUN_FQZCOMP=1;
+RUN_SAMCOMP=1;
 RUN_QUIP=1;
 RUN_GRS=1;
 RUN_NGC=1;
@@ -148,6 +149,11 @@ fi
 if [[ "$RUN_FQZCOMP" -eq "1" ]]; then
 ./fqz_comp -s5+ -q3 -n2 < sample.fastq > out
 ./fqz_comp -d < out > sample.out.fastq
+fi
+###############################################################################
+if [[ "$RUN_SAMCOMP" -eq "1" ]]; then
+sam_comp2 [-r ref_dir] [-f format] < file.sam > file.zam
+sam_comp2 [-r ref_dir] [-f format] -d < file.zam > file.sam
 fi
 ###############################################################################
 if [[ "$RUN_QUIP" -eq "1" ]]; then
