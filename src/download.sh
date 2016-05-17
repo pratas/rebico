@@ -38,8 +38,14 @@ cp goose/scripts/GetChimpParse.sh .
 cp goose/scripts/GetOSativaV5.sh .
 cp goose/scripts/GetOSativaV7.sh .
 . GetHumanParse.sh
-cat HS* > ../datasets/human.fna;
-./goose-renamehumanheaders < human.fna > humanDZ.fna
+rm -f ../datasets/human.fna
+for((x=1 ; x<=22 ; ++x));
+  do 
+  cat HS$x >> ../datasets/human.fna;
+  done
+  cat HS23 >> ../datasets/human.fna;
+  cat HS24 >> ../datasets/human.fna;
+./goose-renamehumanheaders < ../datasets/human.fna > ../datasets/humanDZ.fna
 . GetHumanCHMParse.sh
 cat CHM* > ../datasets/human2.fna;
 . GetChimpParse.sh
