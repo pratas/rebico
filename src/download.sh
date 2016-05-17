@@ -31,6 +31,7 @@ fi
 ###############################################################################
 # DOWNLOAD SEQ ================================================================
 if [[ "$DOWNLOAD_SEQ" -eq "1" ]]; then
+cp goose/src/goose-renamehumanheaders .
 cp goose/scripts/GetHumanParse.sh .
 cp goose/scripts/GetHumanCHMParse.sh .
 cp goose/scripts/GetChimpParse.sh .
@@ -38,6 +39,7 @@ cp goose/scripts/GetOSativaV5.sh .
 cp goose/scripts/GetOSativaV7.sh .
 . GetHumanParse.sh
 cat HS* > ../datasets/human.fna;
+./goose-renamehumanheaders < human.fna > humanDZ.fna
 . GetHumanCHMParse.sh
 cat CHM* > ../datasets/human2.fna;
 . GetChimpParse.sh
