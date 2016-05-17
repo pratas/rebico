@@ -21,6 +21,8 @@ RUN_SCALCE=1;
 RUN_LWFQZIP=1;
 RUN_LEON=1;
 ###############################################################################
+mkdir -p results
+###############################################################################
 ############################## F U N C T I O N S ##############################
 ###############################################################################
 # MEMORY1 =====================================================================
@@ -224,57 +226,65 @@ cd ../
 fi
 ##############################################################################
 if [[ "$RUN_DEEZ" -eq "1" ]]; then
+mkdir -p results
 cd progs/deez/
 mv ../../datasets/human.fna .
 # NA12877_S1.bam
 mv ../../datasets/NA12877_S1.bam .
 ProgMemoryStart "./deez" &
 MEMPID=$!
-(time ./deez -r human.fna NA12877_S1.bam -o OUT.dz ) &> C_DEEZ_NA12877_S1
-ProgMemoryStop $MEMPID "MC_DEEZ_NA12877_S1";
+(time ./deez -r human.fna NA12877_S1.bam \
+-o OUT.dz ) &> ../../results/C_DEEZ_NA12877_S1
+ProgMemoryStop $MEMPID "../../results/MC_DEEZ_NA12877_S1";
 ProgMemoryStart "./deez" &
 MEMPID=$!
-(time ./deez -r human.fna OUT.dz -o NA12877_S1.dec ) &> D_DEEZ_NA12877_S1
-ProgMemoryStop $MEMPID "MD_DEEZ_NA12877_S1";
-cmp NA12877_S1.dec NA12877_S1.bam > V_DEEZ_NA12877_S1
+(time ./deez -r human.fna OUT.dz \
+-o NA12877_S1.dec ) &> ../../results/D_DEEZ_NA12877_S1
+ProgMemoryStop $MEMPID "../../results/MD_DEEZ_NA12877_S1";
+cmp NA12877_S1.dec NA12877_S1.bam > ../../results/V_DEEZ_NA12877_S1
 mv NA12877_S1.bam ../../datasets/
 # NA12878_S1.bam
 mv ../../datasets/NA12878_S1.bam .
 ProgMemoryStart "./deez" &
 MEMPID=$!
-(time ./deez -r human.fna NA12878_S1.bam -o OUT.dz ) &> C_DEEZ_NA12878_S1
-ProgMemoryStop $MEMPID "MC_DEEZ_NA12878_S1";
+(time ./deez -r human.fna NA12878_S1.bam \
+-o OUT.dz ) &> ../../results/C_DEEZ_NA12878_S1
+ProgMemoryStop $MEMPID "../../results/MC_DEEZ_NA12878_S1";
 ProgMemoryStart "./deez" &
 MEMPID=$!
-(time ./deez -r human.fna OUT.dz -o NA12878_S1.dec ) &> D_DEEZ_NA12878_S1
-ProgMemoryStop $MEMPID "MD_DEEZ_NA12878_S1";
-cmp NA12878_S1.dec NA12878_S1.bam > V_DEEZ_NA12878_S1
+(time ./deez -r human.fna OUT.dz \
+-o NA12878_S1.dec ) &> ../../results/D_DEEZ_NA12878_S1
+ProgMemoryStop $MEMPID "../../results/MD_DEEZ_NA12878_S1";
+cmp NA12878_S1.dec NA12878_S1.bam > ../../results/V_DEEZ_NA12878_S1
 mv NA12878_S1.bam ../../datasets/
 # NA12882_S1
 mv ../../datasets/NA12882_S1.bam .
 ProgMemoryStart "./deez" &
 MEMPID=$!
-(time ./deez -r human.fna NA12882_S1.bam -o OUT.dz ) &> C_DEEZ_NA12882_S1
-ProgMemoryStop $MEMPID "MC_DEEZ_NA12882_S1";
+(time ./deez -r human.fna NA12882_S1.bam \
+-o OUT.dz ) &> ../../results/C_DEEZ_NA12882_S1
+ProgMemoryStop $MEMPID "../../results/MC_DEEZ_NA12882_S1";
 ProgMemoryStart "./deez" &
 MEMPID=$!
-(time ./deez -r human.fna OUT.dz -o NA12882_S1.dec ) &> D_DEEZ_NA12882_S1
-ProgMemoryStop $MEMPID "MD_DEEZ_NA12882_S1";
-cmp NA12882_S1.dec NA12882_S1.bam > V_DEEZ_NA12882_S1
+(time ./deez -r human.fna OUT.dz \
+-o NA12882_S1.dec ) &> ../../results/D_DEEZ_NA12882_S1
+ProgMemoryStop $MEMPID "../../results/MD_DEEZ_NA12882_S1";
+cmp NA12882_S1.dec NA12882_S1.bam > ../../results/V_DEEZ_NA12882_S1
 mv NA12882_S1.bam ../../datasets/
 # ERR317482.bam
 mv ../../datasets/ERR317482.bam .
 ProgMemoryStart "./deez" &
 MEMPID=$!
-(time ./deez -r human.fna ERR317482.bam -o OUT.dz ) &> C_DEEZ_ERR317482
-ProgMemoryStop $MEMPID "MC_DEEZ_ERR317482";
+(time ./deez -r human.fna ERR317482.bam \
+-o OUT.dz ) &> ../../results/C_DEEZ_ERR317482
+ProgMemoryStop $MEMPID "../../results/MC_DEEZ_ERR317482";
 ProgMemoryStart "./deez" &
 MEMPID=$!
-(time ./deez -r human.fna OUT.dz -o ERR317482.dec ) &> D_DEEZ_ERR317482
-ProgMemoryStop $MEMPID "MD_DEEZ_ERR317482";
-cmp ERR317482.dec ERR317482.bam > V_DEEZ_ERR317482
+(time ./deez -r human.fna OUT.dz \
+-o ERR317482.dec ) &> ../../results/D_DEEZ_ERR317482
+ProgMemoryStop $MEMPID "../../results/MD_DEEZ_ERR317482";
+cmp ERR317482.dec ERR317482.bam > ../../results/V_DEEZ_ERR317482
 mv ERR317482.bam ../../datasets/
-#
 mv human.fna ../../datasets/
 fi
 ##############################################################################
