@@ -235,6 +235,7 @@ ProgMemoryStart "./deez" &
 MEMPID=$!
 (time ./deez -r human.fna NA12877_S1.bam \
 -o OUT.dz ) &> ../../results/C_DEEZ_NA12877_S1
+ls -la OUT.dz > ../../results/BC_DEEZ_NA12877_S1
 ProgMemoryStop $MEMPID "../../results/MC_DEEZ_NA12877_S1";
 ProgMemoryStart "./deez" &
 MEMPID=$!
@@ -249,6 +250,7 @@ ProgMemoryStart "./deez" &
 MEMPID=$!
 (time ./deez -r human.fna NA12878_S1.bam \
 -o OUT.dz ) &> ../../results/C_DEEZ_NA12878_S1
+ls -la OUT.dz > ../../results/BC_DEEZ_NA12878_S1
 ProgMemoryStop $MEMPID "../../results/MC_DEEZ_NA12878_S1";
 ProgMemoryStart "./deez" &
 MEMPID=$!
@@ -263,6 +265,7 @@ ProgMemoryStart "./deez" &
 MEMPID=$!
 (time ./deez -r human.fna NA12882_S1.bam \
 -o OUT.dz ) &> ../../results/C_DEEZ_NA12882_S1
+ls -la OUT.dz > ../../results/BC_DEEZ_NA12882_S1
 ProgMemoryStop $MEMPID "../../results/MC_DEEZ_NA12882_S1";
 ProgMemoryStart "./deez" &
 MEMPID=$!
@@ -277,6 +280,7 @@ ProgMemoryStart "./deez" &
 MEMPID=$!
 (time ./deez -r human.fna ERR317482.bam \
 -o OUT.dz ) &> ../../results/C_DEEZ_ERR317482
+ls -la OUT.dz > ../../results/BC_DEEZ_ERR317482
 ProgMemoryStop $MEMPID "../../results/MC_DEEZ_ERR317482";
 ProgMemoryStart "./deez" &
 MEMPID=$!
