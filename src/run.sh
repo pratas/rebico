@@ -201,6 +201,11 @@ fi
 ##############################################################################
 ################################### FASTA ####################################
 ##############################################################################
+if [[ "$RUN_DELIMINATE" -eq "1" ]]; then
+#http://metagenomics.atc.tcs.com/compression/DELIMINATE/
+
+fi
+
 if [[ "$RUN_LEON" -eq "1" ]]; then
 ./leon -c -nb-cores 4 -file IN > OUT
 ./leon -d -nb-cores 4 -file OUT > IN.2

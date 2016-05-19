@@ -7,6 +7,7 @@
 ###############################################################################
 # SYSTEM FLAGS ================================================================
 INSTALL_DEPENDENCIES=1;
+  INSTALL_7ZIP=1;
   INSTALL_LIBCURL=1;
   INSTALL_ZLIB=1;
   INSTALL_CMAKE=1;
@@ -24,6 +25,7 @@ INSTALL_FRESCO=1;
 INSTALL_ORCOM=1;
 INSTALL_DSRC=1;
 INSTALL_MFCOMPRESS=1;
+INSTALL_DELIMINATE=1;
 INSTALL_FQC=1;
 INSTALL_FQZCOMP=1;
 INSTALL_QUIP=1;
@@ -50,6 +52,17 @@ cd progs/
 ###############################################################################
 # GET LIBS ====================================================================
 if [[ "$INSTALL_DEPENDENCIES" -eq "1" ]]; then
+  # GET 7ZIP ==================================================================
+  if [[ "$INSTALL_7ZIP" -eq "1" ]]; then
+  P7ZIPPATH="projects/p7zip/files/latest";
+  rm -f FILES
+  wget http://sourceforge.net/$P7ZIPPATH/download?source=typ_redirect \
+  -O FILES.tar.bz2
+  tar -xjf FILES.tar.bz2
+  cd p7zip_15.14.1/
+  make all
+  cd ..
+  fi
   # GET LIBCURL ===============================================================
   if [[ "$INSTALL_LIBCURL" -eq "1" ]]; then
   sudo apt-get install libcurl4-nss-dev
@@ -255,6 +268,16 @@ make
 #cp MFCompressD ..
 cd ..
 rm -f MFCompress-src-1.01.tgz;
+fi
+###############################################################################
+# GET DELIMINATE ==============================================================
+if [[ "$INSTALL_DELIMINATE" -eq "1" ]]; then
+rm -f DELIMINATE_LINUX_64bit.tar.gz;
+DELSEV="metagenomics.atc.tcs.com/Compression_archive";
+wget http://$DELSEV/DELIMINATE_LINUX_64bit.tar.gz
+tar -xzf DELIMINATE_LINUX_64bit.tar.gz
+mv EXECUTABLES deliminate
+rm -f DELIMINATE_LINUX_64bit.tar.gz;
 fi
 ###############################################################################
 # GET FQC =====================================================================
