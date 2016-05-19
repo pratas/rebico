@@ -11,16 +11,16 @@ RUN_ORCOM=1;
 RUN_DSRC=1;
 RUN_MFCOMPRESS=1;
 RUN_DELIMINATE=1;
+RUN_LEON=1;
 RUN_FQC=1;
 RUN_FQZCOMP=1;
-RUN_SAMCOMP=1;
 RUN_QUIP=1;
 RUN_GRS=1;
 RUN_NGC=1;
 RUN_DEEZ=1;
+RUN_SAMCOMP=1;
 RUN_SCALCE=1;
 RUN_LWFQZIP=1;
-RUN_LEON=1;
 ###############################################################################
 mkdir -p results
 ###############################################################################
@@ -343,8 +343,77 @@ cd ../../
 fi
 ###############################################################################
 if [[ "$RUN_MFCOMPRESS" -eq "1" ]]; then
-./MFCompressC -v -o OUT FILE
-./MFCompressD -v -o FIL2 OUT
+mkdir -p results
+cd progs/mfcompress
+# HUMAN
+mv ../../datasets/human.fna .
+ProgMemoryStart "MFCompress" &
+MEMPID=$!
+rm -f human.fna.mfc
+(time ./MFCompressC -v \
+-o human.fna.mfc human.fna ) &> ../../results/C_MFCOMPRESS_HUMAN
+ls -la human.fna.mfc > ../../results/BC_MFCOMPRESS_HUMAN
+ProgMemoryStop $MEMPID "../../results/MC_MFCOMPRESS_HUMAN";
+ProgMemoryStart "MFCompress" &
+MEMPID=$!
+rm -f human.fna.d
+(time ./MFCompressD -v \
+-o human.fna.d human.fna.mfc ) &> ../../results/D_MFCOMPRESS_HUMAN
+ProgMemoryStop $MEMPID "../../results/MD_MFCOMPRESS_HUMAN";
+cmp human.fna human.fna.d > ../../results/V_MFCOMPRESS_HUMAN
+mv human.fna ../../datasets/
+# CHIMPANZEE
+mv ../../datasets/chimpanze.fna .
+ProgMemoryStart "MFCompress" &
+MEMPID=$!
+rm -f chimpanze.fna.mfc
+(time ./MFCompressC -v \
+-o chimpanze.fna.mfc chimpanze.fna ) &> ../../results/C_MFCOMPRESS_CHIMPANZE
+ls -la chimpanze.fna.mfc > ../../results/BC_MFCOMPRESS_CHIMPANZE
+ProgMemoryStop $MEMPID "../../results/MC_MFCOMPRESS_CHIMPANZE";
+ProgMemoryStart "MFCompress" &
+MEMPID=$!
+rm -f chimpanze.fna.d
+(time ./MFCompressD -v \
+-o chimpanze.fna.d chimpanze.fna.mfc ) &> ../../results/D_MFCOMPRESS_CHIMPANZE
+ProgMemoryStop $MEMPID "../../results/MD_MFCOMPRESS_CHIMPANZE";
+cmp chimpanze.fna chimpanze.fna.d > ../../results/V_MFCOMPRESS_CHIMPANZE
+mv chimpanze.fna ../../datasets/
+# RICE
+mv ../../datasets/rice5.fna .
+ProgMemoryStart "MFCompress" &
+MEMPID=$!
+rm -f rice5.fna.mfc
+(time ./MFCompressC -v \
+-o rice5.fna.mfc rice5.fna ) &> ../../results/C_MFCOMPRESS_RICE
+ls -la rice5.fna.mfc > ../../results/BC_MFCOMPRESS_RICE
+ProgMemoryStop $MEMPID "../../results/MC_MFCOMPRESS_RICE";
+ProgMemoryStart "MFCompress" &
+MEMPID=$!
+rm -f rice5.fna.d
+(time ./MFCompressD -v \
+-o rice5.fna.d rice5.fna.mfc ) &> ../../results/D_MFCOMPRESS_RICE
+ProgMemoryStop $MEMPID "../../results/MD_MFCOMPRESS_RICE";
+cmp rice5.fna rice5.fna.d > ../../results/V_MFCOMPRESS_RICE
+mv rice5.fna ../../datasets/
+# CAMERA
+mv ../../datasets/camera.fa .
+ProgMemoryStart "MFCompress" &
+MEMPID=$!
+rm -f camera.fa.mfc
+(time ./MFCompressC -v \
+-o camera.fa.mfc camera.fa ) &> ../../results/C_MFCOMPRESS_CAMERA
+ls -la camera.fa.mfc > ../../results/BC_MFCOMPRESS_CAMERA
+ProgMemoryStop $MEMPID "../../results/MC_MFCOMPRESS_CAMERA";
+ProgMemoryStart "MFCompress" &
+MEMPID=$!
+rm -f camera.fa.d
+(time ./MFCompressD -v \
+-o camera.fa.d camera.fa.mfc ) &> ../../results/D_MFCOMPRESS_CAMERA
+ProgMemoryStop $MEMPID "../../results/MD_MFCOMPRESS_CAMERA";
+cmp camera.fa camera.fa.d > ../../results/V_MFCOMPRESS_CAMERA
+mv camera.fa ../../datasets/
+cd ../../
 fi
 ##############################################################################
 #
