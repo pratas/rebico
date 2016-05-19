@@ -26,6 +26,15 @@ mkdir -p results
 ###############################################################################
 ############################## F U N C T I O N S ##############################
 ###############################################################################
+# CHECK IF FILE EXISTS ========================================================
+function FExists {
+  file="$1"
+  if [ ! -e "$file" ];
+    then
+    echo "ERROR: File $file does not exist!";
+    return;
+    fi
+  }
 # MEMORY1 =====================================================================
 function ProgMemoryStart {
   echo "0" > mem_ps;
@@ -52,6 +61,26 @@ function ProgMemory2 {
 function ProgTime {
   time ./$1
   }
+###############################################################################
+############################### CHECK DATASETS ################################
+###############################################################################
+FExists "datasets/human.fna"
+FExists "datasets/human2.fna"
+FExists "datasets/humanDZ.fna"
+FExists "datasets/chimpanze.fna"
+FExists "datasets/rice5.fna"
+FExists "datasets/rice7.fna"
+FExists "datasets/camera.fa"
+#
+FExists "datasets/ERR174310_1.fastq"
+FExists "datasets/ERR174310_2.fastq"
+FExists "datasets/ERR194146_1.fastq"
+FExists "datasets/ERR194146_2.fastq"
+#
+FExists "datasets/NA12877_S1.bam"
+FExists "datasets/NA12878_S1.bam"
+FExists "datasets/NA12882_S1.bam"
+FExists "datasets/ERR317482.bam"
 ###############################################################################
 ################################ RUN PROGRAMS #################################
 ###############################################################################
@@ -424,7 +453,7 @@ fi
 ### FILES TO COMPRESS:
 ###   [+] NA12877_S1.bam
 ###   [+] NA12878_S1.bam
-###   [+] NA12878_S1.bam
+###   [+] NA12882_S1.bam
 ###   [+] ERR317482.bam
 ###
 ##############################################################################
