@@ -10,6 +10,7 @@ RUN_EGRC=1;
 RUN_ORCOM=1;
 RUN_DSRC=1;
 RUN_MFCOMPRESS=1;
+RUN_DELIMINATE=1;
 RUN_FQC=1;
 RUN_FQZCOMP=1;
 RUN_SAMCOMP=1;
@@ -201,24 +202,105 @@ fi
 ##############################################################################
 ################################### FASTA ####################################
 ##############################################################################
+###
+### FILES TO COMPRESS:
+###   [+] human.fna
+###   [+] chimpanze.fna
+###   [+] rice5.fna
+###   [+] camera.fa
+###
+##############################################################################
 if [[ "$RUN_DELIMINATE" -eq "1" ]]; then
-#http://metagenomics.atc.tcs.com/compression/DELIMINATE/
-
+mkdir -p results
+cd progs/deliminate
+# HUMAN
+mv ../../datasets/human.fna .
+ProgMemoryStart "delim" &
+MEMPID=$!
+rm -f human.fna.dlim
+(time ./delim a human.fna ) &> ../../results/C_DELIMINATE_HUMAN
+ls -la human.fna.dlim > ../../results/BC_DELIMINATE_HUMAN
+ProgMemoryStop $MEMPID "../../results/MC_DELIMINATE_HUMAN";
+ProgMemoryStart "delim" &
+MEMPID=$!
+rm -f human.fna.delim.d
+(time ./delim e human.fna.dlim ) &> ../../results/D_DELIMINATE_HUMAN
+ProgMemoryStop $MEMPID "../../results/MD_DELIMINATE_HUMAN";
+cmp human.fna human.fna.dlim.d > ../../results/V_DELIMINATE_HUMAN
+mv human.fna ../../datasets/
+# CHIMPANZEE
+mv ../../datasets/chimpanze.fna .
+ProgMemoryStart "delim" &
+MEMPID=$!
+rm -f chimpanze.fna.dlim
+(time ./delim a chimpanze.fna ) &> ../../results/C_DELIMINATE_CHIMPANZE
+ls -la chimpanze.fna.dlim > ../../results/BC_DELIMINATE_CHIMPANZE
+ProgMemoryStop $MEMPID "../../results/MC_DELIMINATE_CHIMPANZE";
+ProgMemoryStart "delim" &
+MEMPID=$!
+rm -f chimpanze.fna.delim.d
+(time ./delim e chimpanze.fna.dlim ) &> ../../results/D_DELIMINATE_CHIMPANZE
+ProgMemoryStop $MEMPID "../../results/MD_DELIMINATE_CHIMPANZE";
+cmp chimpanze.fna chimpanze.fna.dlim.d > ../../results/V_DELIMINATE_CHIMPANZE
+mv chimpanze.fna ../../datasets/
+# RICE
+mv ../../datasets/rice5.fna .
+ProgMemoryStart "delim" &
+MEMPID=$!
+rm -f rice5.fna.dlim
+(time ./delim a rice5.fna ) &> ../../results/C_DELIMINATE_RICE
+ls -la rice5.fna.dlim > ../../results/BC_DELIMINATE_RICE
+ProgMemoryStop $MEMPID "../../results/MC_DELIMINATE_RICE";
+ProgMemoryStart "delim" &
+MEMPID=$!
+rm -f rice5.fna.delim.d
+(time ./delim e rice5.fna.dlim ) &> ../../results/D_DELIMINATE_RICE
+ProgMemoryStop $MEMPID "../../results/MD_DELIMINATE_RICE";
+cmp rice5.fna rice5.fna.dlim.d > ../../results/V_DELIMINATE_RICE
+mv rice5.fna ../../datasets/
+# CAMERA
+mv ../../datasets/camera.fa .
+ProgMemoryStart "delim" &
+MEMPID=$!
+rm -f camera.fa.dlim
+(time ./delim a camera.fa ) &> ../../results/C_DELIMINATE_CAMERA
+ls -la camera.fa.dlim > ../../results/BC_DELIMINATE_CAMERA
+ProgMemoryStop $MEMPID "../../results/MC_DELIMINATE_CAMERA";
+ProgMemoryStart "delim" &
+MEMPID=$!
+rm -f camera.fa.delim.d
+(time ./delim e camera.fa.dlim ) &> ../../results/D_DELIMINATE_CAMERA
+ProgMemoryStop $MEMPID "../../results/MD_DELIMINATE_CAMERA";
+cmp camera.fa camera.fa.dlim.d > ../../results/V_DELIMINATE_CAMERA
+mv camera.fa ../../datasets/
+cd ../../
 fi
-
+###############################################################################
 if [[ "$RUN_LEON" -eq "1" ]]; then
-./leon -c -nb-cores 4 -file IN > OUT
-./leon -d -nb-cores 4 -file OUT > IN.2
+./leon -c -file IN > OUT
+./leon -d -file OUT > IN.2
+
+
+
+
 fi
 ###############################################################################
 if [[ "$RUN_MFCOMPRESS" -eq "1" ]]; then
-./MFCompressC -3 -v -o OUT FILE
+./MFCompressC -v -o OUT FILE
 ./MFCompressD -v -o FIL2 OUT
 fi
 ##############################################################################
 #
 ##############################################################################
 ################################# SAM / BAM ##################################
+##############################################################################
+###
+### FILES TO COMPRESS:
+###   [+] NA12877_S1.bam
+###   [+] NA12878_S1.bam
+###   [+] NA12878_S1.bam
+###   [+] ERR317482.bam
+###
 ##############################################################################
 if [[ "$RUN_NGC" -eq "1" ]]; then
 # http://www.cibiv.at/~niko/ngc/download.html
@@ -230,14 +312,14 @@ mv ../../datasets/NA12877_S1.bam .
 ProgMemoryStart "ngc" &
 MEMPID=$!
 rm -f OUT.dz
-(java -jar -Xmx8G ngc-core-0.0.1-standalone.jar compress -i NA12877_S1.bam \
+(time java -jar -Xmx8G ngc-core-0.0.1-standalone.jar compress -i NA12877_S1.bam \
 -o OUT.dz -r humanDZ.fna ) &> ../../results/C_NGC_NA12877_S1
 ls -la OUT.dz > ../../results/BC_NGC_NA12877_S1
 ProgMemoryStop $MEMPID "../../results/MC_NGC_NA12877_S1";
 ProgMemoryStart "ngc" &
 MEMPID=$!
 rm -f NA12877_S1.dec
-(java -jar -Xmx8G ngc-core-0.0.1-standalone.jar decompress -i OUT.dz \
+(time java -jar -Xmx8G ngc-core-0.0.1-standalone.jar decompress -i OUT.dz \
 -o NA12877_S1.dec -r humanDZ.fna ) &> ../../results/D_NGC_NA12877_S1
 ProgMemoryStop $MEMPID "../../results/MD_NGC_NA12877_S1";
 cmp NA12877_S1.dec NA12877_S1.bam > ../../results/V_NGC_NA12877_S1
@@ -247,14 +329,14 @@ mv ../../datasets/NA12878_S1.bam .
 ProgMemoryStart "ngc" &
 MEMPID=$!
 rm -f OUT.dz
-(java -jar -Xmx8G ngc-core-0.0.1-standalone.jar compress -i NA12878_S1.bam \
+(time java -jar -Xmx8G ngc-core-0.0.1-standalone.jar compress -i NA12878_S1.bam \
 -o OUT.dz -r humanDZ.fna ) &> ../../results/C_NGC_NA12878_S1
 ls -la OUT.dz > ../../results/BC_NGC_NA12878_S1
 ProgMemoryStop $MEMPID "../../results/MC_NGC_NA12878_S1";
 ProgMemoryStart "ngc" &
 MEMPID=$!
 rm -f NA12878_S1.dec
-(java -jar -Xmx8G ngc-core-0.0.1-standalone.jar decompress -i OUT.dz \
+(time java -jar -Xmx8G ngc-core-0.0.1-standalone.jar decompress -i OUT.dz \
 -o NA12878_S1.dec -r humanDZ.fna ) &> ../../results/D_NGC_NA12878_S1
 ProgMemoryStop $MEMPID "../../results/MD_NGC_NA12878_S1";
 cmp NA12878_S1.dec NA12878_S1.bam > ../../results/V_NGC_NA12878_S1
@@ -264,14 +346,14 @@ mv ../../datasets/NA12882_S1.bam .
 ProgMemoryStart "ngc" &
 MEMPID=$!
 rm -f OUT.dz
-(java -jar -Xmx8G ngc-core-0.0.1-standalone.jar compress -i NA12882_S1.bam \
+(time java -jar -Xmx8G ngc-core-0.0.1-standalone.jar compress -i NA12882_S1.bam \
 -o OUT.dz -r humanDZ.fna ) &> ../../results/C_NGC_NA12882_S1
 ls -la OUT.dz > ../../results/BC_NGC_NA12882_S1
 ProgMemoryStop $MEMPID "../../results/MC_NGC_NA12882_S1";
 ProgMemoryStart "ngc" &
 MEMPID=$!
 rm -f NA12882_S1.dec
-(java -jar -Xmx8G ngc-core-0.0.1-standalone.jar decompress -i OUT.dz \
+(time java -jar -Xmx8G ngc-core-0.0.1-standalone.jar decompress -i OUT.dz \
 -o NA12882_S1.dec -r humanDZ.fna ) &> ../../results/D_NGC_NA12882_S1
 ProgMemoryStop $MEMPID "../../results/MD_NGC_NA12882_S1";
 cmp NA12882_S1.dec NA12882_S1.bam > ../../results/V_NGC_NA12882_S1
@@ -281,14 +363,14 @@ mv ../../datasets/ERR317482.bam .
 ProgMemoryStart "ngc" &
 MEMPID=$!
 rm -f OUT.dz
-(java -jar -Xmx8G ngc-core-0.0.1-standalone.jar compress -i ERR317482.bam \
+(time java -jar -Xmx8G ngc-core-0.0.1-standalone.jar compress -i ERR317482.bam \
 -o OUT.dz -r humanDZ.fna ) &> ../../results/C_NGC_ERR317482
 ls -la OUT.dz > ../../results/BC_NGC_ERR317482
 ProgMemoryStop $MEMPID "../../results/MC_NGC_ERR317482";
 ProgMemoryStart "ngc" &
 MEMPID=$!
 rm -f ERR317482.dec
-(java -jar -Xmx8G ngc-core-0.0.1-standalone.jar decompress -i OUT.dz \
+(time java -jar -Xmx8G ngc-core-0.0.1-standalone.jar decompress -i OUT.dz \
 -o ERR317482.dec -r humanDZ.fna ) &> ../../results/D_NGC_ERR317482
 ProgMemoryStop $MEMPID "../../results/MD_NGC_ERR317482";
 cmp ERR317482.dec ERR317482.bam > ../../results/V_NGC_ERR317482
