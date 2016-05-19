@@ -277,12 +277,69 @@ cd ../../
 fi
 ###############################################################################
 if [[ "$RUN_LEON" -eq "1" ]]; then
-./leon -c -file IN > OUT
-./leon -d -file OUT > IN.2
-
-
-
-
+mkdir -p results
+cd progs/leon
+# HUMAN
+mv ../../datasets/human.fna .
+ProgMemoryStart "leon" &
+MEMPID=$!
+rm -f human.fna.leon
+(time ./leon -c -file human.fna ) &> ../../results/C_LEON_HUMAN
+ls -la human.fna.leon > ../../results/BC_LEON_HUMAN
+ProgMemoryStop $MEMPID "../../results/MC_LEON_HUMAN";
+ProgMemoryStart "leon" &
+MEMPID=$!
+rm -f human.fna.d
+(time ./leon -d -file human.fna.leon ) &> ../../results/D_LEON_HUMAN
+ProgMemoryStop $MEMPID "../../results/MD_LEON_HUMAN";
+cmp human.fna human.fna.d > ../../results/V_LEON_HUMAN
+mv human.fna ../../datasets/
+# CHIMPANZEE
+mv ../../datasets/chimpanze.fna .
+ProgMemoryStart "leon" &
+MEMPID=$!
+rm -f chimpanze.fna.leon
+(time ./leon -c -file chimpanze.fna ) &> ../../results/C_LEON_CHIMPANZE
+ls -la chimpanze.fna.leon > ../../results/BC_LEON_CHIMPANZE
+ProgMemoryStop $MEMPID "../../results/MC_LEON_CHIMPANZE";
+ProgMemoryStart "leon" &
+MEMPID=$!
+rm -f chimpanze.fna.d
+(time ./leon -d -file chimpanze.fna.leon ) &> ../../results/D_LEON_CHIMPANZE
+ProgMemoryStop $MEMPID "../../results/MD_LEON_CHIMPANZE";
+cmp chimpanze.fna chimpanze.fna.d > ../../results/V_LEON_CHIMPANZE
+mv chimpanze.fna ../../datasets/
+# RICE
+mv ../../datasets/rice5.fna .
+ProgMemoryStart "leon" &
+MEMPID=$!
+rm -f rice5.fna.leon
+(time ./leon -c -file rice5.fna ) &> ../../results/C_LEON_RICE
+ls -la rice5.fna.leon > ../../results/BC_LEON_RICE
+ProgMemoryStop $MEMPID "../../results/MC_LEON_RICE";
+ProgMemoryStart "leon" &
+MEMPID=$!
+rm -f rice5.fna.d
+(time ./leon -d -file rice5.fna.leon ) &> ../../results/D_LEON_RICE
+ProgMemoryStop $MEMPID "../../results/MD_LEON_RICE";
+cmp rice5.fna rice5.fna.d > ../../results/V_LEON_RICE
+mv rice5.fna ../../datasets/
+# CAMERA
+mv ../../datasets/camera.fa .
+ProgMemoryStart "leon" &
+MEMPID=$!
+rm -f camera.fa.leon
+(time ./leon -c -file camera.fa ) &> ../../results/C_LEON_CAMERA
+ls -la camera.fa.leon > ../../results/BC_LEON_CAMERA
+ProgMemoryStop $MEMPID "../../results/MC_LEON_CAMERA";
+ProgMemoryStart "leon" &
+MEMPID=$!
+rm -f camera.fa.d
+(time ./leon -d -file camera.fa.leon ) &> ../../results/D_LEON_CAMERA
+ProgMemoryStop $MEMPID "../../results/MD_LEON_CAMERA";
+cmp camera.fa camera.fa.d > ../../results/V_LEON_CAMERA
+mv camera.fa ../../datasets/
+cd ../../
 fi
 ###############################################################################
 if [[ "$RUN_MFCOMPRESS" -eq "1" ]]; then
