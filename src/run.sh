@@ -96,6 +96,69 @@ FExists "datasets/ERR317482.bam"
 ###############################################################################
 ################################ RUN PROGRAMS #################################
 ###############################################################################
+#
+###############################################################################
+###
+###                       REFERENCE-FREE COMPRESSION
+###
+###############################################################################
+###
+### FILES TO COMPRESS:
+###   [+] human.seq
+###   [+] chimpanze.seq
+###   [+] rice5.seq
+###
+###############################################################################
+if [[ "$RUN_GECO" -eq "1" ]]; then
+mkdir -p results
+cd progs/geco
+cat ../../datasets/human.fna  | grep -v ">" | tr -d -c "ACGT" > human.seq
+cat ../../datasets/chimpanze.fna | grep -v ">" | tr -d -c "ACGT" > chimpanze.seq
+cat ../../datasets/rice5.fna | grep -v ">" | tr -d -c "ACGT" > rice5.seq
+# HUMAN
+ProgMemoryStart "GeCo" &
+MEMPID=$!
+rm -f human.seq.co
+(time ./GeCo -v -l 2 human.seq ) &> ../../results/C_GECO_HUMAN
+ls -la human.seq.co > ../../results/BC_GECO_HUMAN
+ProgMemoryStop $MEMPID "../../results/MC_GECO_HUMAN";
+ProgMemoryStart "GeDe" &
+MEMPID=$!
+rm -f human.seq.de
+(time ./GeDe -v human.seq.co ) &> ../../results/D_GECO_HUMAN
+ProgMemoryStop $MEMPID "../../results/MD_GECO_HUMAN";
+cmp human.seq human.seq.de > ../../results/V_GECO_HUMAN
+# CHIMPANZEE
+ProgMemoryStart "GeCo" &
+MEMPID=$!
+rm -f chimpanze.seq.co
+(time ./GeCo -v -l 2 chimpanze.seq ) &> ../../results/C_GECO_CHIMPANZE
+ls -la chimpanze.seq.co > ../../results/BC_GECO_CHIMPANZE
+ProgMemoryStop $MEMPID "../../results/MC_GECO_CHIMPANZE";
+ProgMemoryStart "GeDe" &
+MEMPID=$!
+rm -f human.seq.de
+(time ./GeDe -v chimpanze.seq.co ) &> ../../results/D_GECO_CHIMPANZE
+ProgMemoryStop $MEMPID "../../results/MD_GECO_CHIMPANZE";
+cmp chimpanze.seq chimpanze.seq.de > ../../results/V_GECO_CHIMPANZE
+# RICE
+ProgMemoryStart "GeCo" &
+MEMPID=$!
+rm -f rice5.seq.co
+(time ./GeCo -v -l 2 rice5.seq ) &> ../../results/C_GECO_RICE
+ls -la rice5.seq.co > ../../results/BC_GECO_RICE
+ProgMemoryStop $MEMPID "../../results/MC_GECO_RICE";
+ProgMemoryStart "GeDe" &
+MEMPID=$!
+rm -f rice5.seq.de
+(time ./GeDe -v rice5.seq.co ) &> ../../results/D_GECO_RICE
+ProgMemoryStop $MEMPID "../../results/MD_GECO_RICE";
+cmp rice5.seq rice5.seq.de > ../../results/V_GECO_RICE
+#
+rm -f human.seq chimpanze.seq rice5.seq
+cd ../../
+fi
+###############################################################################
 ###
 ###                          REFERENCE COMPRESSION
 ###
@@ -106,7 +169,7 @@ FExists "datasets/ERR317482.bam"
 ###   [+] human.fna  | chimpanze.fna
 ###   [+] rice5.fna  | rice7.fna
 ###
-##############################################################################
+###############################################################################
 if [[ "$RUN_IDOCOMP" -eq "1" ]]; then
 mkdir -p results
 cd progs/idocomp
@@ -165,7 +228,7 @@ ProgMemoryStop $MEMPID "../../results/MC_GECO_REF_HUMAN";
 ProgMemoryStart "GeDe" &
 MEMPID=$!
 rm -f human2.seq.de
-(time ./GeCo -v -r human.seq \
+(time ./GeDe -v -r human.seq \
 human2.seq.co ) &> ../../results/D_GECO_REF_HUMAN
 ProgMemoryStop $MEMPID "../../results/MD_GECO_REF_HUMAN";
 cmp human.seq human2.seq.de > ../../results/V_GECO_REF_HUMAN
@@ -180,7 +243,7 @@ ProgMemoryStop $MEMPID "../../results/MC_GECO_REF_CHIMPANZE";
 ProgMemoryStart "GeDe" &
 MEMPID=$!
 rm -f human.seq.de
-(time ./GeCo -v -r chimpanze.seq \
+(time ./GeDe -v -r chimpanze.seq \
 human.seq.co ) &> ../../results/D_GECO_REF_CHIMPANZE
 ProgMemoryStop $MEMPID "../../results/MD_GECO_REF_CHIMPANZE";
 cmp human.seq human.seq.de > ../../results/V_GECO_REF_CHIMPANZE
@@ -195,7 +258,7 @@ ProgMemoryStop $MEMPID "../../results/MC_GECO_REF_RICE";
 ProgMemoryStart "GeDe" &
 MEMPID=$!
 rm -f rice5.seq.de
-(time ./GeCo -v -r rice7.seq \
+(time ./GeDe -v -r rice7.seq \
 rice5.seq.co ) &> ../../results/D_GECO_REF_RICE
 ProgMemoryStop $MEMPID "../../results/MD_GECO_REF_RICE";
 cmp rice5.seq rice5.seq.de > ../../results/V_GECO_REF_RICE
