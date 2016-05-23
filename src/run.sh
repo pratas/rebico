@@ -116,32 +116,33 @@ cat ../../datasets/chimpanze.fna | grep -v ">" | tr -d -c "ACGT" > chimpanze.seq
 cat ../../datasets/rice5.fna | grep -v ">" | tr -d -c "ACGT" > rice5.seq
 cat ../../datasets/rice7.fna | grep -v ">" | tr -d -c "ACGT" > rice7.seq
 # HUMAN
-
 # Generating suffix array
 echo "Generating suffix array ..."
-cd idocomp/sais-lite-2.4.1/
-mkdir sa ref;
-cp ../../$1 ref/
-./generateSA.sh ref sa
-cd sa/
-SANAME=`echo '*.sa'`;
+cd sais-lite-2.4.1/
+mkdir -p sa ref;
+cp ../human.seq ref/
+cd ref/
+split -b 900MB human.seq
+echo ">Header" > Header;
+cat Header xaa > xaa.fa
+cat Header xab > xab.fa
+cat Header xac > xac.fa
+cat Header xad > xad.fa
+rm -f xaa xab xac xad Header human.seq;
 cd ..
-mkdir tar;
-cp ../../$2 tar/
-rm -f f.txt;
-echo ref/$1 tar/$2 sa/$SANAME > f.txt;
+./generateSA.sh ref sa
+mkdir -p tar;
+cp ../human2.seq tar/
+echo ref/*.fa tar/x*.fa sa/x*.sa > f.txt;
 echo "Compressing ..."
-cd ../simulations/
-mv ../sais-lite-2.4.1/f.txt .
-mv ../sais-lite-2.4.1/ref/ .
-mv ../sais-lite-2.4.1/tar/ .
-mv ../sais-lite-2.4.1/sa/ .
+cp ../simulations/iDoComp.run .
 ./iDoComp.run c f.txt xxx
 
 
 
 #
-rm -f human.seq human2.seq chimpanze.seq rice5.seq rice7.seq
+rm -f human.seq human2.seq chimpanze.seq rice5.seq rice7.seq rice5.fna \
+human.fna
 cd ../../
 fi
 ###############################################################################
