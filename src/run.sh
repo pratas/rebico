@@ -309,51 +309,50 @@ if [[ "$RUN_LEON" -eq "1" ]]; then
 mkdir -p results
 cd progs/leon
 # HUMAN
-mv ../../datasets/human.fna .
+mv ../../datasets/human.fna human.fa
 ProgMemoryStart "leon" &
 MEMPID=$!
 rm -f human.fna.leon
-(time ./leon -c -file human.fna ) &> ../../results/C_LEON_HUMAN
-ls -la human.fna.leon > ../../results/BC_LEON_HUMAN
+(time ./leon -c -file human.fa ) &> ../../results/C_LEON_HUMAN
+ls -la human.fa.leon > ../../results/BC_LEON_HUMAN
 ProgMemoryStop $MEMPID "../../results/MC_LEON_HUMAN";
 ProgMemoryStart "leon" &
 MEMPID=$!
-rm -f human.fna.d
-(time ./leon -d -file human.fna.leon ) &> ../../results/D_LEON_HUMAN
+rm -f human.fa.d
+(time ./leon -d -file human.fa.leon ) &> ../../results/D_LEON_HUMAN
 ProgMemoryStop $MEMPID "../../results/MD_LEON_HUMAN";
-cmp human.fna human.fna.d > ../../results/V_LEON_HUMAN
-mv human.fna ../../datasets/
+cmp human.fa human.fa.d > ../../results/V_LEON_HUMAN
+mv human.fa ../../datasets/human.fna
 # CHIMPANZEE
-mv ../../datasets/chimpanze.fna .
+mv ../../datasets/chimpanze.fna chimpanze.fa
 ProgMemoryStart "leon" &
 MEMPID=$!
-rm -f chimpanze.fna.leon
-(time ./leon -c -file chimpanze.fna ) &> ../../results/C_LEON_CHIMPANZE
-ls -la chimpanze.fna.leon > ../../results/BC_LEON_CHIMPANZE
+rm -f chimpanze.fa.leon
+(time ./leon -c -file chimpanze.fa ) &> ../../results/C_LEON_CHIMPANZE
+ls -la chimpanze.fa.leon > ../../results/BC_LEON_CHIMPANZE
 ProgMemoryStop $MEMPID "../../results/MC_LEON_CHIMPANZE";
 ProgMemoryStart "leon" &
 MEMPID=$!
-rm -f chimpanze.fna.d
-(time ./leon -d -file chimpanze.fna.leon ) &> ../../results/D_LEON_CHIMPANZE
+rm -f chimpanze.fa.d
+(time ./leon -d -file chimpanze.fa.leon ) &> ../../results/D_LEON_CHIMPANZE
 ProgMemoryStop $MEMPID "../../results/MD_LEON_CHIMPANZE";
-cmp chimpanze.fna chimpanze.fna.d > ../../results/V_LEON_CHIMPANZE
-mv chimpanze.fna ../../datasets/
+cmp chimpanze.fa chimpanze.fa.d > ../../results/V_LEON_CHIMPANZE
+mv chimpanze.fa ../../datasets/chimpanze.fna
 # RICE
-mv ../../datasets/rice5.fna .
+mv ../../datasets/rice5.fna rice5.fa
 ProgMemoryStart "leon" &
 MEMPID=$!
-rm -f rice5.fna.leon
-(time ./leon -c -file rice5.fna ) &> ../../results/C_LEON_RICE
-ls -la rice5.fna.leon > ../../results/BC_LEON_RICE
+rm -f rice5.fa.leon
+(time ./leon -c -file rice5.fa ) &> ../../results/C_LEON_RICE
+ls -la rice5.fa.leon > ../../results/BC_LEON_RICE
 ProgMemoryStop $MEMPID "../../results/MC_LEON_RICE";
 ProgMemoryStart "leon" &
 MEMPID=$!
-rm -f rice5.fna.d
-(time ./leon -d -file rice5.fna.leon ) &> ../../results/D_LEON_RICE
+rm -f rice5.fa.d
+(time ./leon -d -file rice5.fa.leon ) &> ../../results/D_LEON_RICE
 ProgMemoryStop $MEMPID "../../results/MD_LEON_RICE";
-cmp rice5.fna rice5.fna.d > ../../results/V_LEON_RICE
-mv rice5.fna ../../datasets/
-# CAMERA
+cmp rice5.fa rice5.fa.d > ../../results/V_LEON_RICE
+mv rice5.fa ../../datasets/rice5.fna
 mv ../../datasets/camera.fa .
 ProgMemoryStart "leon" &
 MEMPID=$!
