@@ -84,11 +84,21 @@ FExists "datasets/ERR317482.bam"
 ###############################################################################
 ################################ RUN PROGRAMS #################################
 ###############################################################################
-#
+###
+###                          REFERENCE COMPRESSION
+###
+###############################################################################
+###
+### FILES TO COMPRESS:
+###   [+] human2.fna | human.fna
+###   [+] human.fna  | chimpanze.fna
+###   [+] rice5.fna  | rice7.fna
+###
+##############################################################################
 if [[ "$RUN_IDOCOMP" -eq "1" ]]; then
 # Generating suffix array
 echo "Generating suffix array ..."
-cd iDoComp_website_v1/sais-lite-2.4.1/
+cd idocomp/sais-lite-2.4.1/
 mkdir sa ref;
 cp ../../$1 ref/
 ./generateSA.sh ref sa
@@ -116,10 +126,66 @@ if [[ "$RUN_GECO" -eq "1" ]]; then
 ./GeDe -v TAR.co
 cmp TAR.de TAR
 # REFERENTIAL COMPRESSION
-./GeCo -v -tm 4:1:0:0/0 -tm 13:20:1:0/0 \
--rm 6:1:0:0/0 -rm 14:100:1:0/0 -rm 20:500:1:4/50 -c 40 -r REF TAR
+./GeCo -v -l 14 -r REF TAR
 ./GeDe -v -r REF TAR.co
 cmp TAR.de TAR
+
+###################################
+mkdir -p results
+cd progs/geco
+cat ../../datasets/human.fna  | grep -v ">" | tr -d -c "ACGT" > human.seq
+cat ../../datasets/human2.fna | grep -v ">" | tr -d -c "ACGT" > human2.seq
+cat ../../datasets/chimpanze.fna | grep -v ">" | tr -d -c "ACGT" > chimpanze.seq
+cat ../../datasets/rice5.fna | grep -v ">" | tr -d -c "ACGT" > rice5.seq
+cat ../../datasets/rice7.fna | grep -v ">" | tr -d -c "ACGT" > rice7.seq
+# HUMAN
+ProgMemoryStart "GeCo" &
+MEMPID=$!
+rm -f human2.seq.co
+(time ./GeCo -v -l 14 -r human.seq \
+human2.seq ) &> ../../results/C_GECO_REF_HUMAN
+ls -la human2.seq.co > ../../results/BC_GECO_REF_HUMAN
+ProgMemoryStop $MEMPID "../../results/MC_GECO_REF_HUMAN";
+ProgMemoryStart "GeDe" &
+MEMPID=$!
+rm -f human2.seq.de
+(time ./GeCo -v -r human.seq \
+human2.seq.co ) &> ../../results/D_GECO_REF_HUMAN
+ProgMemoryStop $MEMPID "../../results/MD_GECO_REF_HUMAN";
+cmp human.seq human2.seq.de > ../../results/V_GECO_REF_HUMAN
+# CHIMPANZEE
+ProgMemoryStart "GeCo" &
+MEMPID=$!
+rm -f human.seq.co
+(time ./GeCo -v -l 14 -r chimpanze.seq \
+human.seq ) &> ../../results/C_GECO_REF_CHIMPANZE
+ls -la human.seq.co > ../../results/BC_GECO_REF_CHIMPANZE
+ProgMemoryStop $MEMPID "../../results/MC_GECO_REF_CHIMPANZE";
+ProgMemoryStart "GeDe" &
+MEMPID=$!
+rm -f human.seq.de
+(time ./GeCo -v -r chimpanze.seq \
+human.seq.co ) &> ../../results/D_GECO_REF_CHIMPANZE
+ProgMemoryStop $MEMPID "../../results/MD_GECO_REF_CHIMPANZE";
+cmp human.seq human.seq.de > ../../results/V_GECO_REF_CHIMPANZE
+# RICE
+ProgMemoryStart "GeCo" &
+MEMPID=$!
+rm -f rice5.seq.co
+(time ./GeCo -v -l 14 -r rice7.seq \
+rice5.seq ) &> ../../results/C_GECO_REF_RICE
+ls -la rice5.seq.co > ../../results/BC_GECO_REF_RICE
+ProgMemoryStop $MEMPID "../../results/MC_GECO_REF_RICE";
+ProgMemoryStart "GeDe" &
+MEMPID=$!
+rm -f rice5.seq.de
+(time ./GeCo -v -r rice7.seq \
+rice5.seq.co ) &> ../../results/D_GECO_REF_RICE
+ProgMemoryStop $MEMPID "../../results/MD_GECO_REF_RICE";
+cmp rice5.seq rice5.seq.de > ../../results/V_GECO_REF_RICE
+#
+rm -f human.seq human2.seq chimpanze.seq rice5.seq rice7.seq
+cd ../../
 fi
 ###############################################################################
 if [[ "$RUN_GREEN" -eq "1" ]]; then
