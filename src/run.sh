@@ -7,11 +7,13 @@ RUN_COGI=1;
 ###############################################################################
 # SEQ : REFERENCE
 RUN_GECO_REF=1;
+RUN_COGI_REF=1;
 RUN_IDOCOMP=1;
 RUN_FRESCO=1;
 RUN_GREEN=1;
 RUN_GRS=1;
 RUN_GDC2=1;
+RUN_ERGC=1;
 ###############################################################################
 # FASTA
 RUN_MFCOMPRESS=1;
@@ -24,7 +26,6 @@ RUN_QUIP=1;
 RUN_SCALCE=1;
 RUN_ORCOM=1;
 RUN_DSRC=1;
-RUN_EGRC=1;
 RUN_FQC=1;
 RUN_LWFQZIP=1;
 ###############################################################################
@@ -242,7 +243,7 @@ if [[ "$RUN_GDC" -eq "1" ]]; then
 ./GDC2 l my_archive
 fi
 ###############################################################################
-if [[ "$RUN_EGRC" -eq "1" ]]; then
+if [[ "$RUN_ERGC" -eq "1" ]]; then
 . SCRIPT_ERGC_COMP ..
 . SCRIPT_ERGC_DECOMP ..
 fi
