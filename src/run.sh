@@ -137,7 +137,7 @@ ls -la chimpanze.seq.co > ../../results/BC_GECO_CHIMPANZE
 ProgMemoryStop $MEMPID "../../results/MC_GECO_CHIMPANZE";
 ProgMemoryStart "GeDe" &
 MEMPID=$!
-rm -f human.seq.de
+rm -f chimpanze.seq.de
 (time ./GeDe -v chimpanze.seq.co ) &> ../../results/D_GECO_CHIMPANZE
 ProgMemoryStop $MEMPID "../../results/MD_GECO_CHIMPANZE";
 cmp chimpanze.seq chimpanze.seq.de > ../../results/V_GECO_CHIMPANZE
@@ -154,6 +154,66 @@ rm -f rice5.seq.de
 (time ./GeDe -v rice5.seq.co ) &> ../../results/D_GECO_RICE
 ProgMemoryStop $MEMPID "../../results/MD_GECO_RICE";
 cmp rice5.seq rice5.seq.de > ../../results/V_GECO_RICE
+#
+rm -f human.seq chimpanze.seq rice5.seq
+cd ../../
+fi
+###############################################################################
+if [[ "$RUN_DNACOMPACT" -eq "1" ]]; then
+ulimit -s 200000000;
+mkdir -p results
+cd progs/dnacompact
+cat ../../datasets/human.fna  | grep -v ">" | tr -d -c "ACGT" > human.seq
+cat ../../datasets/chimpanze.fna | grep -v ">" | tr -d -c "ACGT" > chimpanze.seq
+cat ../../datasets/rice5.fna | grep -v ">" | tr -d -c "ACGT" > rice5.seq
+# HUMAN
+ProgMemoryStart "compact" &
+MEMPID=$!
+rm -f human.seq.fp
+rm -f human.seq.fp.txt.second
+(time ./compact n human.seq ) &> ../../results/C_DNACOMPACT_HUMAN
+RXS="`ls -la human.seq.fp | awk '{ print $5;}'`+`ls -la human.seq.fp.txt.second | awk '{ print $5;}'`"; 
+echo $RXS | bc -l > ../../results/BC_DNACOMPACT_HUMAN
+ProgMemoryStop $MEMPID "../../results/MC_DNACOMPACT_HUMAN";
+ProgMemoryStart "compact" &
+MEMPID=$!
+rm -f human.seq.fp.y
+touch human.seq.fp.y
+(time ./compact -n -d human.seq.fp ) &> ../../results/D_DNACOMPACT_HUMAN
+ProgMemoryStop $MEMPID "../../results/MD_DNACOMPACT_HUMAN";
+cmp human.seq human.seq.fp.y > ../../results/V_DNACOMPACT_HUMAN
+# CHIMPANZEE
+ProgMemoryStart "compact" &
+MEMPID=$!
+rm -f chimpanze.seq.fp
+rm -f chimpanze.seq.fp.txt.second
+(time ./compact n chimpanze.seq ) &> ../../results/C_DNACOMPACT_CHIMPANZE
+RXS="`ls -la chimpanze.seq.fp | awk '{ print $5;}'`+`ls -la chimpanze.seq.fp.txt.second | awk '{ print $5;}'`"; 
+echo $RXS | bc -l > ../../results/BC_DNACOMPACT_CHIMPANZE
+ProgMemoryStop $MEMPID "../../results/MC_DNACOMPACT_CHIMPANZE";
+ProgMemoryStart "compact" &
+MEMPID=$!
+rm -f chimpanze.seq.fp.y
+touch chimpanze.seq.fp.y
+(time ./compact n -d chimpanze.seq.fp ) &> ../../results/D_DNACOMPACT_CHIMPANZE
+ProgMemoryStop $MEMPID "../../results/MD_DNACOMPACT_CHIMPANZE";
+cmp chimpanze.seq chimpanze.seq.fp.y > ../../results/V_DNACOMPACT_CHIMPANZE
+# RICE
+ProgMemoryStart "compact" &
+MEMPID=$!
+rm -f rice5.seq.fp
+rm -f rice5.seq.fp.txt.second
+(time ./compact n rice5.seq ) &> ../../results/C_DNACOMPACT_RICE
+RXS="`ls -la rice5.seq.fp | awk '{ print $5;}'`+`ls -la rice5.seq.fp.txt.second | awk '{ print $5;}'`";
+echo $RXS | bc -l > ../../results/BC_DNACOMPACT_CHIMPANZE
+ProgMemoryStop $MEMPID "../../results/MC_DNACOMPACT_RICE";
+ProgMemoryStart "compact" &
+MEMPID=$!
+rm -f rice5.seq.fp.y
+touch rice5.seq.fp.y
+(time ./compact n -d rice5.seq.fp ) &> ../../results/D_DNACOMPACT_RICE
+ProgMemoryStop $MEMPID "../../results/MD_DNACOMPACT_RICE";
+cmp rice5.seq rice5.seq.fp.y > ../../results/V_DNACOMPACT_RICE
 #
 rm -f human.seq chimpanze.seq rice5.seq
 cd ../../
