@@ -1,26 +1,37 @@
 #!/bin/bash
-RUN_IDOCOMP=1;
-RUN_GECO=1;
-RUN_GREEN=1;
-RUN_COGI=1;
+###############################################################################
+# SEQ : NORMAL
 RUN_DNACOMPACT=1;
-RUN_GDC2=1;
+RUN_GECO=1;
+RUN_COGI=1;
+###############################################################################
+# SEQ : REFERENCE
+RUN_GECO_REF=1;
+RUN_IDOCOMP=1;
 RUN_FRESCO=1;
-RUN_EGRC=1;
-RUN_ORCOM=1;
-RUN_DSRC=1;
+RUN_GREEN=1;
+RUN_GRS=1;
+RUN_GDC2=1;
+###############################################################################
+# FASTA
 RUN_MFCOMPRESS=1;
 RUN_DELIMINATE=1;
 RUN_LEON=1;
-RUN_FQC=1;
+###############################################################################
+# FASTQ
 RUN_FQZCOMP=1;
 RUN_QUIP=1;
-RUN_GRS=1;
-RUN_NGC=1;
-RUN_DEEZ=1;
-RUN_SAMCOMP=1;
 RUN_SCALCE=1;
+RUN_ORCOM=1;
+RUN_DSRC=1;
+RUN_EGRC=1;
+RUN_FQC=1;
 RUN_LWFQZIP=1;
+###############################################################################
+# SAM/BAM
+RUN_SAMCOMP=1;
+RUN_DEEZ=1;
+RUN_NGC=1;
 ###############################################################################
 mkdir -p results
 ###############################################################################
@@ -96,6 +107,15 @@ FExists "datasets/ERR317482.bam"
 ###
 ##############################################################################
 if [[ "$RUN_IDOCOMP" -eq "1" ]]; then
+mkdir -p results
+cd progs/idocomp
+cat ../../datasets/human.fna  | grep -v ">" | tr -d -c "ACGT" > human.seq
+cat ../../datasets/human2.fna | grep -v ">" | tr -d -c "ACGT" > human2.seq
+cat ../../datasets/chimpanze.fna | grep -v ">" | tr -d -c "ACGT" > chimpanze.seq
+cat ../../datasets/rice5.fna | grep -v ">" | tr -d -c "ACGT" > rice5.seq
+cat ../../datasets/rice7.fna | grep -v ">" | tr -d -c "ACGT" > rice7.seq
+# HUMAN
+
 # Generating suffix array
 echo "Generating suffix array ..."
 cd idocomp/sais-lite-2.4.1/
@@ -116,21 +136,15 @@ mv ../sais-lite-2.4.1/ref/ .
 mv ../sais-lite-2.4.1/tar/ .
 mv ../sais-lite-2.4.1/sa/ .
 ./iDoComp.run c f.txt xxx
+
+
+
+#
+rm -f human.seq human2.seq chimpanze.seq rice5.seq rice7.seq
 cd ../../
 fi
 ###############################################################################
-if [[ "$RUN_GECO" -eq "1" ]]; then
-# REFERENCE-FREE COMPRESSION
-./GeCo -v \
--tm 4:1:0:0/0 -tm 11:1:0/0 -tm 14:50:1:0/0 -tm 20:100:1:3/10 -c 40 TAR
-./GeDe -v TAR.co
-cmp TAR.de TAR
-# REFERENTIAL COMPRESSION
-./GeCo -v -l 14 -r REF TAR
-./GeDe -v -r REF TAR.co
-cmp TAR.de TAR
-
-###################################
+if [[ "$RUN_GECO_REF" -eq "1" ]]; then
 mkdir -p results
 cd progs/geco
 cat ../../datasets/human.fna  | grep -v ">" | tr -d -c "ACGT" > human.seq
