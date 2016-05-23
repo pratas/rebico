@@ -109,6 +109,22 @@ FExists "datasets/ERR317482.bam"
 ###   [+] rice5.seq
 ###
 ###############################################################################
+if [[ "$RUN_COGI" -eq "1" ]]; then
+mkdir -p results
+cd progs/cogi
+cat ../../datasets/human.fna  | grep -v ">" | tr -d -c "ACGT" > human.seq
+cat ../../datasets/chimpanze.fna | grep -v ">" | tr -d -c "ACGT" > chimpanze.seq
+cat ../../datasets/rice5.fna | grep -v ">" | tr -d -c "ACGT" > rice5.seq
+
+# DOIT : THE PROGRAM SEEMS A MESS FOR REFERENCE-FREE COMPRESSION
+# ./cogi-compress -ur -n 1 TESTE
+# ./cogi-uncompress -l 1
+
+
+rm -f human.seq chimpanze.seq rice5.seq
+cd ../../
+fi
+###############################################################################
 if [[ "$RUN_GECO" -eq "1" ]]; then
 mkdir -p results
 cd progs/geco
