@@ -379,18 +379,16 @@ fi
 if [[ "$RUN_GDC" -eq "1" ]]; then
 mkdir -p results
 cd progs/gdc2
-cat ../../datasets/human.fna  | grep -v ">" | tr -d -c "ACGT" > human.seq
-cat ../../datasets/human2.fna | grep -v ">" | tr -d -c "ACGT" > human2.seq
-cat ../../datasets/chimpanze.fna | grep -v ">" | tr -d -c "ACGT" > chimpanze.seq
-cat ../../datasets/rice5.fna | grep -v ">" | tr -d -c "ACGT" > rice5.seq
-cat ../../datasets/rice7.fna | grep -v ">" | tr -d -c "ACGT" > rice7.seq
-
-./GDC2 my_archive @files_list.txt
-./GDC2 c -mp15,4 -i2 -t8 my_archive @files_list
-./GDC2 d my_archive @files_list
-./GDC2 d my_archive
-./GDC2 l my_archive
-
+cp ../../datasets/human.fna . 
+cp ../../datasets/human2.fna . 
+cp ../../datasets/chimpanze.fna . 
+cp ../../datasets/rice5.fna . 
+cp ../../datasets/rice7.fna . 
+# GDC IS FOR COLLECTIONS
+./GDC2 compressed human.fna human2.fna
+./GDC2 d compressed human.fna human2.fna
+# IT CAN BE COMPARED WITH GECO: GECO->compress:{cat human2.fna human.fna}
+# Headers will be minimal, even GDC might not encode headers (= geco)
 rm -f human.seq human2.seq chimpanze.seq rice5.seq rice7.seq
 cd ../../
 fi
