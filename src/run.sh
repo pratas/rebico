@@ -250,16 +250,70 @@ fi
 if [[ "$RUN_IDOCOMP" -eq "1" ]]; then
 mkdir -p results
 cd progs/idocomp
-cat ../../datasets/human.fna  | grep -v ">" | tr -d -c "ACGT" > human.seq
-cat ../../datasets/human2.fna | grep -v ">" | tr -d -c "ACGT" > human2.seq
-cat ../../datasets/chimpanze.fna | grep -v ">" | tr -d -c "ACGT" > chimpanze.seq
-cat ../../datasets/rice5.fna | grep -v ">" | tr -d -c "ACGT" > rice5.seq
-cat ../../datasets/rice7.fna | grep -v ">" | tr -d -c "ACGT" > rice7.seq
-# HUMAN
 
+# SEE: POSSIBLE ERROR IN SIZE (RICE WORKS)
+
+# HUMAN
+cat ../../datasets/human2.fna | grep -v ">" | tr -d -c "ACGT" > human2.seq
+cat ../../datasets/human.fna | grep -v ">" | tr -d -c "ACGT" > human.seq
+echo ">Header" > Header;
+cat Header human2.seq > human2.fa
+cat Header human.seq > human.fa
+rm -f human2.seq human.seq
+cd sais-lite-2.4.1/
+rm -fr sa ref tar
+mkdir sa ref tar;
+cp ../human.fa ref/
+ProgMemoryStart "generateSA.sh" & # THE MAXIMUM PEAK IS REACHED HERE
+MEMPID=$!
+(./generateSA.sh ref sa ) &> TIME_SA
+TIMEOFSA=`cat TIME_SA | grep "..." | awk '{ print $5;}'`
+ProgMemoryStop $MEMPID "../../results/MC_IDOCOMP_RICE";
+mv ../human2.fa tar/
+echo "ref/human.fa tar/human2.fa sa/human.sa" > f.txt;
+cp ../simulations/iDoComp.run .
+(./iDoComp.run c f.txt OUT ) &> ../../../results/C_IDOCOMP_HUMAN
+cat ../../../results/C_IDOCOMP_RICE | grep "Compressed Size:" \
+| awk '{ print $3; }' > ../../../results/BC_IDOCOMP_HUMAN
+CTIME=`cat ../../../results/C_IDOCOMP_HUMAN | grep "CPU T" | awk '{ print $4;}'`
+echo "$TIMEOFSA+$CTIME" | bc -l > ../../../results/CT_IDOCOMP_HUMAN
+echo "ref/human.fa out.fa" > f.txt;
+(./iDoComp.run d f.txt OUT ) &> ../../../results/D_IDOCOMP_HUMAN
+DTIME=`cat ../../../results/D_IDOCOMP_HUMAN | grep "CPU T" | awk '{ print $4;}'`
+echo "$TIMEOFSA+$DTIME" | bc -l > ../../../results/DT_IDOCOMP_HUMAN
+cmp tar/human2.fa out.fa > ../../../results/V_IDOCOMP_HUMAN
+#rm -f human2.fa human.fa
 
 # CHIMPANZE
-
+cat ../../datasets/chimpanze.fna | grep -v ">" | tr -d -c "ACGT" > chimpanze.seq
+cat ../../datasets/human.fna | grep -v ">" | tr -d -c "ACGT" > human.seq
+echo ">Header" > Header;
+cat Header chimpanze.seq > chimpanze.fa
+cat Header human.seq > human.fa
+rm -f chimpanze.seq human.seq
+cd sais-lite-2.4.1/
+rm -fr sa ref tar
+mkdir sa ref tar;
+cp ../human.fa ref/
+ProgMemoryStart "generateSA.sh" & # THE MAXIMUM PEAK IS REACHED HERE
+MEMPID=$!
+(./generateSA.sh ref sa ) &> TIME_SA
+TIMEOFSA=`cat TIME_SA | grep "..." | awk '{ print $5;}'`
+ProgMemoryStop $MEMPID "../../results/MC_IDOCOMP_RICE";
+mv ../chimpanze.fa tar/
+echo "ref/human.fa tar/chimpanze.fa sa/human.sa" > f.txt;
+cp ../simulations/iDoComp.run .
+(./iDoComp.run c f.txt OUT ) &> ../../../results/C_IDOCOMP_HUMAN
+cat ../../../results/C_IDOCOMP_RICE | grep "Compressed Size:" \
+| awk '{ print $3; }' > ../../../results/BC_IDOCOMP_HUMAN
+CTIME=`cat ../../../results/C_IDOCOMP_HUMAN | grep "CPU T" | awk '{ print $4;}'`
+echo "$TIMEOFSA+$CTIME" | bc -l > ../../../results/CT_IDOCOMP_HUMAN
+echo "ref/human.fa out.fa" > f.txt;
+(./iDoComp.run d f.txt OUT ) &> ../../../results/D_IDOCOMP_HUMAN
+DTIME=`cat ../../../results/D_IDOCOMP_HUMAN | grep "CPU T" | awk '{ print $4;}'`
+echo "$TIMEOFSA+$DTIME" | bc -l > ../../../results/DT_IDOCOMP_HUMAN
+cmp tar/chimpanze.fa out.fa > ../../../results/V_IDOCOMP_HUMAN
+#rm -f chimpanze.fa human.fa
 
 # RICE
 cat ../../datasets/rice5.fna | grep -v ">" | tr -d -c "ACGT" > rice5.seq
@@ -278,14 +332,14 @@ MEMPID=$!
 TIMEOFSA=`cat TIME_SA | grep "..." | awk '{ print $5;}'`
 ProgMemoryStop $MEMPID "../../results/MC_IDOCOMP_RICE";
 mv ../rice5.fa tar/
-echo ref/rice7.fa tar/rice5.fa sa/rice7.sa > f.txt;
+echo "ref/rice7.fa tar/rice5.fa sa/rice7.sa" > f.txt;
 cp ../simulations/iDoComp.run .
 (./iDoComp.run c f.txt OUT ) &> ../../../results/C_IDOCOMP_RICE
 cat ../../../results/C_IDOCOMP_RICE | grep "Compressed Size:" \
 | awk '{ print $3; }' > ../../../results/BC_IDOCOMP_RICE
 CTIME=`cat ../../../results/C_IDOCOMP_RICE | grep "CPU T" | awk '{ print $4;}'`
 echo "$TIMEOFSA+$CTIME" | bc -l > ../../../results/CT_IDOCOMP_RICE
-echo ref/rice7.fa out.fa > f.txt;
+echo "ref/rice7.fa out.fa" > f.txt;
 (./iDoComp.run d f.txt OUT ) &> ../../../results/D_IDOCOMP_RICE
 DTIME=`cat ../../../results/D_IDOCOMP_RICE | grep "CPU T" | awk '{ print $4;}'`
 echo "$TIMEOFSA+$DTIME" | bc -l > ../../../results/DT_IDOCOMP_RICE
