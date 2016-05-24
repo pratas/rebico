@@ -256,34 +256,43 @@ cat ../../datasets/chimpanze.fna | grep -v ">" | tr -d -c "ACGT" > chimpanze.seq
 cat ../../datasets/rice5.fna | grep -v ">" | tr -d -c "ACGT" > rice5.seq
 cat ../../datasets/rice7.fna | grep -v ">" | tr -d -c "ACGT" > rice7.seq
 # HUMAN
-# Generating suffix array
-echo "Generating suffix array ..."
-cd sais-lite-2.4.1/
-mkdir -p sa ref;
-cp ../human.seq ref/
-cd ref/
-split -b 900MB human.seq
+
+
+# CHIMPANZE
+
+
+# RICE
+cat ../../datasets/rice5.fna | grep -v ">" | tr -d -c "ACGT" > rice5.seq
+cat ../../datasets/rice7.fna | grep -v ">" | tr -d -c "ACGT" > rice7.seq
 echo ">Header" > Header;
-cat Header xaa > xaa.fa
-cat Header xab > xab.fa
-cat Header xac > xac.fa
-cat Header xad > xad.fa
-rm -f xaa xab xac xad Header human.seq;
-cd ..
-./generateSA.sh ref sa
-mkdir -p tar;
-cp ../human2.seq tar/
-echo ref/*.fa tar/x*.fa sa/x*.sa > f.txt;
-echo "Compressing ..."
+cat Header rice5.seq > rice5.fa
+cat Header rice7.seq > rice7.fa
+rm -f rice5.seq rice7.seq
+cd sais-lite-2.4.1/
+rm -fr sa ref tar
+mkdir sa ref tar;
+cp ../rice7.fa ref/
+ProgMemoryStart "generateSA.sh" & # THE MAXIMUM PEAK IS REACHED HERE
+MEMPID=$!
+(./generateSA.sh ref sa ) &> TIME_SA
+TIMEOFSA=`cat TIME_SA | grep "..." | awk '{ print $5;}'`
+ProgMemoryStop $MEMPID "../../results/MC_IDOCOMP_RICE";
+mv ../rice5.fa tar/
+echo ref/rice7.fa tar/rice5.fa sa/rice7.sa > f.txt;
 cp ../simulations/iDoComp.run .
-./iDoComp.run c f.txt xxx
+(./iDoComp.run c f.txt OUT ) &> ../../../results/C_IDOCOMP_RICE
+cat ../../../results/C_IDOCOMP_RICE | grep "Compressed Size:" \
+| awk '{ print $3; }' > ../../../results/BC_IDOCOMP_RICE
+CTIME=`cat ../../../results/C_IDOCOMP_RICE | grep "CPU T" | awk '{ print $4;}'`
+echo "$TIMEOFSA+$CTIME" | bc -l > ../../../results/CT_IDOCOMP_RICE
+echo ref/rice7.fa out.fa > f.txt;
+(./iDoComp.run d f.txt OUT ) &> ../../../results/D_IDOCOMP_RICE
+DTIME=`cat ../../../results/D_IDOCOMP_RICE | grep "CPU T" | awk '{ print $4;}'`
+echo "$TIMEOFSA+$DTIME" | bc -l > ../../../results/DT_IDOCOMP_RICE
+cmp tar/rice5.fa out.fa > ../../../results/V_IDOCOMP_RICE
+#rm -f rice5.fa rice7.fa
 
-
-
-#
-rm -f human.seq human2.seq chimpanze.seq rice5.seq rice7.seq rice5.fna \
-human.fna
-cd ../../
+cd ../../../
 fi
 ###############################################################################
 if [[ "$RUN_GECO_REF" -eq "1" ]]; then
@@ -394,8 +403,23 @@ cd ../../
 fi
 ###############################################################################
 if [[ "$RUN_ERGC" -eq "1" ]]; then
-. SCRIPT_ERGC_COMP ..
-. SCRIPT_ERGC_DECOMP ..
+mkdir -p results
+cd progs/ergc
+cp ../../datasets/human.fna . 
+cp ../../datasets/human2.fna . 
+cp ../../datasets/chimpanze.fna . 
+cp ../../datasets/rice5.fna . 
+cp ../../datasets/rice7.fna . 
+mv human.fna ko-131-22.fa #ref
+mv human2.fna ko-224-22.fa #tar
+. SCRIPT_ERGC_COMP
+#chr.ergc.7z #compressed
+
+. SCRIPT_ERGC_DECOMP 
+#final_out_chr.fa # OUT
+
+rm -f human.seq human2.seq chimpanze.seq rice5.seq rice7.seq
+cd ../../
 fi
 ###############################################################################
 if [[ "$RUN_FRESCO" -eq "1" ]]; then
@@ -410,7 +434,6 @@ cd Compress/bin/
 ./GRS.sh REF.seq TAR.seq
 cd ../../
 cp REF.seq Decompress/bin/
-echo "THIS IS REPUGNANT!";
 fi
 ###############################################################################
 #
