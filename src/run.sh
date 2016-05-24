@@ -117,9 +117,10 @@ cat ../../datasets/chimpanze.fna | grep -v ">" | tr -d -c "ACGT" > chimpanze.seq
 cat ../../datasets/rice5.fna | grep -v ">" | tr -d -c "ACGT" > rice5.seq
 
 # DOIT : THE PROGRAM SEEMS A MESS FOR REFERENCE-FREE COMPRESSION
+# Authors have been emailed for instructions
+#
 # ./cogi-compress -ur -n 1 TESTE
 # ./cogi-uncompress -l 1
-
 
 rm -f human.seq chimpanze.seq rice5.seq
 cd ../../
@@ -376,11 +377,22 @@ if [[ "$RUN_DNACOMPACT" -eq "1" ]]; then
 fi
 ###############################################################################
 if [[ "$RUN_GDC" -eq "1" ]]; then
+mkdir -p results
+cd progs/gdc2
+cat ../../datasets/human.fna  | grep -v ">" | tr -d -c "ACGT" > human.seq
+cat ../../datasets/human2.fna | grep -v ">" | tr -d -c "ACGT" > human2.seq
+cat ../../datasets/chimpanze.fna | grep -v ">" | tr -d -c "ACGT" > chimpanze.seq
+cat ../../datasets/rice5.fna | grep -v ">" | tr -d -c "ACGT" > rice5.seq
+cat ../../datasets/rice7.fna | grep -v ">" | tr -d -c "ACGT" > rice7.seq
+
 ./GDC2 my_archive @files_list.txt
 ./GDC2 c -mp15,4 -i2 -t8 my_archive @files_list
 ./GDC2 d my_archive @files_list
 ./GDC2 d my_archive
 ./GDC2 l my_archive
+
+rm -f human.seq human2.seq chimpanze.seq rice5.seq rice7.seq
+cd ../../
 fi
 ###############################################################################
 if [[ "$RUN_ERGC" -eq "1" ]]; then
@@ -389,7 +401,7 @@ if [[ "$RUN_ERGC" -eq "1" ]]; then
 fi
 ###############################################################################
 if [[ "$RUN_FRESCO" -eq "1" ]]; then
-./FRESCO-BIN FRESCO/config.ini COMRESS /bio/uncompressed/ /bio/compressed/ 
+./FRESCO-BIN FRESCO/config.ini COMPRESS /bio/uncompressed/ /bio/compressed/ 
 ./FRESCO-BIN FRESCO/config.ini DECOMRESS /bio/compressed/ /bio/decompressed/ 
 fi
 ##############################################################################
