@@ -251,7 +251,7 @@ if [[ "$RUN_IDOCOMP" -eq "1" ]]; then
 mkdir -p results
 cd progs/idocomp
 
-# SEE: POSSIBLE ERROR IN SIZE (RICE WORKS)
+# CANNOT ALLOCATE MEMORY FOR SUCH A LONG FILE -> need to split
 
 # HUMAN
 cat ../../datasets/human2.fna | grep -v ">" | tr -d -c "ACGT" > human2.seq
