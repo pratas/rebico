@@ -371,7 +371,7 @@ rm -f human2.seq.de
 (time ./GeDe -v -r human.seq \
 human2.seq.co ) &> ../../results/D_GECO_REF_HUMAN
 ProgMemoryStop $MEMPID "../../results/MD_GECO_REF_HUMAN";
-cmp human.seq human2.seq.de > ../../results/V_GECO_REF_HUMAN
+cmp human2.seq human2.seq.de > ../../results/V_GECO_REF_HUMAN
 # CHIMPANZEE
 ProgMemoryStart "GeCo" &
 MEMPID=$!
@@ -408,15 +408,53 @@ cd ../../
 fi
 ###############################################################################
 if [[ "$RUN_GREEN" -eq "1" ]]; then
-# COMPRESSION -----------------------------------------------------------------
 GREEN_PARAMETERS=" -v -i -k 16 -f 5 ";
-ProgTime "GReEnC $GREEN_PARAMETERS -o TAR.green REF TAR" > TMP;
-cat TMP | grep "number of bytes" | awk '{print $5}' > REPORT_GREEN_BITS;
-cat TMP | grep "Total cpu time" | awk '{print $5}' > REPORT_GREEN_TIME;
-ProgMemory "GReEnC $GREEN_PARAMETERS -o TAR.green REF TAR" > REPORT_GREEN_MEM;
-# UNCOMPRESSION ---------------------------------------------------------------
-./GReEnD -v -o OUT REF TAR.green
-ProgMemory "GReEnD -v -o OUT REF TAR.green" >> REPORT_GREEN_MEM
+mkdir -p results
+cd progs/green
+cat ../../datasets/human.fna  | grep -v ">" | tr -d -c "ACGT" > human.seq
+cat ../../datasets/human2.fna | grep -v ">" | tr -d -c "ACGT" > human2.seq
+cat ../../datasets/chimpanze.fna | grep -v ">" | tr -d -c "ACGT" > chimpanze.seq
+cat ../../datasets/rice5.fna | grep -v ">" | tr -d -c "ACGT" > rice5.seq
+cat ../../datasets/rice7.fna | grep -v ">" | tr -d -c "ACGT" > rice7.seq
+# HUMAN
+ProgMemoryStart "GReEnC" &
+MEMPID=$!
+rm -f human2.seq.co
+(time ./GReEnC $GREEN_PARAMETERS -o human2.seq.co human.seq \
+human2.seq ) &> ../../results/C_GREEN_HUMAN
+ls -la human2.seq.co > ../../results/BC_GREEN_HUMAN
+ProgMemoryStop $MEMPID "../../results/MC_GREEN_HUMAN";
+ProgMemoryStart "GReEnD" &
+MEMPID=$!
+rm -f human2.seq.de
+(time ./GReEnD -o human2.seq.de human.seq \
+human2.seq.co ) &> ../../results/D_GREEN_HUMAN
+ProgMemoryStop $MEMPID "../../results/MD_GREEN_HUMAN";
+cmp human2.seq human2.seq.de > ../../results/V_GREEN_HUMAN
+# CHIMPANZE
+ProgMemoryStart "GReEnC" &
+MEMPID=$!
+rm -f human.seq.co
+(time ./GReEnC $GREEN_PARAMETERS -o human.seq.co chimpanze.seq \
+human.seq ) &> ../../results/C_GREEN_CHIMPANZE
+ls -la human.seq.co > ../../results/BC_GREEN_CHIMPANZE
+ProgMemoryStop $MEMPID "../../results/MC_GREEN_CHIMPANZE";
+ProgMemoryStart "GReEnD" &
+MEMPID=$!
+rm -f human.seq.de
+(time ./GReEnD -o human.seq.de chimpanze.seq \
+human.seq.co ) &> ../../results/D_GREEN_CHIMPANZE
+ProgMemoryStop $MEMPID "../../results/MD_GREEN_CHIMPANZE";
+cmp human.seq human.seq.de > ../../results/V_GREEN_CHIMPANZE
+
+
+
+
+
+
+
+rm -f human.seq human2.seq chimpanze.seq rice5.seq rice7.seq
+cd ../../
 fi
 ###############################################################################
 if [[ "$RUN_COGI" -eq "1" ]]; then
