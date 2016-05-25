@@ -446,13 +446,21 @@ rm -f human.seq.de
 human.seq.co ) &> ../../results/D_GREEN_CHIMPANZE
 ProgMemoryStop $MEMPID "../../results/MD_GREEN_CHIMPANZE";
 cmp human.seq human.seq.de > ../../results/V_GREEN_CHIMPANZE
-
-
-
-
-
-
-
+# RICE
+ProgMemoryStart "GReEnC" &
+MEMPID=$!
+rm -f rice5.seq.co
+(time ./GReEnC $GREEN_PARAMETERS -o rice5.seq.co rice7.seq \
+rice5.seq ) &> ../../results/C_GREEN_RICE
+ls -la rice5.seq.co > ../../results/BC_GREEN_RICE
+ProgMemoryStop $MEMPID "../../results/MC_GREEN_RICE";
+ProgMemoryStart "GReEnD" &
+MEMPID=$!
+rm -f rice5.seq.de
+(time ./GReEnD -o rice5.seq.de rice7.seq \
+rice5.seq.co ) &> ../../results/D_GREEN_RICE
+ProgMemoryStop $MEMPID "../../results/MD_GREEN_RICE";
+cmp rice5.seq rice5.seq.de > ../../results/V_GREEN_RICE
 rm -f human.seq human2.seq chimpanze.seq rice5.seq rice7.seq
 cd ../../
 fi
