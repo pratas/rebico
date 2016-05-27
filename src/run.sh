@@ -713,6 +713,7 @@ rm -f rice5.fa.d
 ProgMemoryStop $MEMPID "../../results/MD_LEON_RICE";
 cmp rice5.fa rice5.fa.d > ../../results/V_LEON_RICE
 mv rice5.fa ../../datasets/rice5.fna
+#CAMERA
 mv ../../datasets/camera.fa .
 ProgMemoryStart "leon" &
 MEMPID=$!
