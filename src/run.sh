@@ -662,6 +662,12 @@ fi
 if [[ "$RUN_LEON" -eq "1" ]]; then
 mkdir -p results
 cd progs/leon
+
+# XXX: IT DOES NOT WORK WITH HUMAN AND CHIMPANZE (IT ENTERS IN A INFINITE LOOP)
+# XXX: CAUSE SEEMS TO BE THE SIZE OF THE READ (NUMBER OF BASES BETWEEN HEADERS)
+# XXX: IT WORKS ON RICE
+# TODO: CHECK IF IT WORKS ON CAMERA!
+
 # HUMAN
 mv ../../datasets/human.fna human.fa
 ProgMemoryStart "leon" &
