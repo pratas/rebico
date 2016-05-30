@@ -52,7 +52,7 @@ function ProgMemoryStart {
   echo "0" > mem_ps;
   while true
     do
-    ps aux | grep $1 | sort -V | tail 1 | awk '{ print $6; }' >> mem_ps;
+    ps aux | grep $1 | sort -V | tail -n 1 | awk '{ print $6; }' >> mem_ps;
     sleep 5;
     done
   }
