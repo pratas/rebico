@@ -804,7 +804,89 @@ fi
 ###
 ###############################################################################
 if [[ "$RUN_ORCOM" -eq "1" ]]; then
-./orcom_bin e -f”NA19238_1.fastq NA19238_2.fastq” -oNA19238.bin
+#
+# XXX: UNABLE TO RUN USING MULTITHREADING & IT ONLY DECODES DNA! 
+# XXX: DOES IT ENCODE HEADERS AND SCORES?!
+#
+mkdir -p results
+cd progs/orcom
+# ERR174310_1
+mv ../../datasets/ERR174310_1.fastq .
+ProgMemoryStart "orcom_bin" &
+MEMPID=$!
+rm -f TMP.bdna TMP.bmeta
+(time ./orcom_bin e -iERR174310_1.fastq -t1 \
+-oTMP ) &> ../../results/C_ORCOM_ERR174310_1
+CBYTESO1=`ls -la TMP.bdna | awk '{ print $5;}'`
+CBYTESO2=`ls -la TMP.bmeta | awk '{ print $5;}'`
+echo "$CBYTESO1+$CBYTESO2" | bc -l > ../../../results/BC_ORCOM_ERR174310_1
+ProgMemoryStop $MEMPID "../../results/MC_ORCOM_ERR174310_1";
+ProgMemoryStart "orcom_bin" &
+MEMPID=$!
+rm -f OUT; 
+(time ./orcom_bin d -iTMP -oOUT ) &> ../../results/D_ORCOM_ERR174310_1
+ProgMemoryStop $MEMPID "../../results/MD_ORCOM_ERR174310_1";
+cmp ERR174310_1.fastq OUT > ../../results/V_ORCOM_ERR174310_1
+mv ERR174310_1.fastq ../../datasets/
+#
+# ERR174310_2
+mv ../../datasets/ERR174310_2.fastq .
+ProgMemoryStart "orcom_bin" &
+MEMPID=$!
+rm -f TMP.bdna TMP.bmeta
+(time ./orcom_bin e -iERR174310_2.fastq -t1 \
+-oTMP ) &> ../../results/C_ORCOM_ERR174310_2
+CBYTESO1=`ls -la TMP.bdna | awk '{ print $5;}'`
+CBYTESO2=`ls -la TMP.bmeta | awk '{ print $5;}'`
+echo "$CBYTESO1+$CBYTESO2" | bc -l > ../../../results/BC_ORCOM_ERR174310_2
+ProgMemoryStop $MEMPID "../../results/MC_ORCOM_ERR174310_2";
+ProgMemoryStart "orcom_bin" &
+MEMPID=$!
+rm -f OUT;
+(time ./orcom_bin d -iTMP -oOUT ) &> ../../results/D_ORCOM_ERR174310_2
+ProgMemoryStop $MEMPID "../../results/MD_ORCOM_ERR174310_2";
+cmp ERR174310_2.fastq OUT > ../../results/V_ORCOM_ERR174310_2
+mv ERR174310_2.fastq ../../datasets/
+#
+# ERR194146_1
+mv ../../datasets/ERR194146_1.fastq .
+ProgMemoryStart "orcom_bin" &
+MEMPID=$!
+rm -f TMP.bdna TMP.bmeta
+(time ./orcom_bin e -iERR194146_1.fastq -t1 \
+-oTMP ) &> ../../results/C_ORCOM_ERR194146_1
+CBYTESO1=`ls -la TMP.bdna | awk '{ print $5;}'`
+CBYTESO2=`ls -la TMP.bmeta | awk '{ print $5;}'`
+echo "$CBYTESO1+$CBYTESO2" | bc -l > ../../../results/BC_ORCOM_ERR194146_1
+ProgMemoryStop $MEMPID "../../results/MC_ORCOM_ERR194146_1";
+ProgMemoryStart "orcom_bin" &
+MEMPID=$!
+rm -f OUT;
+(time ./orcom_bin d -iTMP -oOUT ) &> ../../results/D_ORCOM_ERR194146_1
+ProgMemoryStop $MEMPID "../../results/MD_ORCOM_ERR194146_1";
+cmp ERR194146_1.fastq OUT > ../../results/V_ORCOM_ERR194146_1
+mv ERR194146_1.fastq ../../datasets/
+#
+# ERR194146_2
+mv ../../datasets/ERR194146_2.fastq .
+ProgMemoryStart "orcom_bin" &
+MEMPID=$!
+rm -f TMP.bdna TMP.bmeta
+(time ./orcom_bin e -iERR194146_2.fastq -t1 \
+-oTMP ) &> ../../results/C_ORCOM_ERR194146_2
+CBYTESO1=`ls -la TMP.bdna | awk '{ print $5;}'`
+CBYTESO2=`ls -la TMP.bmeta | awk '{ print $5;}'`
+echo "$CBYTESO1+$CBYTESO2" | bc -l > ../../../results/BC_ORCOM_ERR194146_2
+ProgMemoryStop $MEMPID "../../results/MC_ORCOM_ERR194146_2";
+ProgMemoryStart "orcom_bin" &
+MEMPID=$!
+rm -f OUT;
+(time ./orcom_bin d -iTMP -oOUT ) &> ../../results/D_ORCOM_ERR194146_2
+ProgMemoryStop $MEMPID "../../results/MD_ORCOM_ERR194146_2";
+cmp ERR194146_2.fastq OUT > ../../results/V_ORCOM_ERR194146_2
+mv ERR194146_2.fastq ../../datasets/
+#
+cd ../../
 fi
 ###############################################################################
 if [[ "$RUN_DSRC" -eq "1" ]]; then
