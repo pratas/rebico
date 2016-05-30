@@ -566,59 +566,6 @@ cd Compress/bin/
 cd ../../
 cp REF.seq Decompress/bin/
 fi
-###############################################################################
-#
-###############################################################################
-################################### FASTQ #####################################
-###############################################################################
-###
-### FILES TO COMPRESS:
-###   [+] ERR174310_1.fastq (51 GB)
-###   [+] ERR174310_2.fastq (51 GB)
-###   [+] ERR194146_1.fastq (205 GB)
-###   [+] ERR194146_2.fastq (205 GB)
-###
-###############################################################################
-if [[ "$RUN_ORCOM" -eq "1" ]]; then
-./orcom_bin e -f”NA19238_1.fastq NA19238_2.fastq” -oNA19238.bin
-fi
-###############################################################################
-if [[ "$RUN_DSRC" -eq "1" ]]; then
-./dsrc c SRR001471.fastq SRR001471.dsrc
-./dsrc d SRR001471.dsrc SRR001471.out.fastq
-fi
-###############################################################################
-if [[ "$RUN_FQC" -eq "1" ]]; then
-./fqc -c -i sample.fastq -o tmp
-./fqc -d -i tmp -o sample.out.fastq
-fi
-###############################################################################
-if [[ "$RUN_FQZCOMP" -eq "1" ]]; then
-./fqz_comp -s5+ -q3 -n2 < sample.fastq > out
-./fqz_comp -d < out > sample.out.fastq
-fi
-###############################################################################
-if [[ "$RUN_QUIP" -eq "1" ]]; then
-./quip sample.fastq > out
-./quip -d 
-fi
-##############################################################################
-if [[ "$RUN_SCALCE" -eq "1" ]]; then
-scalce input_1.fastq -o result
-#Compress input_1.fastq to the files result.00_1.scalcen.gz, result.00_1.scalcer.gz 
-#and result.00_1.scalceq.gz
-scalce input_1.fastq -r -o result -n library
-#Compress input_1.fastq together with its paired end input_2.fastq, discarding 
-#the names and setting library name to library
-scalce input_1.scalcen -d -o something.fastq
-#Decompress the scalce file to something.fast
-fi
-##############################################################################
-if [[ "$RUN_LWFQZIP" -eq "1" ]]; then
-cd LWFQZip-v1.02/
-./LWFQZip -c -i IN > OUT
-./LWFQZip -d -i OUT > IN.2
-fi
 ##############################################################################
 #
 ##############################################################################
@@ -842,6 +789,59 @@ ProgMemoryStop $MEMPID "../../results/MD_MFCOMPRESS_CAMERA";
 cmp camera.fa camera.fa.d > ../../results/V_MFCOMPRESS_CAMERA
 mv camera.fa ../../datasets/
 cd ../../
+fi
+###############################################################################
+#
+###############################################################################
+################################### FASTQ #####################################
+###############################################################################
+###
+### FILES TO COMPRESS:
+###   [+] ERR174310_1.fastq (51 GB)
+###   [+] ERR174310_2.fastq (51 GB)
+###   [+] ERR194146_1.fastq (205 GB)
+###   [+] ERR194146_2.fastq (205 GB)
+###
+###############################################################################
+if [[ "$RUN_ORCOM" -eq "1" ]]; then
+./orcom_bin e -f”NA19238_1.fastq NA19238_2.fastq” -oNA19238.bin
+fi
+###############################################################################
+if [[ "$RUN_DSRC" -eq "1" ]]; then
+./dsrc c SRR001471.fastq SRR001471.dsrc
+./dsrc d SRR001471.dsrc SRR001471.out.fastq
+fi
+###############################################################################
+if [[ "$RUN_FQC" -eq "1" ]]; then
+./fqc -c -i sample.fastq -o tmp
+./fqc -d -i tmp -o sample.out.fastq
+fi
+###############################################################################
+if [[ "$RUN_FQZCOMP" -eq "1" ]]; then
+./fqz_comp -s5+ -q3 -n2 < sample.fastq > out
+./fqz_comp -d < out > sample.out.fastq
+fi
+###############################################################################
+if [[ "$RUN_QUIP" -eq "1" ]]; then
+./quip sample.fastq > out
+./quip -d 
+fi
+##############################################################################
+if [[ "$RUN_SCALCE" -eq "1" ]]; then
+scalce input_1.fastq -o result
+#Compress input_1.fastq to the files result.00_1.scalcen.gz, result.00_1.scalcer.gz 
+#and result.00_1.scalceq.gz
+scalce input_1.fastq -r -o result -n library
+#Compress input_1.fastq together with its paired end input_2.fastq, discarding 
+#the names and setting library name to library
+scalce input_1.scalcen -d -o something.fastq
+#Decompress the scalce file to something.fast
+fi
+##############################################################################
+if [[ "$RUN_LWFQZIP" -eq "1" ]]; then
+cd LWFQZip-v1.02/
+./LWFQZip -c -i IN > OUT
+./LWFQZip -d -i OUT > IN.2
 fi
 ##############################################################################
 #
