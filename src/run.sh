@@ -466,10 +466,41 @@ cd ../../
 fi
 ###############################################################################
 if [[ "$RUN_COGI" -eq "1" ]]; then
-compress -ur --hash -n <sequence count> <reference> <seq path1> ...
-compress --mse -n <sequence count> <reference> <seq path1> ...
-compress --bce -n <sequence count> <reference> <seq path1> ...
-uncompress -r <reference file> -l [length of one line]
+mkdir -p results
+cd progs/cogi
+cat ../../datasets/human.fna  | grep -v ">" | tr -d -c "ACGT" > human.seq
+cat ../../datasets/human2.fna | grep -v ">" | tr -d -c "ACGT" > human2.seq
+cat ../../datasets/chimpanze.fna | grep -v ">" | tr -d -c "ACGT" > chimpanze.seq
+cat ../../datasets/rice5.fna | grep -v ">" | tr -d -c "ACGT" > rice5.seq
+cat ../../datasets/rice7.fna | grep -v ">" | tr -d -c "ACGT" > rice7.seq
+# XXX: HUMAN: MAP FAIL
+./cogi-compress -ur --hash -n 2 human.seq human2.seq
+./cogi-uncompress -r human.seq -l 60
+# XXX: CHIMPANZE: MAP FAIL
+./cogi-compress -ur --hash -n 2 chimpanze.seq human.seq
+./cogi-uncompress -r chimpanze.seq -l 60
+# RICE:
+# bytes = 80583866 + 9956, time ~ 86s
+# time 26 s
+# cmp 1.fastq rice5.seq # XXX: cmp = different files
+ProgMemoryStart "cogi-compress" &
+MEMPID=$!
+rm -f compressed 1.patch
+(time ./cogi-compress -ur --hash -n 2 rice7.seq \
+rice5.seq ) &> ../../results/C_COGI_RICE
+CBYTES1=`ls -la 1.patch | awk '{ print $5;}'`
+CBYTES2=`ls -la compressed | awk '{ print $5;}'`
+echo "$CBYTES1+$CBYTES2" | bc -l > ../../../results/BC_COGI_RICE
+ProgMemoryStop $MEMPID "../../results/MC_COGI_RICE";
+ProgMemoryStart "cogi-uncompress" &
+MEMPID=$!
+rm -f 1.fastq
+(time ./cogi-uncompress -r rice7.seq -l 60 ) &> ../../results/D_COGI_RICE
+ProgMemoryStop $MEMPID "../../results/MD_COGI_RICE";
+cmp 1.seq rice5.seq > ../../results/V_COGI_RICE
+#
+rm -f human.seq human2.seq chimpanze.seq rice5.seq rice7.seq
+cd ../../
 fi
 ###############################################################################
 if [[ "$RUN_DNACOMPACT" -eq "1" ]]; then
