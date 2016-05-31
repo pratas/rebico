@@ -819,7 +819,7 @@ rm -f TMP.bdna TMP.bmeta
 -oTMP ) &> ../../results/C_ORCOM_ERR174310_1
 CBYTESO1=`ls -la TMP.bdna | awk '{ print $5;}'`
 CBYTESO2=`ls -la TMP.bmeta | awk '{ print $5;}'`
-echo "$CBYTESO1+$CBYTESO2" | bc -l > ../../../results/BC_ORCOM_ERR174310_1
+echo "$CBYTESO1+$CBYTESO2" | bc -l > ../../results/BC_ORCOM_ERR174310_1
 ProgMemoryStop $MEMPID "../../results/MC_ORCOM_ERR174310_1";
 ProgMemoryStart "orcom_bin" &
 MEMPID=$!
@@ -838,7 +838,7 @@ rm -f TMP.bdna TMP.bmeta
 -oTMP ) &> ../../results/C_ORCOM_ERR174310_2
 CBYTESO1=`ls -la TMP.bdna | awk '{ print $5;}'`
 CBYTESO2=`ls -la TMP.bmeta | awk '{ print $5;}'`
-echo "$CBYTESO1+$CBYTESO2" | bc -l > ../../../results/BC_ORCOM_ERR174310_2
+echo "$CBYTESO1+$CBYTESO2" | bc -l > ../../results/BC_ORCOM_ERR174310_2
 ProgMemoryStop $MEMPID "../../results/MC_ORCOM_ERR174310_2";
 ProgMemoryStart "orcom_bin" &
 MEMPID=$!
@@ -857,7 +857,7 @@ rm -f TMP.bdna TMP.bmeta
 -oTMP ) &> ../../results/C_ORCOM_ERR194146_1
 CBYTESO1=`ls -la TMP.bdna | awk '{ print $5;}'`
 CBYTESO2=`ls -la TMP.bmeta | awk '{ print $5;}'`
-echo "$CBYTESO1+$CBYTESO2" | bc -l > ../../../results/BC_ORCOM_ERR194146_1
+echo "$CBYTESO1+$CBYTESO2" | bc -l > ../../results/BC_ORCOM_ERR194146_1
 ProgMemoryStop $MEMPID "../../results/MC_ORCOM_ERR194146_1";
 ProgMemoryStart "orcom_bin" &
 MEMPID=$!
@@ -876,7 +876,7 @@ rm -f TMP.bdna TMP.bmeta
 -oTMP ) &> ../../results/C_ORCOM_ERR194146_2
 CBYTESO1=`ls -la TMP.bdna | awk '{ print $5;}'`
 CBYTESO2=`ls -la TMP.bmeta | awk '{ print $5;}'`
-echo "$CBYTESO1+$CBYTESO2" | bc -l > ../../../results/BC_ORCOM_ERR194146_2
+echo "$CBYTESO1+$CBYTESO2" | bc -l > ../../results/BC_ORCOM_ERR194146_2
 ProgMemoryStop $MEMPID "../../results/MC_ORCOM_ERR194146_2";
 ProgMemoryStart "orcom_bin" &
 MEMPID=$!
@@ -892,31 +892,75 @@ fi
 if [[ "$RUN_DSRC" -eq "1" ]]; then
 mkdir -p results
 cd progs/dsrc
-
-# FIXME: FINISH
-
 # ERR174310_1
 mv ../../datasets/ERR174310_1.fastq .
 ProgMemoryStart "dsrc" &
 MEMPID=$!
-rm -f TMP.bdna TMP.bmeta
-(time ./orcom_bin e -iERR174310_1.fastq -t1 \
--oTMP ) &> ../../results/C_ORCOM_ERR174310_1
-CBYTESO1=`ls -la TMP.bdna | awk '{ print $5;}'`
-CBYTESO2=`ls -la TMP.bmeta | awk '{ print $5;}'`
-echo "$CBYTESO1+$CBYTESO2" | bc -l > ../../../results/BC_ORCOM_ERR174310_1
-ProgMemoryStop $MEMPID "../../results/MC_ORCOM_ERR174310_1";
+rm -f OUT.dsrc
+(time ./dsrc c \
+-m2 ERR174310_1.fastq OUT.dsrc ) &> ../../results/C_DSRC_ERR174310_1
+ls -la OUT.dsrc > ../../results/BC_DSRC_ERR174310_1
+ProgMemoryStop $MEMPID "../../results/MC_DSRC_ERR174310_1";
 ProgMemoryStart "dsrc" &
 MEMPID=$!
-rm -f OUT;
-(time ./orcom_bin d -iTMP -oOUT ) &> ../../results/D_ORCOM_ERR174310_1
-ProgMemoryStop $MEMPID "../../results/MD_ORCOM_ERR174310_1";
-cmp ERR174310_1.fastq OUT > ../../results/V_ORCOM_ERR174310_1
+rm -f OUT.out;
+(time ./dsrc d OUT.dsrc OUT.out ) &> ../../results/D_DSRC_ERR174310_1
+ProgMemoryStop $MEMPID "../../results/MD_DSRC_ERR174310_1";
+cmp ERR174310_1.fastq OUT.out > ../../results/V_DSRC_ERR174310_1
 mv ERR174310_1.fastq ../../datasets/
 #
-
-./dsrc c SRR001471.fastq SRR001471.dsrc
-./dsrc d SRR001471.dsrc SRR001471.out.fastq
+# ERR174310_1
+mv ../../datasets/ERR174310_2.fastq .
+ProgMemoryStart "dsrc" &
+MEMPID=$!
+rm -f OUT.dsrc
+(time ./dsrc c \
+-m2 ERR174310_2.fastq OUT.dsrc ) &> ../../results/C_DSRC_ERR174310_2
+ls -la OUT.dsrc > ../../results/BC_DSRC_ERR174310_2
+ProgMemoryStop $MEMPID "../../results/MC_DSRC_ERR174310_2";
+ProgMemoryStart "dsrc" &
+MEMPID=$!
+rm -f OUT.out;
+(time ./dsrc d OUT.dsrc OUT.out ) &> ../../results/D_DSRC_ERR174310_2
+ProgMemoryStop $MEMPID "../../results/MD_DSRC_ERR174310_2";
+cmp ERR174310_2.fastq OUT.out > ../../results/V_DSRC_ERR174310_2
+mv ERR174310_2.fastq ../../datasets/
+#
+# ERR194146_1
+mv ../../datasets/ERR194146_1.fastq .
+ProgMemoryStart "dsrc" &
+MEMPID=$!
+rm -f OUT.dsrc
+(time ./dsrc c \
+-m2 ERR194146_1.fastq OUT.dsrc ) &> ../../results/C_DSRC_ERR194146_1
+ls -la OUT.dsrc > ../../results/BC_DSRC_ERR194146_1
+ProgMemoryStop $MEMPID "../../results/MC_DSRC_ERR194146_1";
+ProgMemoryStart "dsrc" &
+MEMPID=$!
+rm -f OUT.out;
+(time ./dsrc d OUT.dsrc OUT.out ) &> ../../results/D_DSRC_ERR194146_1
+ProgMemoryStop $MEMPID "../../results/MD_DSRC_ERR194146_1";
+cmp ERR194146_1.fastq OUT.out > ../../results/V_DSRC_ERR194146_1
+mv ERR194146_1.fastq ../../datasets/
+#
+# ERR194146_2
+mv ../../datasets/ERR194146_2.fastq .
+ProgMemoryStart "dsrc" &
+MEMPID=$!
+rm -f OUT.dsrc
+(time ./dsrc c \
+-m2 ERR194146_2.fastq OUT.dsrc ) &> ../../results/C_DSRC_ERR194146_2
+ls -la OUT.dsrc > ../../results/BC_DSRC_ERR194146_2
+ProgMemoryStop $MEMPID "../../results/MC_DSRC_ERR194146_2";
+ProgMemoryStart "dsrc" &
+MEMPID=$!
+rm -f OUT.out;
+(time ./dsrc d OUT.dsrc OUT.out ) &> ../../results/D_DSRC_ERR194146_2
+ProgMemoryStop $MEMPID "../../results/MD_DSRC_ERR194146_2";
+cmp ERR194146_2.fastq OUT.out > ../../results/V_DSRC_ERR194146_2
+mv ERR194146_2.fastq ../../datasets/
+#
+cd ../../
 fi
 ###############################################################################
 if [[ "$RUN_FQC" -eq "1" ]]; then
