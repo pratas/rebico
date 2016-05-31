@@ -490,7 +490,7 @@ rm -f compressed 1.patch
 rice5.seq ) &> ../../results/C_COGI_RICE
 CBYTES1=`ls -la 1.patch | awk '{ print $5;}'`
 CBYTES2=`ls -la compressed | awk '{ print $5;}'`
-echo "$CBYTES1+$CBYTES2" | bc -l > ../../../results/BC_COGI_RICE
+echo "$CBYTES1+$CBYTES2" | bc -l > ../../results/BC_COGI_RICE
 ProgMemoryStop $MEMPID "../../results/MC_COGI_RICE";
 ProgMemoryStart "cogi-uncompress" &
 MEMPID=$!
