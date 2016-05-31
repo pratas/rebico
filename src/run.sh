@@ -969,8 +969,81 @@ if [[ "$RUN_FQC" -eq "1" ]]; then
 fi
 ###############################################################################
 if [[ "$RUN_FQZCOMP" -eq "1" ]]; then
-./fqz_comp -s5+ -q3 -n2 < sample.fastq > out
-./fqz_comp -d < out > sample.out.fastq
+mkdir -p results
+cd progs/fqzcomp
+# ERR174310_1
+mv ../../datasets/ERR174310_1.fastq .
+ProgMemoryStart "fqz_comp" &
+MEMPID=$!
+rm -f OUT
+(time ./fqz_comp \
+< ERR174310_1.fastq > OUT ) &> ../../results/C_FQZCOMP_ERR174310_1
+ls -la OUT > ../../results/BC_FQZCOMP_ERR174310_1
+ProgMemoryStop $MEMPID "../../results/MC_FQZCOMP_ERR174310_1";
+ProgMemoryStart "fqz_comp" &
+MEMPID=$!
+rm -f OUT.out;
+(time ./fqz_comp \
+-d < OUT > OUT.out ) &> ../../results/D_FQZCOMP_ERR174310_1
+ProgMemoryStop $MEMPID "../../results/MD_FQZCOMP_ERR174310_1";
+cmp ERR174310_1.fastq OUT.out > ../../results/V_FQZCOMP_ERR174310_1
+mv ERR174310_1.fastq ../../datasets/
+#
+# ERR174310_2
+mv ../../datasets/ERR174310_2.fastq .
+ProgMemoryStart "fqz_comp" &
+MEMPID=$!
+rm -f OUT
+(time ./fqz_comp \
+< ERR174310_2.fastq > OUT ) &> ../../results/C_FQZCOMP_ERR174310_2
+ls -la OUT > ../../results/BC_FQZCOMP_ERR174310_2
+ProgMemoryStop $MEMPID "../../results/MC_FQZCOMP_ERR174310_2";
+ProgMemoryStart "fqz_comp" &
+MEMPID=$!
+rm -f OUT.out;
+(time ./fqz_comp \
+-d < OUT > OUT.out ) &> ../../results/D_FQZCOMP_ERR174310_2
+ProgMemoryStop $MEMPID "../../results/MD_FQZCOMP_ERR174310_2";
+cmp ERR174310_2.fastq OUT.out > ../../results/V_FQZCOMP_ERR174310_2
+mv ERR174310_2.fastq ../../datasets/
+#
+# ERR194146_1
+mv ../../datasets/ERR194146_1.fastq .
+ProgMemoryStart "fqz_comp" &
+MEMPID=$!
+rm -f OUT
+(time ./fqz_comp \
+< ERR194146_1.fastq > OUT ) &> ../../results/C_FQZCOMP_ERR194146_1
+ls -la OUT > ../../results/BC_FQZCOMP_ERR194146_1
+ProgMemoryStop $MEMPID "../../results/MC_FQZCOMP_ERR194146_1";
+ProgMemoryStart "fqz_comp" &
+MEMPID=$!
+rm -f OUT.out;
+(time ./fqz_comp \
+-d < OUT > OUT.out ) &> ../../results/D_FQZCOMP_ERR194146_1
+ProgMemoryStop $MEMPID "../../results/MD_FQZCOMP_ERR194146_1";
+cmp ERR194146_1.fastq OUT.out > ../../results/V_FQZCOMP_ERR194146_1
+mv ERR194146_1.fastq ../../datasets/
+#
+# ERR194146_2
+mv ../../datasets/ERR194146_2.fastq .
+ProgMemoryStart "fqz_comp" &
+MEMPID=$!
+rm -f OUT
+(time ./fqz_comp \
+< ERR194146_2.fastq > OUT ) &> ../../results/C_FQZCOMP_ERR194146_2
+ls -la OUT > ../../results/BC_FQZCOMP_ERR194146_2
+ProgMemoryStop $MEMPID "../../results/MC_FQZCOMP_ERR194146_2";
+ProgMemoryStart "fqz_comp" &
+MEMPID=$!
+rm -f OUT.out;
+(time ./fqz_comp \
+-d < OUT > OUT.out ) &> ../../results/D_FQZCOMP_ERR194146_2
+ProgMemoryStop $MEMPID "../../results/MD_FQZCOMP_ERR194146_2";
+cmp ERR194146_2.fastq OUT.out > ../../results/V_FQZCOMP_ERR194146_2
+mv ERR194146_2.fastq ../../datasets/
+#
+cd ../../
 fi
 ###############################################################################
 if [[ "$RUN_QUIP" -eq "1" ]]; then
