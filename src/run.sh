@@ -144,7 +144,7 @@ MEMPID=$!
 rm -f human.seq.de
 (time ./GeDe -v human.seq.co ) &> ../../results/D_GECO_HUMAN
 ProgMemoryStop $MEMPID "../../results/MD_GECO_HUMAN";
-cmp human.seq human.seq.de > ../../results/V_GECO_HUMAN
+cmp human.seq human.seq.de &> ../../results/V_GECO_HUMAN
 # CHIMPANZEE
 ProgMemoryStart "GeCo" &
 MEMPID=$!
@@ -157,7 +157,7 @@ MEMPID=$!
 rm -f chimpanze.seq.de
 (time ./GeDe -v chimpanze.seq.co ) &> ../../results/D_GECO_CHIMPANZE
 ProgMemoryStop $MEMPID "../../results/MD_GECO_CHIMPANZE";
-cmp chimpanze.seq chimpanze.seq.de > ../../results/V_GECO_CHIMPANZE
+cmp chimpanze.seq chimpanze.seq.de &> ../../results/V_GECO_CHIMPANZE
 # RICE
 ProgMemoryStart "GeCo" &
 MEMPID=$!
@@ -170,7 +170,7 @@ MEMPID=$!
 rm -f rice5.seq.de
 (time ./GeDe -v rice5.seq.co ) &> ../../results/D_GECO_RICE
 ProgMemoryStop $MEMPID "../../results/MD_GECO_RICE";
-cmp rice5.seq rice5.seq.de > ../../results/V_GECO_RICE
+cmp rice5.seq rice5.seq.de &> ../../results/V_GECO_RICE
 #
 rm -f human.seq chimpanze.seq rice5.seq
 cd ../../
@@ -198,7 +198,7 @@ rm -f human.seq.fp.y
 touch human.seq.fp.y
 (time ./compact -n -d human.seq.fp ) &> ../../results/D_DNACOMPACT_HUMAN
 ProgMemoryStop $MEMPID "../../results/MD_DNACOMPACT_HUMAN";
-cmp human.seq human.seq.fp.y > ../../results/V_DNACOMPACT_HUMAN
+cmp human.seq human.seq.fp.y &> ../../results/V_DNACOMPACT_HUMAN
 # CHIMPANZEE
 ProgMemoryStart "compact" &
 MEMPID=$!
@@ -214,7 +214,7 @@ rm -f chimpanze.seq.fp.y
 touch chimpanze.seq.fp.y
 (time ./compact n -d chimpanze.seq.fp ) &> ../../results/D_DNACOMPACT_CHIMPANZE
 ProgMemoryStop $MEMPID "../../results/MD_DNACOMPACT_CHIMPANZE";
-cmp chimpanze.seq chimpanze.seq.fp.y > ../../results/V_DNACOMPACT_CHIMPANZE
+cmp chimpanze.seq chimpanze.seq.fp.y &> ../../results/V_DNACOMPACT_CHIMPANZE
 # RICE
 ProgMemoryStart "compact" &
 MEMPID=$!
@@ -230,7 +230,7 @@ rm -f rice5.seq.fp.y
 touch rice5.seq.fp.y
 (time ./compact n -d rice5.seq.fp ) &> ../../results/D_DNACOMPACT_RICE
 ProgMemoryStop $MEMPID "../../results/MD_DNACOMPACT_RICE";
-cmp rice5.seq rice5.seq.fp.y > ../../results/V_DNACOMPACT_RICE
+cmp rice5.seq rice5.seq.fp.y &> ../../results/V_DNACOMPACT_RICE
 #
 rm -f human.seq chimpanze.seq rice5.seq
 cd ../../
@@ -281,7 +281,7 @@ echo "ref/human.fa out.fa" > f.txt;
 (./iDoComp.run d f.txt OUT ) &> ../../../results/D_IDOCOMP_HUMAN
 DTIME=`cat ../../../results/D_IDOCOMP_HUMAN | grep "CPU T" | awk '{ print $4;}'`
 echo "$TIMEOFSA+$DTIME" | bc -l > ../../../results/DT_IDOCOMP_HUMAN
-cmp tar/human2.fa out.fa > ../../../results/V_IDOCOMP_HUMAN
+cmp tar/human2.fa out.fa &> ../../../results/V_IDOCOMP_HUMAN
 #rm -f human2.fa human.fa
 
 # CHIMPANZE
@@ -312,7 +312,7 @@ echo "ref/human.fa out.fa" > f.txt;
 (./iDoComp.run d f.txt OUT ) &> ../../../results/D_IDOCOMP_HUMAN
 DTIME=`cat ../../../results/D_IDOCOMP_HUMAN | grep "CPU T" | awk '{ print $4;}'`
 echo "$TIMEOFSA+$DTIME" | bc -l > ../../../results/DT_IDOCOMP_HUMAN
-cmp tar/chimpanze.fa out.fa > ../../../results/V_IDOCOMP_HUMAN
+cmp tar/chimpanze.fa out.fa &> ../../../results/V_IDOCOMP_HUMAN
 #rm -f chimpanze.fa human.fa
 
 # RICE
@@ -343,7 +343,7 @@ echo "ref/rice7.fa out.fa" > f.txt;
 (./iDoComp.run d f.txt OUT ) &> ../../../results/D_IDOCOMP_RICE
 DTIME=`cat ../../../results/D_IDOCOMP_RICE | grep "CPU T" | awk '{ print $4;}'`
 echo "$TIMEOFSA+$DTIME" | bc -l > ../../../results/DT_IDOCOMP_RICE
-cmp tar/rice5.fa out.fa > ../../../results/V_IDOCOMP_RICE
+cmp tar/rice5.fa out.fa &> ../../../results/V_IDOCOMP_RICE
 #rm -f rice5.fa rice7.fa
 
 cd ../../../
@@ -371,7 +371,7 @@ rm -f human2.seq.de
 (time ./GeDe -v -r human.seq \
 human2.seq.co ) &> ../../results/D_GECO_REF_HUMAN
 ProgMemoryStop $MEMPID "../../results/MD_GECO_REF_HUMAN";
-cmp human2.seq human2.seq.de > ../../results/V_GECO_REF_HUMAN
+cmp human2.seq human2.seq.de &> ../../results/V_GECO_REF_HUMAN
 # CHIMPANZEE
 ProgMemoryStart "GeCo" &
 MEMPID=$!
@@ -386,7 +386,7 @@ rm -f human.seq.de
 (time ./GeDe -v -r chimpanze.seq \
 human.seq.co ) &> ../../results/D_GECO_REF_CHIMPANZE
 ProgMemoryStop $MEMPID "../../results/MD_GECO_REF_CHIMPANZE";
-cmp human.seq human.seq.de > ../../results/V_GECO_REF_CHIMPANZE
+cmp human.seq human.seq.de &> ../../results/V_GECO_REF_CHIMPANZE
 # RICE
 ProgMemoryStart "GeCo" &
 MEMPID=$!
@@ -401,7 +401,7 @@ rm -f rice5.seq.de
 (time ./GeDe -v -r rice7.seq \
 rice5.seq.co ) &> ../../results/D_GECO_REF_RICE
 ProgMemoryStop $MEMPID "../../results/MD_GECO_REF_RICE";
-cmp rice5.seq rice5.seq.de > ../../results/V_GECO_REF_RICE
+cmp rice5.seq rice5.seq.de &> ../../results/V_GECO_REF_RICE
 #
 rm -f human.seq human2.seq chimpanze.seq rice5.seq rice7.seq
 cd ../../
@@ -430,7 +430,7 @@ rm -f human2.seq.de
 (time ./GReEnD -o human2.seq.de human.seq \
 human2.seq.co ) &> ../../results/D_GREEN_HUMAN
 ProgMemoryStop $MEMPID "../../results/MD_GREEN_HUMAN";
-cmp human2.seq human2.seq.de > ../../results/V_GREEN_HUMAN
+cmp human2.seq human2.seq.de &> ../../results/V_GREEN_HUMAN
 # CHIMPANZE
 ProgMemoryStart "GReEnC" &
 MEMPID=$!
@@ -445,7 +445,7 @@ rm -f human.seq.de
 (time ./GReEnD -o human.seq.de chimpanze.seq \
 human.seq.co ) &> ../../results/D_GREEN_CHIMPANZE
 ProgMemoryStop $MEMPID "../../results/MD_GREEN_CHIMPANZE";
-cmp human.seq human.seq.de > ../../results/V_GREEN_CHIMPANZE
+cmp human.seq human.seq.de &> ../../results/V_GREEN_CHIMPANZE
 # RICE
 ProgMemoryStart "GReEnC" &
 MEMPID=$!
@@ -460,7 +460,7 @@ rm -f rice5.seq.de
 (time ./GReEnD -o rice5.seq.de rice7.seq \
 rice5.seq.co ) &> ../../results/D_GREEN_RICE
 ProgMemoryStop $MEMPID "../../results/MD_GREEN_RICE";
-cmp rice5.seq rice5.seq.de > ../../results/V_GREEN_RICE
+cmp rice5.seq rice5.seq.de &> ../../results/V_GREEN_RICE
 rm -f human.seq human2.seq chimpanze.seq rice5.seq rice7.seq
 cd ../../
 fi
@@ -497,7 +497,7 @@ MEMPID=$!
 rm -f 1.fastq
 (time ./cogi-uncompress -r rice7.seq -l 60 ) &> ../../results/D_COGI_RICE
 ProgMemoryStop $MEMPID "../../results/MD_COGI_RICE";
-cmp 1.seq rice5.seq > ../../results/V_COGI_RICE
+cmp 1.seq rice5.seq &> ../../results/V_COGI_RICE
 #
 rm -f human.seq human2.seq chimpanze.seq rice5.seq rice7.seq
 cd ../../
@@ -595,7 +595,7 @@ MEMPID=$!
 rm -f human.fna.dlim.d
 (time ./delim e human.fna.dlim ) &> ../../results/D_DELIMINATE_HUMAN
 ProgMemoryStop $MEMPID "../../results/MD_DELIMINATE_HUMAN";
-cmp human.fna human.fna.dlim.d > ../../results/V_DELIMINATE_HUMAN
+cmp human.fna human.fna.dlim.d &> ../../results/V_DELIMINATE_HUMAN
 mv human.fna ../../datasets/
 # CHIMPANZEE
 mv ../../datasets/chimpanze.fna .
@@ -610,7 +610,7 @@ MEMPID=$!
 rm -f chimpanze.fna.dlim.d
 (time ./delim e chimpanze.fna.dlim ) &> ../../results/D_DELIMINATE_CHIMPANZE
 ProgMemoryStop $MEMPID "../../results/MD_DELIMINATE_CHIMPANZE";
-cmp chimpanze.fna chimpanze.fna.dlim.d > ../../results/V_DELIMINATE_CHIMPANZE
+cmp chimpanze.fna chimpanze.fna.dlim.d &> ../../results/V_DELIMINATE_CHIMPANZE
 mv chimpanze.fna ../../datasets/
 # RICE
 mv ../../datasets/rice5.fna .
@@ -625,7 +625,7 @@ MEMPID=$!
 rm -f rice5.fna.dlim.d
 (time ./delim e rice5.fna.dlim ) &> ../../results/D_DELIMINATE_RICE
 ProgMemoryStop $MEMPID "../../results/MD_DELIMINATE_RICE";
-cmp rice5.fna rice5.fna.dlim.d > ../../results/V_DELIMINATE_RICE
+cmp rice5.fna rice5.fna.dlim.d &> ../../results/V_DELIMINATE_RICE
 mv rice5.fna ../../datasets/
 # CAMERA
 mv ../../datasets/camera.fa .
@@ -640,7 +640,7 @@ MEMPID=$!
 rm -f camera.fa.dlim.d
 (time ./delim e camera.fa.dlim ) &> ../../results/D_DELIMINATE_CAMERA
 ProgMemoryStop $MEMPID "../../results/MD_DELIMINATE_CAMERA";
-cmp camera.fa camera.fa.dlim.d > ../../results/V_DELIMINATE_CAMERA
+cmp camera.fa camera.fa.dlim.d &> ../../results/V_DELIMINATE_CAMERA
 mv camera.fa ../../datasets/
 cd ../../
 fi
@@ -667,7 +667,7 @@ MEMPID=$!
 rm -f human.fa.d
 (time ./leon -d -file human.fa.leon ) &> ../../results/D_LEON_HUMAN
 ProgMemoryStop $MEMPID "../../results/MD_LEON_HUMAN";
-cmp human.fa human.fa.d > ../../results/V_LEON_HUMAN
+cmp human.fa human.fa.d &> ../../results/V_LEON_HUMAN
 mv human.fa ../../datasets/human.fna
 # CHIMPANZEE
 mv ../../datasets/chimpanze.fna chimpanze.fa
@@ -682,7 +682,7 @@ MEMPID=$!
 rm -f chimpanze.fa.d
 (time ./leon -d -file chimpanze.fa.leon ) &> ../../results/D_LEON_CHIMPANZE
 ProgMemoryStop $MEMPID "../../results/MD_LEON_CHIMPANZE";
-cmp chimpanze.fa chimpanze.fa.d > ../../results/V_LEON_CHIMPANZE
+cmp chimpanze.fa chimpanze.fa.d &> ../../results/V_LEON_CHIMPANZE
 mv chimpanze.fa ../../datasets/chimpanze.fna
 # RICE
 mv ../../datasets/rice5.fna rice5.fa
@@ -697,7 +697,7 @@ MEMPID=$!
 rm -f rice5.fa.d
 (time ./leon -d -file rice5.fa.leon ) &> ../../results/D_LEON_RICE
 ProgMemoryStop $MEMPID "../../results/MD_LEON_RICE";
-cmp rice5.fa rice5.fa.d > ../../results/V_LEON_RICE
+cmp rice5.fa rice5.fa.d &> ../../results/V_LEON_RICE
 mv rice5.fa ../../datasets/rice5.fna
 #CAMERA
 mv ../../datasets/camera.fa .
@@ -712,7 +712,7 @@ MEMPID=$!
 rm -f camera.fa.d
 (time ./leon -d -file camera.fa.leon ) &> ../../results/D_LEON_CAMERA
 ProgMemoryStop $MEMPID "../../results/MD_LEON_CAMERA";
-cmp camera.fa camera.fa.d > ../../results/V_LEON_CAMERA
+cmp camera.fa camera.fa.d &> ../../results/V_LEON_CAMERA
 mv camera.fa ../../datasets/
 cd ../../
 fi
@@ -735,7 +735,7 @@ rm -f human.fna.d
 (time ./MFCompressD -v \
 -o human.fna.d human.fna.mfc ) &> ../../results/D_MFCOMPRESS_HUMAN
 ProgMemoryStop $MEMPID "../../results/MD_MFCOMPRESS_HUMAN";
-cmp human.fna human.fna.d > ../../results/V_MFCOMPRESS_HUMAN
+cmp human.fna human.fna.d &> ../../results/V_MFCOMPRESS_HUMAN
 mv human.fna ../../datasets/
 # CHIMPANZEE
 mv ../../datasets/chimpanze.fna .
@@ -752,7 +752,7 @@ rm -f chimpanze.fna.d
 (time ./MFCompressD -v \
 -o chimpanze.fna.d chimpanze.fna.mfc ) &> ../../results/D_MFCOMPRESS_CHIMPANZE
 ProgMemoryStop $MEMPID "../../results/MD_MFCOMPRESS_CHIMPANZE";
-cmp chimpanze.fna chimpanze.fna.d > ../../results/V_MFCOMPRESS_CHIMPANZE
+cmp chimpanze.fna chimpanze.fna.d &> ../../results/V_MFCOMPRESS_CHIMPANZE
 mv chimpanze.fna ../../datasets/
 # RICE
 mv ../../datasets/rice5.fna .
@@ -769,7 +769,7 @@ rm -f rice5.fna.d
 (time ./MFCompressD -v \
 -o rice5.fna.d rice5.fna.mfc ) &> ../../results/D_MFCOMPRESS_RICE
 ProgMemoryStop $MEMPID "../../results/MD_MFCOMPRESS_RICE";
-cmp rice5.fna rice5.fna.d > ../../results/V_MFCOMPRESS_RICE
+cmp rice5.fna rice5.fna.d &> ../../results/V_MFCOMPRESS_RICE
 mv rice5.fna ../../datasets/
 # CAMERA
 mv ../../datasets/camera.fa .
@@ -786,7 +786,7 @@ rm -f camera.fa.d
 (time ./MFCompressD -v \
 -o camera.fa.d camera.fa.mfc ) &> ../../results/D_MFCOMPRESS_CAMERA
 ProgMemoryStop $MEMPID "../../results/MD_MFCOMPRESS_CAMERA";
-cmp camera.fa camera.fa.d > ../../results/V_MFCOMPRESS_CAMERA
+cmp camera.fa camera.fa.d &> ../../results/V_MFCOMPRESS_CAMERA
 mv camera.fa ../../datasets/
 cd ../../
 fi
@@ -826,7 +826,7 @@ MEMPID=$!
 rm -f OUT; 
 (time ./orcom_bin d -iTMP -oOUT ) &> ../../results/D_ORCOM_ERR174310_1
 ProgMemoryStop $MEMPID "../../results/MD_ORCOM_ERR174310_1";
-cmp ERR174310_1.fastq OUT > ../../results/V_ORCOM_ERR174310_1
+cmp ERR174310_1.fastq OUT &> ../../results/V_ORCOM_ERR174310_1
 mv ERR174310_1.fastq ../../datasets/
 #
 # ERR174310_2
@@ -845,7 +845,7 @@ MEMPID=$!
 rm -f OUT;
 (time ./orcom_bin d -iTMP -oOUT ) &> ../../results/D_ORCOM_ERR174310_2
 ProgMemoryStop $MEMPID "../../results/MD_ORCOM_ERR174310_2";
-cmp ERR174310_2.fastq OUT > ../../results/V_ORCOM_ERR174310_2
+cmp ERR174310_2.fastq OUT &> ../../results/V_ORCOM_ERR174310_2
 mv ERR174310_2.fastq ../../datasets/
 #
 # ERR194146_1
@@ -864,7 +864,7 @@ MEMPID=$!
 rm -f OUT;
 (time ./orcom_bin d -iTMP -oOUT ) &> ../../results/D_ORCOM_ERR194146_1
 ProgMemoryStop $MEMPID "../../results/MD_ORCOM_ERR194146_1";
-cmp ERR194146_1.fastq OUT > ../../results/V_ORCOM_ERR194146_1
+cmp ERR194146_1.fastq OUT &> ../../results/V_ORCOM_ERR194146_1
 mv ERR194146_1.fastq ../../datasets/
 #
 # ERR194146_2
@@ -883,7 +883,7 @@ MEMPID=$!
 rm -f OUT;
 (time ./orcom_bin d -iTMP -oOUT ) &> ../../results/D_ORCOM_ERR194146_2
 ProgMemoryStop $MEMPID "../../results/MD_ORCOM_ERR194146_2";
-cmp ERR194146_2.fastq OUT > ../../results/V_ORCOM_ERR194146_2
+cmp ERR194146_2.fastq OUT &> ../../results/V_ORCOM_ERR194146_2
 mv ERR194146_2.fastq ../../datasets/
 #
 cd ../../
@@ -906,7 +906,7 @@ MEMPID=$!
 rm -f OUT.out;
 (time ./dsrc d OUT.dsrc OUT.out ) &> ../../results/D_DSRC_ERR174310_1
 ProgMemoryStop $MEMPID "../../results/MD_DSRC_ERR174310_1";
-cmp ERR174310_1.fastq OUT.out > ../../results/V_DSRC_ERR174310_1
+cmp ERR174310_1.fastq OUT.out &> ../../results/V_DSRC_ERR174310_1
 mv ERR174310_1.fastq ../../datasets/
 #
 # ERR174310_1
@@ -923,7 +923,7 @@ MEMPID=$!
 rm -f OUT.out;
 (time ./dsrc d OUT.dsrc OUT.out ) &> ../../results/D_DSRC_ERR174310_2
 ProgMemoryStop $MEMPID "../../results/MD_DSRC_ERR174310_2";
-cmp ERR174310_2.fastq OUT.out > ../../results/V_DSRC_ERR174310_2
+cmp ERR174310_2.fastq OUT.out &> ../../results/V_DSRC_ERR174310_2
 mv ERR174310_2.fastq ../../datasets/
 #
 # ERR194146_1
@@ -940,7 +940,7 @@ MEMPID=$!
 rm -f OUT.out;
 (time ./dsrc d OUT.dsrc OUT.out ) &> ../../results/D_DSRC_ERR194146_1
 ProgMemoryStop $MEMPID "../../results/MD_DSRC_ERR194146_1";
-cmp ERR194146_1.fastq OUT.out > ../../results/V_DSRC_ERR194146_1
+cmp ERR194146_1.fastq OUT.out &> ../../results/V_DSRC_ERR194146_1
 mv ERR194146_1.fastq ../../datasets/
 #
 # ERR194146_2
@@ -957,7 +957,7 @@ MEMPID=$!
 rm -f OUT.out;
 (time ./dsrc d OUT.dsrc OUT.out ) &> ../../results/D_DSRC_ERR194146_2
 ProgMemoryStop $MEMPID "../../results/MD_DSRC_ERR194146_2";
-cmp ERR194146_2.fastq OUT.out > ../../results/V_DSRC_ERR194146_2
+cmp ERR194146_2.fastq OUT.out &> ../../results/V_DSRC_ERR194146_2
 mv ERR194146_2.fastq ../../datasets/
 #
 cd ../../
@@ -986,7 +986,7 @@ rm -f OUT.out;
 (time ./fqz_comp \
 -d < OUT > OUT.out ) &> ../../results/D_FQZCOMP_ERR174310_1
 ProgMemoryStop $MEMPID "../../results/MD_FQZCOMP_ERR174310_1";
-cmp ERR174310_1.fastq OUT.out > ../../results/V_FQZCOMP_ERR174310_1
+cmp ERR174310_1.fastq OUT.out &> ../../results/V_FQZCOMP_ERR174310_1
 mv ERR174310_1.fastq ../../datasets/
 #
 # ERR174310_2
@@ -1004,7 +1004,7 @@ rm -f OUT.out;
 (time ./fqz_comp \
 -d < OUT > OUT.out ) &> ../../results/D_FQZCOMP_ERR174310_2
 ProgMemoryStop $MEMPID "../../results/MD_FQZCOMP_ERR174310_2";
-cmp ERR174310_2.fastq OUT.out > ../../results/V_FQZCOMP_ERR174310_2
+cmp ERR174310_2.fastq OUT.out &> ../../results/V_FQZCOMP_ERR174310_2
 mv ERR174310_2.fastq ../../datasets/
 #
 # ERR194146_1
@@ -1022,7 +1022,7 @@ rm -f OUT.out;
 (time ./fqz_comp \
 -d < OUT > OUT.out ) &> ../../results/D_FQZCOMP_ERR194146_1
 ProgMemoryStop $MEMPID "../../results/MD_FQZCOMP_ERR194146_1";
-cmp ERR194146_1.fastq OUT.out > ../../results/V_FQZCOMP_ERR194146_1
+cmp ERR194146_1.fastq OUT.out &> ../../results/V_FQZCOMP_ERR194146_1
 mv ERR194146_1.fastq ../../datasets/
 #
 # ERR194146_2
@@ -1040,7 +1040,7 @@ rm -f OUT.out;
 (time ./fqz_comp \
 -d < OUT > OUT.out ) &> ../../results/D_FQZCOMP_ERR194146_2
 ProgMemoryStop $MEMPID "../../results/MD_FQZCOMP_ERR194146_2";
-cmp ERR194146_2.fastq OUT.out > ../../results/V_FQZCOMP_ERR194146_2
+cmp ERR194146_2.fastq OUT.out &> ../../results/V_FQZCOMP_ERR194146_2
 mv ERR194146_2.fastq ../../datasets/
 #
 cd ../../
@@ -1102,7 +1102,7 @@ rm -f NA12877_S1.dec
 (time java -jar -Xmx8G ngc-core-0.0.1-standalone.jar decompress -i OUT.dz \
 -o NA12877_S1.dec -r humanDZ.fna ) &> ../../results/D_NGC_NA12877_S1
 ProgMemoryStop $MEMPID "../../results/MD_NGC_NA12877_S1";
-cmp NA12877_S1.dec NA12877_S1.bam > ../../results/V_NGC_NA12877_S1
+cmp NA12877_S1.dec NA12877_S1.bam &> ../../results/V_NGC_NA12877_S1
 mv NA12877_S1.bam ../../datasets/
 # NA12878_S1.bam
 mv ../../datasets/NA12878_S1.bam .
@@ -1119,7 +1119,7 @@ rm -f NA12878_S1.dec
 (time java -jar -Xmx8G ngc-core-0.0.1-standalone.jar decompress -i OUT.dz \
 -o NA12878_S1.dec -r humanDZ.fna ) &> ../../results/D_NGC_NA12878_S1
 ProgMemoryStop $MEMPID "../../results/MD_NGC_NA12878_S1";
-cmp NA12878_S1.dec NA12878_S1.bam > ../../results/V_NGC_NA12878_S1
+cmp NA12878_S1.dec NA12878_S1.bam &> ../../results/V_NGC_NA12878_S1
 mv NA12878_S1.bam ../../datasets/
 # NA12882_S1
 mv ../../datasets/NA12882_S1.bam .
@@ -1136,7 +1136,7 @@ rm -f NA12882_S1.dec
 (time java -jar -Xmx8G ngc-core-0.0.1-standalone.jar decompress -i OUT.dz \
 -o NA12882_S1.dec -r humanDZ.fna ) &> ../../results/D_NGC_NA12882_S1
 ProgMemoryStop $MEMPID "../../results/MD_NGC_NA12882_S1";
-cmp NA12882_S1.dec NA12882_S1.bam > ../../results/V_NGC_NA12882_S1
+cmp NA12882_S1.dec NA12882_S1.bam &> ../../results/V_NGC_NA12882_S1
 mv NA12882_S1.bam ../../datasets/
 # ERR317482.bam
 mv ../../datasets/ERR317482.bam .
@@ -1153,7 +1153,7 @@ rm -f ERR317482.dec
 (time java -jar -Xmx8G ngc-core-0.0.1-standalone.jar decompress -i OUT.dz \
 -o ERR317482.dec -r humanDZ.fna ) &> ../../results/D_NGC_ERR317482
 ProgMemoryStop $MEMPID "../../results/MD_NGC_ERR317482";
-cmp ERR317482.dec ERR317482.bam > ../../results/V_NGC_ERR317482
+cmp ERR317482.dec ERR317482.bam &> ../../results/V_NGC_ERR317482
 mv ERR317482.bam ../../datasets/
 mv human.fna ../../datasets/
 cd ../../
@@ -1178,7 +1178,7 @@ rm -f NA12877_S1.dec
 (time ./deez --force -r humanDZ.fna OUT.dz \
 -o NA12877_S1.dec ) &> ../../results/D_DEEZ_NA12877_S1
 ProgMemoryStop $MEMPID "../../results/MD_DEEZ_NA12877_S1";
-cmp NA12877_S1.dec NA12877_S1.bam > ../../results/V_DEEZ_NA12877_S1
+cmp NA12877_S1.dec NA12877_S1.bam &> ../../results/V_DEEZ_NA12877_S1
 mv NA12877_S1.bam ../../datasets/
 # NA12878_S1.bam
 mv ../../datasets/NA12878_S1.bam .
@@ -1195,7 +1195,7 @@ rm -f NA12878_S1.dec
 (time ./deez --force -r humanDZ.fna OUT.dz \
 -o NA12878_S1.dec ) &> ../../results/D_DEEZ_NA12878_S1
 ProgMemoryStop $MEMPID "../../results/MD_DEEZ_NA12878_S1";
-cmp NA12878_S1.dec NA12878_S1.bam > ../../results/V_DEEZ_NA12878_S1
+cmp NA12878_S1.dec NA12878_S1.bam &> ../../results/V_DEEZ_NA12878_S1
 mv NA12878_S1.bam ../../datasets/
 # NA12882_S1
 mv ../../datasets/NA12882_S1.bam .
@@ -1212,7 +1212,7 @@ rm -f NA12882_S1.dec
 (time ./deez --force -r humanDZ.fna OUT.dz \
 -o NA12882_S1.dec ) &> ../../results/D_DEEZ_NA12882_S1
 ProgMemoryStop $MEMPID "../../results/MD_DEEZ_NA12882_S1";
-cmp NA12882_S1.dec NA12882_S1.bam > ../../results/V_DEEZ_NA12882_S1
+cmp NA12882_S1.dec NA12882_S1.bam &> ../../results/V_DEEZ_NA12882_S1
 mv NA12882_S1.bam ../../datasets/
 # ERR317482.bam
 mv ../../datasets/ERR317482.bam .
@@ -1229,7 +1229,7 @@ rm -f ERR317482.dec
 (time ./deez --force -r humanDZ.fna OUT.dz \
 -o ERR317482.dec ) &> ../../results/D_DEEZ_ERR317482
 ProgMemoryStop $MEMPID "../../results/MD_DEEZ_ERR317482";
-cmp ERR317482.dec ERR317482.bam > ../../results/V_DEEZ_ERR317482
+cmp ERR317482.dec ERR317482.bam &> ../../results/V_DEEZ_ERR317482
 mv ERR317482.bam ../../datasets/
 mv human.fna ../../datasets/
 cd ../../
@@ -1254,7 +1254,7 @@ rm -f NA12877_S1.dec
 (time ./sam_comp2 -r humanDZ.fna \ 
 -f bam -d < OUT.dz > NA12877_S1.dec ) &> ../../results/D_SAMCOMP_NA12877_S1
 ProgMemoryStop $MEMPID "../../results/MD_SAMCOMP_NA12877_S1";
-cmp NA12877_S1.dec NA12877_S1.bam > ../../results/V_SAMCOMP_NA12877_S1
+cmp NA12877_S1.dec NA12877_S1.bam &> ../../results/V_SAMCOMP_NA12877_S1
 mv NA12877_S1.bam ../../datasets/
 # NA12878_S1.bam
 mv ../../datasets/NA12878_S1.bam .
@@ -1271,7 +1271,7 @@ rm -f NA12878_S1.dec
 (time ./sam_comp2 -r humanDZ.fna \ 
 -f bam -d < OUT.dz > NA12878_S1.dec ) &> ../../results/D_SAMCOMP_NA12878_S1
 ProgMemoryStop $MEMPID "../../results/MD_SAMCOMP_NA12878_S1";
-cmp NA12878_S1.dec NA12878_S1.bam > ../../results/V_SAMCOMP_NA12878_S1
+cmp NA12878_S1.dec NA12878_S1.bam &> ../../results/V_SAMCOMP_NA12878_S1
 mv NA12878_S1.bam ../../datasets/
 # NA12882_S1
 mv ../../datasets/NA12882_S1.bam .
@@ -1288,7 +1288,7 @@ rm -f NA12882_S1.dec
 (time ./sam_comp2 -r humanDZ.fna \ 
 -f bam -d < OUT.dz > NA12882_S1.dec ) &> ../../results/D_SAMCOMP_NA12882_S1
 ProgMemoryStop $MEMPID "../../results/MD_SAMCOMP_NA12882_S1";
-cmp NA12882_S1.dec NA12882_S1.bam > ../../results/V_SAMCOMP_NA12882_S1
+cmp NA12882_S1.dec NA12882_S1.bam &> ../../results/V_SAMCOMP_NA12882_S1
 mv NA12882_S1.bam ../../datasets/
 # ERR317482.bam
 mv ../../datasets/ERR317482.bam .
@@ -1305,7 +1305,7 @@ rm -f ERR317482.dec
 (time ./sam_comp2 -r humanDZ.fna \ 
 -f bam -d < OUT.dz > ERR317482.dec ) &> ../../results/D_SAMCOMP_ERR317482
 ProgMemoryStop $MEMPID "../../results/MD_SAMCOMP_ERR317482";
-cmp ERR317482.dec ERR317482.bam > ../../results/V_SAMCOMP_ERR317482
+cmp ERR317482.dec ERR317482.bam &> ../../results/V_SAMCOMP_ERR317482
 mv ERR317482.bam ../../datasets/
 mv human.fna ../../datasets/
 cd ../../
