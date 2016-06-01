@@ -592,7 +592,7 @@ ls -la human.fna.dlim > ../../results/BC_DELIMINATE_HUMAN
 ProgMemoryStop $MEMPID "../../results/MC_DELIMINATE_HUMAN";
 ProgMemoryStart "delim" &
 MEMPID=$!
-rm -f human.fna.delim.d
+rm -f human.fna.dlim.d
 (time ./delim e human.fna.dlim ) &> ../../results/D_DELIMINATE_HUMAN
 ProgMemoryStop $MEMPID "../../results/MD_DELIMINATE_HUMAN";
 cmp human.fna human.fna.dlim.d > ../../results/V_DELIMINATE_HUMAN
@@ -607,7 +607,7 @@ ls -la chimpanze.fna.dlim > ../../results/BC_DELIMINATE_CHIMPANZE
 ProgMemoryStop $MEMPID "../../results/MC_DELIMINATE_CHIMPANZE";
 ProgMemoryStart "delim" &
 MEMPID=$!
-rm -f chimpanze.fna.delim.d
+rm -f chimpanze.fna.dlim.d
 (time ./delim e chimpanze.fna.dlim ) &> ../../results/D_DELIMINATE_CHIMPANZE
 ProgMemoryStop $MEMPID "../../results/MD_DELIMINATE_CHIMPANZE";
 cmp chimpanze.fna chimpanze.fna.dlim.d > ../../results/V_DELIMINATE_CHIMPANZE
@@ -622,7 +622,7 @@ ls -la rice5.fna.dlim > ../../results/BC_DELIMINATE_RICE
 ProgMemoryStop $MEMPID "../../results/MC_DELIMINATE_RICE";
 ProgMemoryStart "delim" &
 MEMPID=$!
-rm -f rice5.fna.delim.d
+rm -f rice5.fna.dlim.d
 (time ./delim e rice5.fna.dlim ) &> ../../results/D_DELIMINATE_RICE
 ProgMemoryStop $MEMPID "../../results/MD_DELIMINATE_RICE";
 cmp rice5.fna rice5.fna.dlim.d > ../../results/V_DELIMINATE_RICE
@@ -637,7 +637,7 @@ ls -la camera.fa.dlim > ../../results/BC_DELIMINATE_CAMERA
 ProgMemoryStop $MEMPID "../../results/MC_DELIMINATE_CAMERA";
 ProgMemoryStart "delim" &
 MEMPID=$!
-rm -f camera.fa.delim.d
+rm -f camera.fa.dlim.d
 (time ./delim e camera.fa.dlim ) &> ../../results/D_DELIMINATE_CAMERA
 ProgMemoryStop $MEMPID "../../results/MD_DELIMINATE_CAMERA";
 cmp camera.fa camera.fa.dlim.d > ../../results/V_DELIMINATE_CAMERA
