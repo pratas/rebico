@@ -1215,6 +1215,7 @@ cd ../../
 fi
 ##############################################################################
 if [[ "$RUN_LWFQZIP" -eq "1" ]]; then
+# XXX: ONLY REFERENCE-BASED COMPRESSION
 cd LWFQZip-v1.02/
 ./LWFQZip -c -i IN > OUT
 ./LWFQZip -d -i OUT > IN.2
