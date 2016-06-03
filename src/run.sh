@@ -1129,14 +1129,89 @@ cd ../../
 fi
 ##############################################################################
 if [[ "$RUN_SCALCE" -eq "1" ]]; then
-scalce input_1.fastq -o result
-#Compress input_1.fastq to the files result.00_1.scalcen.gz, result.00_1.scalcer.gz 
-#and result.00_1.scalceq.gz
-scalce input_1.fastq -r -o result -n library
-#Compress input_1.fastq together with its paired end input_2.fastq, discarding 
-#the names and setting library name to library
-scalce input_1.scalcen -d -o something.fastq
-#Decompress the scalce file to something.fast
+mkdir -p results
+cd progs/scalce
+# ERR174310_1
+mv ../../datasets/ERR174310_1.fastq .
+ProgMemoryStart "scalce" &
+MEMPID=$!
+rm -f OUT*
+(time ./scalce \
+ERR174310_1.fastq -o OUT ) &> ../../results/C_SCALCE_ERR174310_1
+ls -la OUT* | awk 'BEGIN{tot=0} {tot+=$5} END{print tot}' \
+> ../../results/BC_SCALCE_ERR174310_1
+ProgMemoryStop $MEMPID "../../results/MC_SCALCE_ERR174310_1";
+ProgMemoryStart "scalce" &
+MEMPID=$!
+rm -f TMP*;
+(time ./scalce \
+OUT_1.scalcen -d -o TMP ) &> ../../results/D_SCALCE_ERR174310_1
+ProgMemoryStop $MEMPID "../../results/MD_SCALCE_ERR174310_1";
+cmp ERR174310_1.fastq TMP_1.fastq &> ../../results/V_SCALCE_ERR174310_1
+mv ERR174310_1.fastq ../../datasets/
+rm -f OUT* TMP*
+#
+# ERR174310_2
+mv ../../datasets/ERR174310_2.fastq .
+ProgMemoryStart "scalce" &
+MEMPID=$!
+rm -f OUT*
+(time ./scalce \
+ERR174310_2.fastq -o OUT ) &> ../../results/C_SCALCE_ERR174310_2
+ls -la OUT* | awk 'BEGIN{tot=0} {tot+=$5} END{print tot}' \
+> ../../results/BC_SCALCE_ERR174310_2
+ProgMemoryStop $MEMPID "../../results/MC_SCALCE_ERR174310_2";
+ProgMemoryStart "scalce" &
+MEMPID=$!
+rm -f TMP*;
+(time ./scalce \
+OUT_1.scalcen -d -o TMP ) &> ../../results/D_SCALCE_ERR174310_2
+ProgMemoryStop $MEMPID "../../results/MD_SCALCE_ERR174310_2";
+cmp ERR174310_2.fastq TMP_1.fastq &> ../../results/V_SCALCE_ERR174310_2
+mv ERR174310_2.fastq ../../datasets/
+rm -f OUT* TMP*
+#
+# ERR194146_1
+mv ../../datasets/ERR194146_1.fastq .
+ProgMemoryStart "scalce" &
+MEMPID=$!
+rm -f OUT*
+(time ./scalce \
+ERR194146_1.fastq -o OUT ) &> ../../results/C_SCALCE_ERR194146_1
+ls -la OUT* | awk 'BEGIN{tot=0} {tot+=$5} END{print tot}' \
+> ../../results/BC_SCALCE_ERR194146_1
+ProgMemoryStop $MEMPID "../../results/MC_SCALCE_ERR194146_1";
+ProgMemoryStart "scalce" &
+MEMPID=$!
+rm -f TMP*;
+(time ./scalce \
+OUT_1.scalcen -d -o TMP ) &> ../../results/D_SCALCE_ERR194146_1
+ProgMemoryStop $MEMPID "../../results/MD_SCALCE_ERR194146_1";
+cmp ERR194146_1.fastq TMP_1.fastq &> ../../results/V_SCALCE_ERR194146_1
+mv ERR194146_1.fastq ../../datasets/
+rm -f OUT* TMP*
+#
+# ERR194146_2
+mv ../../datasets/ERR194146_2.fastq .
+ProgMemoryStart "scalce" &
+MEMPID=$!
+rm -f OUT*
+(time ./scalce \
+ERR194146_2.fastq -o OUT ) &> ../../results/C_SCALCE_ERR194146_2
+ls -la OUT* | awk 'BEGIN{tot=0} {tot+=$5} END{print tot}' \
+> ../../results/BC_SCALCE_ERR194146_2
+ProgMemoryStop $MEMPID "../../results/MC_SCALCE_ERR194146_2";
+ProgMemoryStart "scalce" &
+MEMPID=$!
+rm -f TMP*;
+(time ./scalce \
+OUT_1.scalcen -d -o TMP ) &> ../../results/D_SCALCE_ERR194146_2
+ProgMemoryStop $MEMPID "../../results/MD_SCALCE_ERR194146_2";
+cmp ERR194146_2.fastq TMP_1.fastq &> ../../results/V_SCALCE_ERR194146_2
+mv ERR194146_2.fastq ../../datasets/
+rm -f OUT* TMP*
+#
+cd ../../
 fi
 ##############################################################################
 if [[ "$RUN_LWFQZIP" -eq "1" ]]; then
