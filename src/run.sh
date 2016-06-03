@@ -1218,9 +1218,9 @@ if [[ "$RUN_LWFQZIP" -eq "1" ]]; then
 # XXX: ONLY REFERENCE-BASED COMPRESSION
 mkdir -p results
 cd progs/lwfqzip
-./LWFQZip -c -i ERR174310_2.fastq -r human.fa > OUT
+./LWFQZip -c -i ERR174310_2.fastq -r human.fa
 # XXX: Segmentation fault (core dumped)
-./LWFQZip -d -i OUT > IN.2
+./LWFQZip -d -i ERR174310_2.fastq.lw -r human.fa
 cd ../../
 fi
 ##############################################################################
