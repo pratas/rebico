@@ -1061,7 +1061,7 @@ ProgMemoryStop $MEMPID "../../results/MC_QUIP_ERR174310_1";
 ProgMemoryStart "quip" &
 MEMPID=$!
 rm -f OUT.fastq;
-(time ./fqz_comp \
+(time ./quip \
 -d -c OUT.qp > OUT.fastq ) &> ../../results/D_QUIP_ERR174310_1
 ProgMemoryStop $MEMPID "../../results/MD_QUIP_ERR174310_1";
 cmp ERR174310_1.fastq OUT.fastq &> ../../results/V_QUIP_ERR174310_1
@@ -1080,7 +1080,7 @@ ProgMemoryStop $MEMPID "../../results/MC_QUIP_ERR174310_2";
 ProgMemoryStart "quip" &
 MEMPID=$!
 rm -f OUT.fastq;
-(time ./fqz_comp \
+(time ./quip \
 -d -c OUT.qp > OUT.fastq ) &> ../../results/D_QUIP_ERR174310_2
 ProgMemoryStop $MEMPID "../../results/MD_QUIP_ERR174310_2";
 cmp ERR174310_2.fastq OUT.fastq &> ../../results/V_QUIP_ERR174310_2
@@ -1099,7 +1099,7 @@ ProgMemoryStop $MEMPID "../../results/MC_QUIP_ERR194146_1";
 ProgMemoryStart "quip" &
 MEMPID=$!
 rm -f OUT.fastq;
-(time ./fqz_comp \
+(time ./quip \
 -d -c OUT.qp > OUT.fastq ) &> ../../results/D_QUIP_ERR194146_1
 ProgMemoryStop $MEMPID "../../results/MD_QUIP_ERR194146_1";
 cmp ERR194146_1.fastq OUT.fastq &> ../../results/V_QUIP_ERR194146_1
@@ -1118,7 +1118,7 @@ ProgMemoryStop $MEMPID "../../results/MC_QUIP_ERR194146_2";
 ProgMemoryStart "quip" &
 MEMPID=$!
 rm -f OUT.fastq;
-(time ./fqz_comp \
+(time ./quip \
 -d -c OUT.qp > OUT.fastq ) &> ../../results/D_QUIP_ERR194146_2
 ProgMemoryStop $MEMPID "../../results/MD_QUIP_ERR194146_2";
 cmp ERR194146_2.fastq OUT.fastq &> ../../results/V_QUIP_ERR194146_2
