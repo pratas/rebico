@@ -147,7 +147,6 @@ C_FQZCOMP_ERR174310_2=`cat results/C_FQZCOMP_ERR174310_2 | tail -n 2 | head -n 1
 C_FQZCOMP_ERR194146_1=`cat results/C_FQZCOMP_ERR194146_1 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
 C_FQZCOMP_ERR194146_2=`cat results/C_FQZCOMP_ERR194146_2 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
 # MC, COMPRESSION MEMORY ======================================================
-# XXX: MEMORY MIGHT NOT BE COMPLETE GIVEN EXTERNAL 7z PROGRAM
 MC_FQZCOMP_ERR174310_1=`cat results/MC_FQZCOMP_ERR174310_1`;
 MC_FQZCOMP_ERR174310_2=`cat results/MC_FQZCOMP_ERR174310_2`;
 MC_FQZCOMP_ERR194146_1=`cat results/MC_FQZCOMP_ERR194146_1`;
@@ -158,7 +157,6 @@ D_FQZCOMP_ERR174310_2=`cat results/D_FQZCOMP_ERR174310_2 | tail -n 2 | head -n 1
 D_FQZCOMP_ERR194146_1=`cat results/D_FQZCOMP_ERR194146_1 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
 D_FQZCOMP_ERR194146_2=`cat results/D_FQZCOMP_ERR194146_2 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
 # MD, DECOMPRESSION MEMORY ====================================================
-# XXX: MEMORY MIGHT NOT BE COMPLETE GIVEN EXTERNAL 7z PROGRAM
 MD_FQZCOMP_ERR174310_1=`cat results/MD_FQZCOMP_ERR174310_1`;
 MD_FQZCOMP_ERR174310_2=`cat results/MD_FQZCOMP_ERR174310_2`;
 MD_FQZCOMP_ERR194146_1=`cat results/MD_FQZCOMP_ERR194146_1`;
@@ -184,7 +182,6 @@ C_QUIP_ERR174310_2=`cat results/C_QUIP_ERR174310_2 | tail -n 2 | head -n 1 | awk
 C_QUIP_ERR194146_1=`cat results/C_QUIP_ERR194146_1 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
 C_QUIP_ERR194146_2=`cat results/C_QUIP_ERR194146_2 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
 # MC, COMPRESSION MEMORY ======================================================
-# XXX: MEMORY MIGHT NOT BE COMPLETE GIVEN EXTERNAL 7z PROGRAM
 MC_QUIP_ERR174310_1=`cat results/MC_QUIP_ERR174310_1`;
 MC_QUIP_ERR174310_2=`cat results/MC_QUIP_ERR174310_2`;
 MC_QUIP_ERR194146_1=`cat results/MC_QUIP_ERR194146_1`;
@@ -195,7 +192,6 @@ D_QUIP_ERR174310_2=`cat results/D_QUIP_ERR174310_2 | tail -n 2 | head -n 1 | awk
 D_QUIP_ERR194146_1=`cat results/D_QUIP_ERR194146_1 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
 D_QUIP_ERR194146_2=`cat results/D_QUIP_ERR194146_2 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
 # MD, DECOMPRESSION MEMORY ====================================================
-# XXX: MEMORY MIGHT NOT BE COMPLETE GIVEN EXTERNAL 7z PROGRAM
 MD_QUIP_ERR174310_1=`cat results/MD_QUIP_ERR174310_1`;
 MD_QUIP_ERR174310_2=`cat results/MD_QUIP_ERR174310_2`;
 MD_QUIP_ERR194146_1=`cat results/MD_QUIP_ERR194146_1`;
@@ -206,28 +202,61 @@ V_QUIP_ERR174310_2=`cat results/V_QUIP_ERR174310_2 | wc -l`;
 V_QUIP_ERR194146_1=`cat results/V_QUIP_ERR194146_1 | wc -l`;
 V_QUIP_ERR194146_2=`cat results/V_QUIP_ERR194146_2 | wc -l`;
 #
-echo "."; 
-echo "."; 
+###############################################################################
+#
+# DSRC  #######################################################################
+#
+# BC, BYTES ON COMPRESSION ====================================================
+BC_DSRC_ERR174310_1=`cat results/BC_DSRC_ERR174310_1 | awk '{ print $5; }'`;
+BC_DSRC_ERR174310_2=`cat results/BC_DSRC_ERR174310_2 | awk '{ print $5; }'`;
+BC_DSRC_ERR194146_1=`cat results/BC_DSRC_ERR194146_1 | awk '{ print $5; }'`;
+BC_DSRC_ERR194146_2=`cat results/BC_DSRC_ERR194146_2 | awk '{ print $5; }'`;
+# C, COMPRESSION TIME =========================================================
+C_DSRC_ERR174310_1=`cat results/C_DSRC_ERR174310_1 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_DSRC_ERR174310_2=`cat results/C_DSRC_ERR174310_2 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_DSRC_ERR194146_1=`cat results/C_DSRC_ERR194146_1 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_DSRC_ERR194146_2=`cat results/C_DSRC_ERR194146_2 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MC, COMPRESSION MEMORY ======================================================
+MC_DSRC_ERR174310_1=`cat results/MC_DSRC_ERR174310_1`;
+MC_DSRC_ERR174310_2=`cat results/MC_DSRC_ERR174310_2`;
+MC_DSRC_ERR194146_1=`cat results/MC_DSRC_ERR194146_1`;
+MC_DSRC_ERR194146_2=`cat results/MC_DSRC_ERR194146_2`;
+# D, DECOMPRESSION TIME =======================================================
+D_DSRC_ERR174310_1=`cat results/D_DSRC_ERR174310_1 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_DSRC_ERR174310_2=`cat results/D_DSRC_ERR174310_2 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_DSRC_ERR194146_1=`cat results/D_DSRC_ERR194146_1 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_DSRC_ERR194146_2=`cat results/D_DSRC_ERR194146_2 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MD, DECOMPRESSION MEMORY ====================================================
+MD_DSRC_ERR174310_1=`cat results/MD_DSRC_ERR174310_1`;
+MD_DSRC_ERR174310_2=`cat results/MD_DSRC_ERR174310_2`;
+MD_DSRC_ERR194146_1=`cat results/MD_DSRC_ERR194146_1`;
+MD_DSRC_ERR194146_2=`cat results/MD_DSRC_ERR194146_2`;
+# V, DECOMPRESSION HELD WITH SUCCESS? =========================================
+V_DSRC_ERR174310_1=`cat results/V_DSRC_ERR174310_1 | wc -l`;
+V_DSRC_ERR174310_2=`cat results/V_DSRC_ERR174310_2 | wc -l`;
+V_DSRC_ERR194146_1=`cat results/V_DSRC_ERR194146_1 | wc -l`;
+V_DSRC_ERR194146_2=`cat results/V_DSRC_ERR194146_2 | wc -l`;
+#
 ###############################################################################
 ############################## BUILD TABLE ####################################
 ###############################################################################
-printf "Method\tC_bytes\tC_Time\tC_mem\tD_Time\tD_mem\tcmp?\n";
+printf "\n\nMethod\tC_bytes\tC_Time\tC_mem\tD_Time\tD_mem\tcmp?\n";
 printf "ERR174310_1----------------------------------------\n";
 printf "fqz_comp\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_FQZCOMP_ERR174310_1 $C_FQZCOMP_ERR174310_1 $MC_FQZCOMP_ERR174310_1 $D_FQZCOMP_ERR174310_1 $MD_FQZCOMP_ERR174310_1 $V_FQZCOMP_ERR174310_1;
 printf "Quip\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_QUIP_ERR174310_1 $C_QUIP_ERR174310_1 $MC_QUIP_ERR174310_1 $D_QUIP_ERR174310_1 $MD_QUIP_ERR174310_1 $V_QUIP_ERR174310_1;
-#printf "Leon\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_LEON_ERR174310_1 $C_LEON_ERR174310_1 $MC_LEON_ERR174310_1 $D_LEON_ERR174310_1 $MD_LEON_ERR174310_1 $V_LEON_ERR174310_1;
+printf "DSRC\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DSRC_ERR174310_1 $C_DSRC_ERR174310_1 $MC_DSRC_ERR174310_1 $D_DSRC_ERR174310_1 $MD_DSRC_ERR174310_1 $V_DSRC_ERR174310_1;
 printf "ERR174310_2----------------------------------------\n";
 printf "FQZCOMP\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_FQZCOMP_ERR174310_2 $C_FQZCOMP_ERR174310_2 $MC_FQZCOMP_ERR174310_2 $D_FQZCOMP_ERR174310_2 $MD_FQZCOMP_ERR174310_2 $V_FQZCOMP_ERR174310_2;
 printf "Quip\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_QUIP_ERR174310_2 $C_QUIP_ERR174310_2 $MC_QUIP_ERR174310_2 $D_QUIP_ERR174310_2 $MD_QUIP_ERR174310_2 $V_QUIP_ERR174310_2;
-#printf "Leon\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_LEON_ERR174310_2 $C_LEON_ERR174310_2 $MC_LEON_ERR174310_2 $D_LEON_ERR174310_2 $MD_LEON_ERR174310_2 $V_LEON_ERR174310_2;
+printf "DSRC\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DSRC_ERR174310_2 $C_DSRC_ERR174310_2 $MC_DSRC_ERR174310_2 $D_DSRC_ERR174310_2 $MD_DSRC_ERR174310_2 $V_DSRC_ERR174310_2;
 printf "ERR194146_1----------------------------------------\n";
 printf "FQZCOMP\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_FQZCOMP_ERR194146_1 $C_FQZCOMP_ERR194146_1 $MC_FQZCOMP_ERR194146_1 $D_FQZCOMP_ERR194146_1 $MD_FQZCOMP_ERR194146_1 $V_FQZCOMP_ERR194146_1;
 printf "Quip\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_QUIP_ERR194146_1 $C_QUIP_ERR194146_1 $MC_QUIP_ERR194146_1 $D_QUIP_ERR194146_1 $MD_QUIP_ERR194146_1 $V_QUIP_ERR194146_1;
-#printf "Leon\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_LEON_ERR194146_1 $C_LEON_ERR194146_1 $MC_LEON_ERR194146_1 $D_LEON_ERR194146_1 $MD_LEON_ERR194146_1 $V_LEON_ERR194146_1;
+printf "DSRC\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DSRC_ERR194146_1 $C_DSRC_ERR194146_1 $MC_DSRC_ERR194146_1 $D_DSRC_ERR194146_1 $MD_DSRC_ERR194146_1 $V_DSRC_ERR194146_1;
 printf "ERR194146_2----------------------------------------\n";
 printf "FQZCOMP\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_FQZCOMP_ERR194146_2 $C_FQZCOMP_ERR194146_2 $MC_FQZCOMP_ERR194146_2 $D_FQZCOMP_ERR194146_2 $MD_FQZCOMP_ERR194146_2 $V_FQZCOMP_ERR194146_2;
 printf "Quip\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_QUIP_ERR194146_2 $C_QUIP_ERR194146_2 $MC_QUIP_ERR194146_2 $D_QUIP_ERR194146_2 $MD_QUIP_ERR194146_2 $V_QUIP_ERR194146_2;
-#printf "Leon\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_LEON_ERR194146_2 $C_LEON_ERR194146_2 $MC_LEON_ERR194146_2 $D_LEON_ERR194146_2 $MD_LEON_ERR194146_2 $V_LEON_ERR194146_2;
+printf "DSRC\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DSRC_ERR194146_2 $C_DSRC_ERR194146_2 $MC_DSRC_ERR194146_2 $D_DSRC_ERR194146_2 $MD_DSRC_ERR194146_2 $V_DSRC_ERR194146_2;
 ###############################################################################
 
 
