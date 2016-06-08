@@ -33,6 +33,7 @@ RUN_LWFQZIP=1;
 RUN_SAMCOMP=1;
 RUN_DEEZ=1;
 RUN_NGC=1;
+RUN_QUIP_SAM=1;
 ###############################################################################
 mkdir -p results
 ###############################################################################
@@ -1474,7 +1475,7 @@ mv ../../datasets/NA12877_S1.bam .
 ProgMemoryStart "./sam_comp2" &
 MEMPID=$!
 rm -f OUT.dz
-(time ./sam_comp2 -r humanDZ.fa \
+(time ./sam_comp2 -r humanDZ.fna \
 -f bam < NA12877_S1.bam > OUT.dz ) &> ../../results/C_SAMCOMP_NA12877_S1
 ls -la OUT.dz > ../../results/BC_SAMCOMP_NA12877_S1
 ProgMemoryStop $MEMPID "../../results/MC_SAMCOMP_NA12877_S1";
@@ -1491,7 +1492,7 @@ mv ../../datasets/NA12878_S1.bam .
 ProgMemoryStart "./sam_comp2" &
 MEMPID=$!
 rm -f OUT.dz
-(time ./sam_comp2 -r humanDZ.fa \
+(time ./sam_comp2 -r humanDZ.fna \
 -f bam < NA12878_S1.bam > OUT.dz ) &> ../../results/C_SAMCOMP_NA12878_S1
 ls -la OUT.dz > ../../results/BC_SAMCOMP_NA12878_S1
 ProgMemoryStop $MEMPID "../../results/MC_SAMCOMP_NA12878_S1";
@@ -1508,7 +1509,7 @@ mv ../../datasets/NA12882_S1.bam .
 ProgMemoryStart "./sam_comp2" &
 MEMPID=$!
 rm -f OUT.dz
-(time ./sam_comp2 -r humanDZ.fa \
+(time ./sam_comp2 -r humanDZ.fna \
 -f bam < NA12882_S1.bam > OUT.dz ) &> ../../results/C_SAMCOMP_NA12882_S1
 ls -la OUT.dz > ../../results/BC_SAMCOMP_NA12882_S1
 ProgMemoryStop $MEMPID "../../results/MC_SAMCOMP_NA12882_S1";
@@ -1525,7 +1526,7 @@ mv ../../datasets/ERR317482.bam .
 ProgMemoryStart "./sam_comp2" &
 MEMPID=$!
 rm -f OUT.dz
-(time ./sam_comp2 -r humanDZ.fa \
+(time ./sam_comp2 -r humanDZ.fna \
 -f bam < ERR317482.bam > OUT.dz ) &> ../../results/C_SAMCOMP_ERR317482
 ls -la OUT.dz > ../../results/BC_SAMCOMP_ERR317482
 ProgMemoryStop $MEMPID "../../results/MC_SAMCOMP_ERR317482";
@@ -1540,5 +1541,83 @@ mv ERR317482.bam ../../datasets/
 mv human.fna ../../datasets/
 cd ../../
 fi
+#
+##############################################################################
+if [[ "$RUN_QUIP_SAM" -eq "1" ]]; then
+mkdir -p results
+cd progs/quip/
+mv ../../datasets/humanDZ.fna .
+# NA12877_S1.bam
+mv ../../datasets/NA12877_S1.bam .
+ProgMemoryStart "./quip" &
+MEMPID=$!
+rm -f OUT.qp
+(time ./quip -r humanDZ.fna \
+-c NA12877_S1.bam > OUT.qp ) &> ../../results/C_QUIP_SAM_NA12877_S1
+ls -la OUT.qp > ../../results/BC_QUIP_SAM_NA12877_S1
+ProgMemoryStop $MEMPID "../../results/MC_QUIP_SAM_NA12877_S1";
+ProgMemoryStart "./quip" &
+MEMPID=$!
+rm -f NA12877_S1.dec
+(time ./quip -r humanDZ.fna \ 
+-d OUT.qp > NA12877_S1.dec ) &> ../../results/D_QUIP_SAM_NA12877_S1
+ProgMemoryStop $MEMPID "../../results/MD_QUIP_SAM_NA12877_S1";
+cmp NA12877_S1.dec NA12877_S1.bam &> ../../results/V_QUIP_SAM_NA12877_S1
+mv NA12877_S1.bam ../../datasets/
+# NA12878_S1.bam
+mv ../../datasets/NA12878_S1.bam .
+ProgMemoryStart "./quip" &
+MEMPID=$!
+rm -f OUT.qp
+(time ./quip -r humanDZ.fna \
+-c NA12878_S1.bam > OUT.qp ) &> ../../results/C_QUIP_SAM_NA12878_S1
+ls -la OUT.qp > ../../results/BC_QUIP_SAM_NA12878_S1
+ProgMemoryStop $MEMPID "../../results/MC_QUIP_SAM_NA12878_S1";
+ProgMemoryStart "./quip" &
+MEMPID=$!
+rm -f NA12878_S1.dec
+(time ./quip -r humanDZ.fna \ 
+-d -c OUT.qp > NA12878_S1.dec ) &> ../../results/D_QUIP_SAM_NA12878_S1
+ProgMemoryStop $MEMPID "../../results/MD_QUIP_SAM_NA12878_S1";
+cmp NA12878_S1.dec NA12878_S1.bam &> ../../results/V_QUIP_SAM_NA12878_S1
+mv NA12878_S1.bam ../../datasets/
+# NA12882_S1
+mv ../../datasets/NA12882_S1.bam .
+ProgMemoryStart "./quip" &
+MEMPID=$!
+rm -f OUT.qp
+(time ./quip -r humanDZ.fna \
+-c NA12882_S1.bam > OUT.qp ) &> ../../results/C_QUIP_SAM_NA12882_S1
+ls -la OUT.qp > ../../results/BC_QUIP_SAM_NA12882_S1
+ProgMemoryStop $MEMPID "../../results/MC_QUIP_SAM_NA12882_S1";
+ProgMemoryStart "./quip" &
+MEMPID=$!
+rm -f NA12882_S1.dec
+(time ./quip -r humanDZ.fna \ 
+-d -c OUT.qp > NA12882_S1.dec ) &> ../../results/D_QUIP_SAM_NA12882_S1
+ProgMemoryStop $MEMPID "../../results/MD_QUIP_SAM_NA12882_S1";
+cmp NA12882_S1.dec NA12882_S1.bam &> ../../results/V_QUIP_SAM_NA12882_S1
+mv NA12882_S1.bam ../../datasets/
+# ERR317482.bam
+mv ../../datasets/ERR317482.bam .
+ProgMemoryStart "./quip" &
+MEMPID=$!
+rm -f OUT.qp
+(time ./quip -r humanDZ.fna \
+-c ERR317482.bam > OUT.qp ) &> ../../results/C_QUIP_SAM_ERR317482
+ls -la OUT.qp > ../../results/BC_QUIP_SAM_ERR317482
+ProgMemoryStop $MEMPID "../../results/MC_QUIP_SAM_ERR317482";
+ProgMemoryStart "./quip" &
+MEMPID=$!
+rm -f ERR317482.dec
+(time ./quip -r humanDZ.fna \ 
+-d -c OUT.qp > ERR317482.dec ) &> ../../results/D_QUIP_SAM_ERR317482
+ProgMemoryStop $MEMPID "../../results/MD_QUIP_SAM_ERR317482";
+cmp ERR317482.dec ERR317482.bam &> ../../results/V_QUIP_SAM_ERR317482
+mv ERR317482.bam ../../datasets/
+mv human.fna ../../datasets/
+cd ../../
+fi
+#
 ##############################################################################
 
