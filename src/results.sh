@@ -336,6 +336,56 @@ printf "DSRC\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DSRC_ERR194146_2 $C_DSRC_ERR194146_
 printf "SCALCE\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_SCALCE_ERR194146_2 $C_SCALCE_ERR194146_2 $MC_SCALCE_ERR194146_2 $D_SCALCE_ERR194146_2 $MD_SCALCE_ERR194146_2 $V_SCALCE_ERR194146_2;
 printf "FQC\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_FQC_ERR194146_2 $C_FQC_ERR194146_2 $MC_FQC_ERR194146_2 $D_FQC_ERR194146_2 $MD_FQC_ERR194146_2 $V_FQC_ERR194146_2;
 ###############################################################################
-
+#
+###############################################################################
+#################################### SAM/BAM ##################################
+###############################################################################
+#
+# DEEZ ########################################################################
+#
+# BC, BYTES ON COMPRESSION ====================================================
+BC_DEEZ_NA12877_S1=`cat results/BC_DEEZ_NA12877_S1 | awk '{ print $5; }'`;
+BC_DEEZ_NA12878_S1=`cat results/BC_DEEZ_NA12878_S1 | awk '{ print $5; }'`;
+BC_DEEZ_NA12882_S1=`cat results/BC_DEEZ_NA12882_S1 | awk '{ print $5; }'`;
+BC_DEEZ_ERR317482=`cat results/BC_DEEZ_ERR317482 | awk '{ print $5; }'`;
+# C, COMPRESSION TIME =========================================================
+C_DEEZ_NA12877_S1=`cat results/C_DEEZ_NA12877_S1 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_DEEZ_NA12878_S1=`cat results/C_DEEZ_NA12878_S1 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_DEEZ_NA12882_S1=`cat results/C_DEEZ_NA12882_S1 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_DEEZ_ERR317482=`cat results/C_DEEZ_ERR317482 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MC, COMPRESSION MEMORY ======================================================
+MC_DEEZ_NA12877_S1=`cat results/MC_DEEZ_NA12877_S1`;
+MC_DEEZ_NA12878_S1=`cat results/MC_DEEZ_NA12878_S1`;
+MC_DEEZ_NA12882_S1=`cat results/MC_DEEZ_NA12882_S1`;
+MC_DEEZ_ERR317482=`cat results/MC_DEEZ_ERR317482`;
+# D, DECOMPRESSION TIME =======================================================
+D_DEEZ_NA12877_S1=`cat results/D_DEEZ_NA12877_S1 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_DEEZ_NA12878_S1=`cat results/D_DEEZ_NA12878_S1 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_DEEZ_NA12882_S1=`cat results/D_DEEZ_NA12882_S1 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_DEEZ_ERR317482=`cat results/D_DEEZ_ERR317482 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MD, DECOMPRESSION MEMORY ====================================================
+MD_DEEZ_NA12877_S1=`cat results/MD_DEEZ_NA12877_S1`;
+MD_DEEZ_NA12878_S1=`cat results/MD_DEEZ_NA12878_S1`;
+MD_DEEZ_NA12882_S1=`cat results/MD_DEEZ_NA12882_S1`;
+MD_DEEZ_ERR317482=`cat results/MD_DEEZ_ERR317482`;
+# V, DECOMPRESSION HELD WITH SUCCESS? =========================================
+V_DEEZ_NA12877_S1=`cat results/V_DEEZ_NA12877_S1 | wc -l`;
+V_DEEZ_NA12878_S1=`cat results/V_DEEZ_NA12878_S1 | wc -l`;
+V_DEEZ_NA12882_S1=`cat results/V_DEEZ_NA12882_S1 | wc -l`;
+V_DEEZ_ERR317482=`cat results/V_DEEZ_ERR317482 | wc -l`;
+#
+###############################################################################
+############################## BUILD TABLE ####################################
+###############################################################################
+printf "\n\nMethod\tC_bytes\tC_Time\tC_mem\tD_Time\tD_mem\tcmp?\n";
+printf "NA12877_S1-----------------------------------------\n";
+printf "Deez\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DEEZ_NA12877_S1 $C_DEEZ_NA12877_S1 $MC_DEEZ_NA12877_S1 $D_DEEZ_NA12877_S1 $MD_DEEZ_NA12877_S1 $V_DEEZ_NA12877_S1;
+printf "NA12878_S1-----------------------------------------\n";
+printf "Deez\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DEEZ_NA12878_S1 $C_DEEZ_NA12878_S1 $MC_DEEZ_NA12878_S1 $D_DEEZ_NA12878_S1 $MD_DEEZ_NA12878_S1 $V_DEEZ_NA12878_S1;
+printf "NA12882_S1-----------------------------------------\n";
+printf "Deez\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DEEZ_NA12882_S1 $C_DEEZ_NA12882_S1 $MC_DEEZ_NA12882_S1 $D_DEEZ_NA12882_S1 $MD_DEEZ_NA12882_S1 $V_DEEZ_NA12882_S1;
+printf "ERR317482------------------------------------------\n";
+printf "Deez\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DEEZ_ERR317482 $C_DEEZ_ERR317482 $MC_DEEZ_ERR317482 $D_DEEZ_ERR317482 $MD_DEEZ_ERR317482 $V_DEEZ_ERR317482;
+###############################################################################
 
 

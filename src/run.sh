@@ -118,6 +118,7 @@ cat ../../datasets/rice5.fna | grep -v ">" | tr -d -c "ACGT" > rice5.seq
 
 # DOIT : THE PROGRAM SEEMS A MESS FOR REFERENCE-FREE COMPRESSION
 # Authors have been emailed for instructions
+# NO REPLY UNTIL TODAY (8 June, 2016)
 #
 # ./cogi-compress -ur -n 1 TESTE
 # ./cogi-uncompress -l 1
