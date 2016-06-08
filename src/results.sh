@@ -273,6 +273,41 @@ V_SCALCE_ERR194146_1=`cat results/V_SCALCE_ERR194146_1 | wc -l`;
 V_SCALCE_ERR194146_2=`cat results/V_SCALCE_ERR194146_2 | wc -l`;
 #
 ###############################################################################
+#
+# FQC ######################################################################
+#
+# BC, BYTES ON COMPRESSION ====================================================
+BC_FQC_ERR174310_1=`cat results/BC_FQC_ERR174310_1 | awk '{ print $5; }'`;
+BC_FQC_ERR174310_2=`cat results/BC_FQC_ERR174310_2 | awk '{ print $5; }'`;
+BC_FQC_ERR194146_1=`cat results/BC_FQC_ERR194146_1 | awk '{ print $5; }'`;
+BC_FQC_ERR194146_2=`cat results/BC_FQC_ERR194146_2 | awk '{ print $5; }'`;
+# C, COMPRESSION TIME =========================================================
+C_FQC_ERR174310_1=`cat results/C_FQC_ERR174310_1 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_FQC_ERR174310_2=`cat results/C_FQC_ERR174310_2 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_FQC_ERR194146_1=`cat results/C_FQC_ERR194146_1 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_FQC_ERR194146_2=`cat results/C_FQC_ERR194146_2 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MC, COMPRESSION MEMORY ======================================================
+MC_FQC_ERR174310_1=`cat results/MC_FQC_ERR174310_1`;
+MC_FQC_ERR174310_2=`cat results/MC_FQC_ERR174310_2`;
+MC_FQC_ERR194146_1=`cat results/MC_FQC_ERR194146_1`;
+MC_FQC_ERR194146_2=`cat results/MC_FQC_ERR194146_2`;
+# D, DECOMPRESSION TIME =======================================================
+D_FQC_ERR174310_1=`cat results/D_FQC_ERR174310_1 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_FQC_ERR174310_2=`cat results/D_FQC_ERR174310_2 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_FQC_ERR194146_1=`cat results/D_FQC_ERR194146_1 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_FQC_ERR194146_2=`cat results/D_FQC_ERR194146_2 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MD, DECOMPRESSION MEMORY ====================================================
+MD_FQC_ERR174310_1=`cat results/MD_FQC_ERR174310_1`;
+MD_FQC_ERR174310_2=`cat results/MD_FQC_ERR174310_2`;
+MD_FQC_ERR194146_1=`cat results/MD_FQC_ERR194146_1`;
+MD_FQC_ERR194146_2=`cat results/MD_FQC_ERR194146_2`;
+# V, DECOMPRESSION HELD WITH SUCCESS? =========================================
+V_FQC_ERR174310_1=`cat results/V_FQC_ERR174310_1 | wc -l`;
+V_FQC_ERR174310_2=`cat results/V_FQC_ERR174310_2 | wc -l`;
+V_FQC_ERR194146_1=`cat results/V_FQC_ERR194146_1 | wc -l`;
+V_FQC_ERR194146_2=`cat results/V_FQC_ERR194146_2 | wc -l`;
+#
+###############################################################################
 ############################## BUILD TABLE ####################################
 ###############################################################################
 printf "\n\nMethod\tC_bytes\tC_Time\tC_mem\tD_Time\tD_mem\tcmp?\n";
@@ -281,21 +316,25 @@ printf "fqz_comp\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_FQZCOMP_ERR174310_1 $C_FQZCOMP_
 printf "Quip\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_QUIP_ERR174310_1 $C_QUIP_ERR174310_1 $MC_QUIP_ERR174310_1 $D_QUIP_ERR174310_1 $MD_QUIP_ERR174310_1 $V_QUIP_ERR174310_1;
 printf "DSRC\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DSRC_ERR174310_1 $C_DSRC_ERR174310_1 $MC_DSRC_ERR174310_1 $D_DSRC_ERR174310_1 $MD_DSRC_ERR174310_1 $V_DSRC_ERR174310_1;
 printf "SCALCE\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_SCALCE_ERR174310_1 $C_SCALCE_ERR174310_1 $MC_SCALCE_ERR174310_1 $D_SCALCE_ERR174310_1 $MD_SCALCE_ERR174310_1 $V_SCALCE_ERR174310_1;
+printf "FQC\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_FQC_ERR174310_1 $C_FQC_ERR174310_1 $MC_FQC_ERR174310_1 $D_FQC_ERR174310_1 $MD_FQC_ERR174310_1 $V_FQC_ERR174310_1;
 printf "ERR174310_2----------------------------------------\n";
 printf "FQZCOMP\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_FQZCOMP_ERR174310_2 $C_FQZCOMP_ERR174310_2 $MC_FQZCOMP_ERR174310_2 $D_FQZCOMP_ERR174310_2 $MD_FQZCOMP_ERR174310_2 $V_FQZCOMP_ERR174310_2;
 printf "Quip\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_QUIP_ERR174310_2 $C_QUIP_ERR174310_2 $MC_QUIP_ERR174310_2 $D_QUIP_ERR174310_2 $MD_QUIP_ERR174310_2 $V_QUIP_ERR174310_2;
 printf "DSRC\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DSRC_ERR174310_2 $C_DSRC_ERR174310_2 $MC_DSRC_ERR174310_2 $D_DSRC_ERR174310_2 $MD_DSRC_ERR174310_2 $V_DSRC_ERR174310_2;
 printf "SCALCE\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_SCALCE_ERR174310_2 $C_SCALCE_ERR174310_2 $MC_SCALCE_ERR174310_2 $D_SCALCE_ERR174310_2 $MD_SCALCE_ERR174310_2 $V_SCALCE_ERR174310_2;
+printf "FQC\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_FQC_ERR174310_2 $C_FQC_ERR174310_2 $MC_FQC_ERR174310_2 $D_FQC_ERR174310_2 $MD_FQC_ERR174310_2 $V_FQC_ERR174310_2;
 printf "ERR194146_1----------------------------------------\n";
 printf "FQZCOMP\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_FQZCOMP_ERR194146_1 $C_FQZCOMP_ERR194146_1 $MC_FQZCOMP_ERR194146_1 $D_FQZCOMP_ERR194146_1 $MD_FQZCOMP_ERR194146_1 $V_FQZCOMP_ERR194146_1;
 printf "Quip\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_QUIP_ERR194146_1 $C_QUIP_ERR194146_1 $MC_QUIP_ERR194146_1 $D_QUIP_ERR194146_1 $MD_QUIP_ERR194146_1 $V_QUIP_ERR194146_1;
 printf "DSRC\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DSRC_ERR194146_1 $C_DSRC_ERR194146_1 $MC_DSRC_ERR194146_1 $D_DSRC_ERR194146_1 $MD_DSRC_ERR194146_1 $V_DSRC_ERR194146_1;
 printf "SCALCE\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_SCALCE_ERR194146_1 $C_SCALCE_ERR194146_1 $MC_SCALCE_ERR194146_1 $D_SCALCE_ERR194146_1 $MD_SCALCE_ERR194146_1 $V_SCALCE_ERR194146_1;
+printf "FQC\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_FQC_ERR194146_1 $C_FQC_ERR194146_1 $MC_FQC_ERR194146_1 $D_FQC_ERR194146_1 $MD_FQC_ERR194146_1 $V_FQC_ERR194146_1;
 printf "ERR194146_2----------------------------------------\n";
 printf "FQZCOMP\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_FQZCOMP_ERR194146_2 $C_FQZCOMP_ERR194146_2 $MC_FQZCOMP_ERR194146_2 $D_FQZCOMP_ERR194146_2 $MD_FQZCOMP_ERR194146_2 $V_FQZCOMP_ERR194146_2;
 printf "Quip\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_QUIP_ERR194146_2 $C_QUIP_ERR194146_2 $MC_QUIP_ERR194146_2 $D_QUIP_ERR194146_2 $MD_QUIP_ERR194146_2 $V_QUIP_ERR194146_2;
 printf "DSRC\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DSRC_ERR194146_2 $C_DSRC_ERR194146_2 $MC_DSRC_ERR194146_2 $D_DSRC_ERR194146_2 $MD_DSRC_ERR194146_2 $V_DSRC_ERR194146_2;
 printf "SCALCE\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_SCALCE_ERR194146_2 $C_SCALCE_ERR194146_2 $MC_SCALCE_ERR194146_2 $D_SCALCE_ERR194146_2 $MD_SCALCE_ERR194146_2 $V_SCALCE_ERR194146_2;
+printf "FQC\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_FQC_ERR194146_2 $C_FQC_ERR194146_2 $MC_FQC_ERR194146_2 $D_FQC_ERR194146_2 $MD_FQC_ERR194146_2 $V_FQC_ERR194146_2;
 ###############################################################################
 
 
