@@ -408,6 +408,40 @@ V_SAMCOMP_NA12877_S1=`cat results/V_SAMCOMP_NA12877_S1 | wc -l`;
 V_SAMCOMP_NA12878_S1=`cat results/V_SAMCOMP_NA12878_S1 | wc -l`;
 V_SAMCOMP_NA12882_S1=`cat results/V_SAMCOMP_NA12882_S1 | wc -l`;
 V_SAMCOMP_ERR317482=`cat results/V_SAMCOMP_ERR317482 | wc -l`;
+###############################################################################
+#
+# QUIP_SAM ########################################################################
+#
+# BC, BYTES ON COMPRESSION ====================================================
+BC_QUIP_SAM_NA12877_S1=`cat results/BC_QUIP_SAM_NA12877_S1 | awk '{ print $5; }'`;
+BC_QUIP_SAM_NA12878_S1=`cat results/BC_QUIP_SAM_NA12878_S1 | awk '{ print $5; }'`;
+BC_QUIP_SAM_NA12882_S1=`cat results/BC_QUIP_SAM_NA12882_S1 | awk '{ print $5; }'`;
+BC_QUIP_SAM_ERR317482=`cat results/BC_QUIP_SAM_ERR317482 | awk '{ print $5; }'`;
+# C, COMPRESSION TIME =========================================================
+C_QUIP_SAM_NA12877_S1=`cat results/C_QUIP_SAM_NA12877_S1 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_QUIP_SAM_NA12878_S1=`cat results/C_QUIP_SAM_NA12878_S1 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_QUIP_SAM_NA12882_S1=`cat results/C_QUIP_SAM_NA12882_S1 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_QUIP_SAM_ERR317482=`cat results/C_QUIP_SAM_ERR317482 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MC, COMPRESSION MEMORY ======================================================
+MC_QUIP_SAM_NA12877_S1=`cat results/MC_QUIP_SAM_NA12877_S1`;
+MC_QUIP_SAM_NA12878_S1=`cat results/MC_QUIP_SAM_NA12878_S1`;
+MC_QUIP_SAM_NA12882_S1=`cat results/MC_QUIP_SAM_NA12882_S1`;
+MC_QUIP_SAM_ERR317482=`cat results/MC_QUIP_SAM_ERR317482`;
+# D, DECOMPRESSION TIME =======================================================
+D_QUIP_SAM_NA12877_S1=`cat results/D_QUIP_SAM_NA12877_S1 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_QUIP_SAM_NA12878_S1=`cat results/D_QUIP_SAM_NA12878_S1 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_QUIP_SAM_NA12882_S1=`cat results/D_QUIP_SAM_NA12882_S1 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_QUIP_SAM_ERR317482=`cat results/D_QUIP_SAM_ERR317482 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MD, DECOMPRESSION MEMORY ====================================================
+MD_QUIP_SAM_NA12877_S1=`cat results/MD_QUIP_SAM_NA12877_S1`;
+MD_QUIP_SAM_NA12878_S1=`cat results/MD_QUIP_SAM_NA12878_S1`;
+MD_QUIP_SAM_NA12882_S1=`cat results/MD_QUIP_SAM_NA12882_S1`;
+MD_QUIP_SAM_ERR317482=`cat results/MD_QUIP_SAM_ERR317482`;
+# V, DECOMPRESSION HELD WITH SUCCESS? =========================================
+V_QUIP_SAM_NA12877_S1=`cat results/V_QUIP_SAM_NA12877_S1 | wc -l`;
+V_QUIP_SAM_NA12878_S1=`cat results/V_QUIP_SAM_NA12878_S1 | wc -l`;
+V_QUIP_SAM_NA12882_S1=`cat results/V_QUIP_SAM_NA12882_S1 | wc -l`;
+V_QUIP_SAM_ERR317482=`cat results/V_QUIP_SAM_ERR317482 | wc -l`;
 #
 ###############################################################################
 ############################## BUILD TABLE ####################################
@@ -415,16 +449,20 @@ V_SAMCOMP_ERR317482=`cat results/V_SAMCOMP_ERR317482 | wc -l`;
 printf "\n\nMethod\tC_bytes\tC_Time\tC_mem\tD_Time\tD_mem\tcmp?\n";
 printf "NA12877_S1-----------------------------------------\n";
 printf "Deez\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DEEZ_NA12877_S1 $C_DEEZ_NA12877_S1 $MC_DEEZ_NA12877_S1 $D_DEEZ_NA12877_S1 $MD_DEEZ_NA12877_S1 $V_DEEZ_NA12877_S1;
-printf "SAMCOMP\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_SAMCOMP_NA12877_S1 $C_SAMCOMP_NA12877_S1 $MC_SAMCOMP_NA12877_S1 $D_SAMCOMP_NA12877_S1 $MD_SAMCOMP_NA12877_S1 $V_SAMCOMP_NA12877_S1;
+printf "Sam_comp\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_SAMCOMP_NA12877_S1 $C_SAMCOMP_NA12877_S1 $MC_SAMCOMP_NA12877_S1 $D_SAMCOMP_NA12877_S1 $MD_SAMCOMP_NA12877_S1 $V_SAMCOMP_NA12877_S1;
+printf "Quip\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_QUIP_SAM_NA12877_S1 $C_QUIP_SAM_NA12877_S1 $MC_QUIP_SAM_NA12877_S1 $D_QUIP_SAM_NA12877_S1 $MD_QUIP_SAM_NA12877_S1 $V_QUIP_SAM_NA12877_S1;
 printf "NA12878_S1-----------------------------------------\n";
 printf "Deez\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DEEZ_NA12878_S1 $C_DEEZ_NA12878_S1 $MC_DEEZ_NA12878_S1 $D_DEEZ_NA12878_S1 $MD_DEEZ_NA12878_S1 $V_DEEZ_NA12878_S1;
-printf "SAMCOMP\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_SAMCOMP_NA12878_S1 $C_SAMCOMP_NA12878_S1 $MC_SAMCOMP_NA12878_S1 $D_SAMCOMP_NA12878_S1 $MD_SAMCOMP_NA12878_S1 $V_SAMCOMP_NA12878_S1;
+printf "Sam_comp\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_SAMCOMP_NA12878_S1 $C_SAMCOMP_NA12878_S1 $MC_SAMCOMP_NA12878_S1 $D_SAMCOMP_NA12878_S1 $MD_SAMCOMP_NA12878_S1 $V_SAMCOMP_NA12878_S1;
+printf "Quip\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_QUIP_SAM_NA12878_S1 $C_QUIP_SAM_NA12878_S1 $MC_QUIP_SAM_NA12878_S1 $D_QUIP_SAM_NA12878_S1 $MD_QUIP_SAM_NA12878_S1 $V_QUIP_SAM_NA12878_S1;
 printf "NA12882_S1-----------------------------------------\n";
 printf "Deez\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DEEZ_NA12882_S1 $C_DEEZ_NA12882_S1 $MC_DEEZ_NA12882_S1 $D_DEEZ_NA12882_S1 $MD_DEEZ_NA12882_S1 $V_DEEZ_NA12882_S1;
-printf "SAMCOMP\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_SAMCOMP_NA12882_S1 $C_SAMCOMP_NA12882_S1 $MC_SAMCOMP_NA12882_S1 $D_SAMCOMP_NA12882_S1 $MD_SAMCOMP_NA12882_S1 $V_SAMCOMP_NA12882_S1;
+printf "Sam_comp\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_SAMCOMP_NA12882_S1 $C_SAMCOMP_NA12882_S1 $MC_SAMCOMP_NA12882_S1 $D_SAMCOMP_NA12882_S1 $MD_SAMCOMP_NA12882_S1 $V_SAMCOMP_NA12882_S1;
+printf "Quip\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_QUIP_SAM_NA12882_S1 $C_QUIP_SAM_NA12882_S1 $MC_QUIP_SAM_NA12882_S1 $D_QUIP_SAM_NA12882_S1 $MD_QUIP_SAM_NA12882_S1 $V_QUIP_SAM_NA12882_S1;
 printf "ERR317482------------------------------------------\n";
 printf "Deez\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DEEZ_ERR317482 $C_DEEZ_ERR317482 $MC_DEEZ_ERR317482 $D_DEEZ_ERR317482 $MD_DEEZ_ERR317482 $V_DEEZ_ERR317482;
-printf "SAMCOMP\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_SAMCOMP_ERR317482 $C_SAMCOMP_ERR317482 $MC_SAMCOMP_ERR317482 $D_SAMCOMP_ERR317482 $MD_SAMCOMP_ERR317482 $V_SAMCOMP_ERR317482;
+printf "Sam_comp\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_SAMCOMP_ERR317482 $C_SAMCOMP_ERR317482 $MC_SAMCOMP_ERR317482 $D_SAMCOMP_ERR317482 $MD_SAMCOMP_ERR317482 $V_SAMCOMP_ERR317482;
+printf "Quip\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_QUIP_SAM_ERR317482 $C_QUIP_SAM_ERR317482 $MC_QUIP_SAM_ERR317482 $D_QUIP_SAM_ERR317482 $MD_QUIP_SAM_ERR317482 $V_QUIP_SAM_ERR317482;
 ###############################################################################
 
 
