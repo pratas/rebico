@@ -3,6 +3,7 @@
 	<li>download the datasets</li>
 	<li>install the programs</li>
 	<li>run the programs</li>
+	<li>get results</li>
 </ul>
 
 To get the repository type the following:
@@ -16,4 +17,5 @@ To run all, in a Linux environment, type the following:
 . download.sh
 . install.sh
 . run.sh
+. results.sh
 </pre>
