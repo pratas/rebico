@@ -1204,6 +1204,7 @@ cd ../../
 fi
 ##############################################################################
 if [[ "$RUN_SCALCE" -eq "1" ]]; then
+# FIXME: GOT SOME ERROR... PERHAPS IN DECOMPRESSION. TODO: DEBUG
 mkdir -p results
 cd progs/scalce
 # ERR174310_1
