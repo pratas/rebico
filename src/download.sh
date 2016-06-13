@@ -41,11 +41,15 @@ cp goose/scripts/GetOSativaV7.sh .
 rm -f ../datasets/human.fna
 for((x=1 ; x<=22 ; ++x));
   do 
-  cat HS$x >> ../datasets/human.fna;
+  printf ">chr%d\n" $x >> ../datasets/human.fna;
+  cat HS$x | grep -v ">" | tr -d -c "ACGTN\\n" >> ../datasets/human.fna;
   done
-  cat HS23 >> ../datasets/human.fna;
-  cat HS24 >> ../datasets/human.fna;
-./goose-renamehumanheaders < ../datasets/human.fna > ../datasets/humanDZ.fna
+printf ">chrX\n" >> ../datasets/human.fna;
+cat HS23 | grep -v ">" | tr -d -c "ACGTN\\n" >> ../datasets/human.fna;
+printf ">chrY\n" >> ../datasets/human.fna;
+cat HS24 | grep -v ">" | tr -d -c "ACGTN\\n" >> ../datasets/human.fna;
+printf ">chrM\n" >> ../datasets/human.fna;
+cat HS27 | grep -v ">" | tr -d -c "ACGTN\\n" >> ../datasets/human.fna;
 . GetHumanCHMParse.sh
 cat CHM* > ../datasets/human2.fna;
 . GetChimpParse.sh
