@@ -242,10 +242,10 @@ V_DSRC_ERR194146_2=`cat results/V_DSRC_ERR194146_2 | wc -l`;
 # SCALCE ######################################################################
 #
 # BC, BYTES ON COMPRESSION ====================================================
-BC_SCALCE_ERR174310_1=`cat results/BC_SCALCE_ERR174310_1 | awk '{ print $5; }'`;
-BC_SCALCE_ERR174310_2=`cat results/BC_SCALCE_ERR174310_2 | awk '{ print $5; }'`;
-BC_SCALCE_ERR194146_1=`cat results/BC_SCALCE_ERR194146_1 | awk '{ print $5; }'`;
-BC_SCALCE_ERR194146_2=`cat results/BC_SCALCE_ERR194146_2 | awk '{ print $5; }'`;
+BC_SCALCE_ERR174310_1=`cat results/BC_SCALCE_ERR174310_1 | awk '{ print $1; }'`;
+BC_SCALCE_ERR174310_2=`cat results/BC_SCALCE_ERR174310_2 | awk '{ print $1; }'`;
+BC_SCALCE_ERR194146_1=`cat results/BC_SCALCE_ERR194146_1 | awk '{ print $1; }'`;
+BC_SCALCE_ERR194146_2=`cat results/BC_SCALCE_ERR194146_2 | awk '{ print $1; }'`;
 # C, COMPRESSION TIME =========================================================
 C_SCALCE_ERR174310_1=`cat results/C_SCALCE_ERR174310_1 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
 C_SCALCE_ERR174310_2=`cat results/C_SCALCE_ERR174310_2 | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
