@@ -30,16 +30,46 @@ V_GECO_HUMAN=`cat results/V_GECO_HUMAN | wc -l`;
 V_GECO_CHIMPANZE=`cat results/V_GECO_CHIMPANZE | wc -l`;
 V_GECO_RICE=`cat results/V_GECO_RICE | wc -l`;
 #
+# DNACOMPACT ##################################################################
+#
+# BC, BYTES ON COMPRESSION ====================================================
+BC_DNACOMPACT_HUMAN=`cat results/BC_DNACOMPACT_HUMAN | awk '{ print $5; }'`;
+BC_DNACOMPACT_CHIMPANZE=`cat results/BC_DNACOMPACT_CHIMPANZE | awk '{ print $5; }'`;
+BC_DNACOMPACT_RICE=`cat results/BC_DNACOMPACT_RICE | awk '{ print $5; }'`;
+# C, COMPRESSION TIME =========================================================
+C_DNACOMPACT_HUMAN=`cat results/C_DNACOMPACT_HUMAN | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_DNACOMPACT_CHIMPANZE=`cat results/C_DNACOMPACT_CHIMPANZE | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_DNACOMPACT_RICE=`cat results/C_DNACOMPACT_RICE | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MC, COMPRESSION MEMORY ======================================================
+MC_DNACOMPACT_HUMAN=`cat results/MC_DNACOMPACT_HUMAN`;
+MC_DNACOMPACT_CHIMPANZE=`cat results/MC_DNACOMPACT_CHIMPANZE`;
+MC_DNACOMPACT_RICE=`cat results/MC_DNACOMPACT_RICE`;
+# D, DECOMPRESSION TIME =======================================================
+D_DNACOMPACT_HUMAN=`cat results/D_DNACOMPACT_HUMAN | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_DNACOMPACT_CHIMPANZE=`cat results/D_DNACOMPACT_CHIMPANZE | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_DNACOMPACT_RICE=`cat results/D_DNACOMPACT_RICE | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MD, DECOMPRESSION MEMORY ====================================================
+MD_DNACOMPACT_HUMAN=`cat results/MD_DNACOMPACT_HUMAN`;
+MD_DNACOMPACT_CHIMPANZE=`cat results/MD_DNACOMPACT_CHIMPANZE`;
+MD_DNACOMPACT_RICE=`cat results/MD_DNACOMPACT_RICE`;
+# V, DECOMPRESSION HELD WITH SUCCESS? =========================================
+V_DNACOMPACT_HUMAN=`cat results/V_DNACOMPACT_HUMAN | wc -l`;
+V_DNACOMPACT_CHIMPANZE=`cat results/V_DNACOMPACT_CHIMPANZE | wc -l`;
+V_DNACOMPACT_RICE=`cat results/V_DNACOMPACT_RICE | wc -l`;
+#
 ###############################################################################
 ############################## BUILD TABLE ####################################
 ###############################################################################
 printf "Method\tC_bytes\tC_Time\tC_mem\tD_Time\tD_mem\tcmp?\n";
 printf "HUMAN----------------------------------------------\n";
 printf "GeCo\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GECO_HUMAN $C_GECO_HUMAN $MC_GECO_HUMAN $D_GECO_HUMAN $MD_GECO_HUMAN $V_GECO_HUMAN;
+printf "DNACompact\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DNACOMPACT_HUMAN $C_DNACOMPACT_HUMAN $MC_DNACOMPACT_HUMAN $D_DNACOMPACT_HUMAN $MD_DNACOMPACT_HUMAN $V_DNACOMPACT_HUMAN;
 printf "CHIMPANZE------------------------------------------\n";
 printf "GeCo\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GECO_CHIMPANZE $C_GECO_CHIMPANZE $MC_GECO_CHIMPANZE $D_GECO_CHIMPANZE $MD_GECO_CHIMPANZE $V_GECO_CHIMPANZE;
+printf "DNACompact\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DNACOMPACT_CHIMPANZE $C_DNACOMPACT_CHIMPANZE $MC_DNACOMPACT_CHIMPANZE $D_DNACOMPACT_CHIMPANZE $MD_DNACOMPACT_CHIMPANZE $V_DNACOMPACT_CHIMPANZE;
 printf "RICE-----------------------------------------------\n";
 printf "GeCo\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GECO_RICE $C_GECO_RICE $MC_GECO_RICE $D_GECO_RICE $MD_GECO_RICE $V_GECO_RICE;
+printf "DNACompact\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DNACOMPACT_RICE $C_DNACOMPACT_RICE $MC_DNACOMPACT_RICE $D_DNACOMPACT_RICE $MD_DNACOMPACT_RICE $V_DNACOMPACT_RICE;
 ###############################################################################
 #
 ###############################################################################
