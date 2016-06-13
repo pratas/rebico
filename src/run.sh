@@ -1546,7 +1546,8 @@ fi
 if [[ "$RUN_QUIP_SAM" -eq "1" ]]; then
 mkdir -p results
 cd progs/quip/
-mv ../../datasets/humanDZ.fna .
+#mv ../../datasets/humanDZ.fna . // XXX: CANNOT PROCESS M SYMBOLS
+cat ../../datasets/humanDZ.fna  | grep -v ">" | tr -d -c "ACGT" > humanDZ.fna
 # NA12877_S1.bam
 mv ../../datasets/NA12877_S1.bam .
 ProgMemoryStart "./quip" &
@@ -1615,7 +1616,7 @@ rm -f ERR317482.dec
 ProgMemoryStop $MEMPID "../../results/MD_QUIP_SAM_ERR317482";
 cmp ERR317482.dec ERR317482.bam &> ../../results/V_QUIP_SAM_ERR317482
 mv ERR317482.bam ../../datasets/
-mv human.fna ../../datasets/
+rm -f humanDZ.fna
 cd ../../
 fi
 #
