@@ -1548,8 +1548,7 @@ if [[ "$RUN_QUIP_SAM" -eq "1" ]]; then
 mkdir -p results
 cd progs/quip/
 #mv ../../datasets/humanDZ.fna . // XXX: CANNOT PROCESS M SYMBOLS
-cat ../../datasets/humanDZ.fna  | tr 'M' 'N' | tr 'R' 'N' | tr 'Y' 'N' \
-| tr 'W' 'N' | tr 'S' 'N' | tr 'K' 'N' | tr 'B' 'N' > humanDZ.fna
+cp ../../datasets/humanDZ.fna humanDZ.fna
 # NA12877_S1.bam
 mv ../../datasets/NA12877_S1.bam .
 ProgMemoryStart "./quip" &
