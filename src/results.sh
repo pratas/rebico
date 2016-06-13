@@ -1,5 +1,48 @@
 #!/bin/bash
 ###############################################################################
+###################################### SEQ ####################################
+###############################################################################
+#
+# GECO ########################################################################
+#
+# BC, BYTES ON COMPRESSION ====================================================
+BC_GECO_HUMAN=`cat results/BC_GECO_HUMAN | awk '{ print $5; }'`;
+BC_GECO_CHIMPANZE=`cat results/BC_GECO_CHIMPANZE | awk '{ print $5; }'`;
+BC_GECO_RICE=`cat results/BC_GECO_RICE | awk '{ print $5; }'`;
+# C, COMPRESSION TIME =========================================================
+C_GECO_HUMAN=`cat results/C_GECO_HUMAN | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_GECO_CHIMPANZE=`cat results/C_GECO_CHIMPANZE | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_GECO_RICE=`cat results/C_GECO_RICE | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MC, COMPRESSION MEMORY ======================================================
+MC_GECO_HUMAN=`cat results/MC_GECO_HUMAN`;
+MC_GECO_CHIMPANZE=`cat results/MC_GECO_CHIMPANZE`;
+MC_GECO_RICE=`cat results/MC_GECO_RICE`;
+# D, DECOMPRESSION TIME =======================================================
+D_GECO_HUMAN=`cat results/D_GECO_HUMAN | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_GECO_CHIMPANZE=`cat results/D_GECO_CHIMPANZE | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_GECO_RICE=`cat results/D_GECO_RICE | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MD, DECOMPRESSION MEMORY ====================================================
+MD_GECO_HUMAN=`cat results/MD_GECO_HUMAN`;
+MD_GECO_CHIMPANZE=`cat results/MD_GECO_CHIMPANZE`;
+MD_GECO_RICE=`cat results/MD_GECO_RICE`;
+# V, DECOMPRESSION HELD WITH SUCCESS? =========================================
+V_GECO_HUMAN=`cat results/V_GECO_HUMAN | wc -l`;
+V_GECO_CHIMPANZE=`cat results/V_GECO_CHIMPANZE | wc -l`;
+V_GECO_RICE=`cat results/V_GECO_RICE | wc -l`;
+#
+###############################################################################
+############################## BUILD TABLE ####################################
+###############################################################################
+printf "Method\tC_bytes\tC_Time\tC_mem\tD_Time\tD_mem\tcmp?\n";
+printf "HUMAN----------------------------------------------\n";
+printf "GeCo\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GECO_HUMAN $C_GECO_HUMAN $MC_GECO_HUMAN $D_GECO_HUMAN $MD_GECO_HUMAN $V_GECO_HUMAN;
+printf "CHIMPANZE------------------------------------------\n";
+printf "GeCo\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GECO_CHIMPANZE $C_GECO_CHIMPANZE $MC_GECO_CHIMPANZE $D_GECO_CHIMPANZE $MD_GECO_CHIMPANZE $V_GECO_CHIMPANZE;
+printf "RICE-----------------------------------------------\n";
+printf "GeCo\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GECO_RICE $C_GECO_RICE $MC_GECO_RICE $D_GECO_RICE $MD_GECO_RICE $V_GECO_RICE;
+###############################################################################
+#
+###############################################################################
 #################################### FASTA ####################################
 ###############################################################################
 #

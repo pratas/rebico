@@ -1547,7 +1547,6 @@ fi
 if [[ "$RUN_QUIP_SAM" -eq "1" ]]; then
 mkdir -p results
 cd progs/quip/
-#mv ../../datasets/humanDZ.fna . // XXX: CANNOT PROCESS M SYMBOLS
 cp ../../datasets/humanDZ.fna humanDZ.fna
 # NA12877_S1.bam
 mv ../../datasets/NA12877_S1.bam .
