@@ -103,16 +103,46 @@ V_GECO_REF_HUMAN=`cat results/V_GECO_REF_HUMAN | wc -l`;
 V_GECO_REF_CHIMPANZE=`cat results/V_GECO_REF_CHIMPANZE | wc -l`;
 V_GECO_REF_RICE=`cat results/V_GECO_REF_RICE | wc -l`;
 #
+# GREEN ########################################################################
+#
+# BC, BYTES ON COMPRESSION ====================================================
+BC_GREEN_HUMAN=`cat results/BC_GREEN_HUMAN | awk '{ print $5; }'`;
+BC_GREEN_CHIMPANZE=`cat results/BC_GREEN_CHIMPANZE | awk '{ print $5; }'`;
+BC_GREEN_RICE=`cat results/BC_GREEN_RICE | awk '{ print $5; }'`;
+# C, COMPRESSION TIME =========================================================
+C_GREEN_HUMAN=`cat results/C_GREEN_HUMAN | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_GREEN_CHIMPANZE=`cat results/C_GREEN_CHIMPANZE | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_GREEN_RICE=`cat results/C_GREEN_RICE | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MC, COMPRESSION MEMORY ======================================================
+MC_GREEN_HUMAN=`cat results/MC_GREEN_HUMAN`;
+MC_GREEN_CHIMPANZE=`cat results/MC_GREEN_CHIMPANZE`;
+MC_GREEN_RICE=`cat results/MC_GREEN_RICE`;
+# D, DECOMPRESSION TIME =======================================================
+D_GREEN_HUMAN=`cat results/D_GREEN_HUMAN | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_GREEN_CHIMPANZE=`cat results/D_GREEN_CHIMPANZE | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_GREEN_RICE=`cat results/D_GREEN_RICE | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MD, DECOMPRESSION MEMORY ====================================================
+MD_GREEN_HUMAN=`cat results/MD_GREEN_HUMAN`;
+MD_GREEN_CHIMPANZE=`cat results/MD_GREEN_CHIMPANZE`;
+MD_GREEN_RICE=`cat results/MD_GREEN_RICE`;
+# V, DECOMPRESSION HELD WITH SUCCESS? =========================================
+V_GREEN_HUMAN=`cat results/V_GREEN_HUMAN | wc -l`;
+V_GREEN_CHIMPANZE=`cat results/V_GREEN_CHIMPANZE | wc -l`;
+V_GREEN_RICE=`cat results/V_GREEN_RICE | wc -l`;
+#
 ###############################################################################
 ############################## BUILD TABLE ####################################
 ###############################################################################
 printf "Method\tC_bytes\tC_Time\tC_mem\tD_Time\tD_mem\tcmp?\n";
 printf "HUMAN2|HUMAN---------------------------------------\n";
 printf "GeCo\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GECO_REF_HUMAN $C_GECO_REF_HUMAN $MC_GECO_REF_HUMAN $D_GECO_REF_HUMAN $MD_GECO_REF_HUMAN $V_GECO_REF_HUMAN;
+printf "GReEn\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GREEN_HUMAN $C_GREEN_HUMAN $MC_GREEN_HUMAN $D_GREEN_HUMAN $MD_GREEN_HUMAN $V_GREEN_HUMAN;
 printf "HUMAN|CHIMPANZE------------------------------------\n";
 printf "GeCo\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GECO_REF_CHIMPANZE $C_GECO_REF_CHIMPANZE $MC_GECO_REF_CHIMPANZE $D_GECO_REF_CHIMPANZE $MD_GECO_REF_CHIMPANZE $V_GECO_REF_CHIMPANZE;
+printf "GReEn\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GREEN_CHIMPANZE $C_GREEN_CHIMPANZE $MC_GREEN_CHIMPANZE $D_GREEN_CHIMPANZE $MD_GREEN_CHIMPANZE $V_GREEN_CHIMPANZE;
 printf "RICE5|RICE7----------------------------------------\n";
 printf "GeCo\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GECO_REF_RICE $C_GECO_REF_RICE $MC_GECO_REF_RICE $D_GECO_REF_RICE $MD_GECO_REF_RICE $V_GECO_REF_RICE;
+printf "GReEn\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GREEN_RICE $C_GREEN_RICE $MC_GREEN_RICE $D_GREEN_RICE $MD_GREEN_RICE $V_GREEN_RICE;
 ###############################################################################
 #
 ###############################################################################
