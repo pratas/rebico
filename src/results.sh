@@ -73,6 +73,49 @@ printf "DNACompact\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DNACOMPACT_RICE $C_DNACOMPACT
 ###############################################################################
 #
 ###############################################################################
+############################## REFERENCE - SEQ ################################
+###############################################################################
+#
+# GECO ########################################################################
+#
+# BC, BYTES ON COMPRESSION ====================================================
+BC_GECO_REF_HUMAN=`cat results/BC_GECO_REF_HUMAN | awk '{ print $5; }'`;
+BC_GECO_REF_CHIMPANZE=`cat results/BC_GECO_REF_CHIMPANZE | awk '{ print $5; }'`;
+BC_GECO_REF_RICE=`cat results/BC_GECO_REF_RICE | awk '{ print $5; }'`;
+# C, COMPRESSION TIME =========================================================
+C_GECO_REF_HUMAN=`cat results/C_GECO_REF_HUMAN | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_GECO_REF_CHIMPANZE=`cat results/C_GECO_REF_CHIMPANZE | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_GECO_REF_RICE=`cat results/C_GECO_REF_RICE | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MC, COMPRESSION MEMORY ======================================================
+MC_GECO_REF_HUMAN=`cat results/MC_GECO_REF_HUMAN`;
+MC_GECO_REF_CHIMPANZE=`cat results/MC_GECO_REF_CHIMPANZE`;
+MC_GECO_REF_RICE=`cat results/MC_GECO_REF_RICE`;
+# D, DECOMPRESSION TIME =======================================================
+D_GECO_REF_HUMAN=`cat results/D_GECO_REF_HUMAN | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_GECO_REF_CHIMPANZE=`cat results/D_GECO_REF_CHIMPANZE | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_GECO_REF_RICE=`cat results/D_GECO_REF_RICE | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MD, DECOMPRESSION MEMORY ====================================================
+MD_GECO_REF_HUMAN=`cat results/MD_GECO_REF_HUMAN`;
+MD_GECO_REF_CHIMPANZE=`cat results/MD_GECO_REF_CHIMPANZE`;
+MD_GECO_REF_RICE=`cat results/MD_GECO_REF_RICE`;
+# V, DECOMPRESSION HELD WITH SUCCESS? =========================================
+V_GECO_REF_HUMAN=`cat results/V_GECO_REF_HUMAN | wc -l`;
+V_GECO_REF_CHIMPANZE=`cat results/V_GECO_REF_CHIMPANZE | wc -l`;
+V_GECO_REF_RICE=`cat results/V_GECO_REF_RICE | wc -l`;
+#
+###############################################################################
+############################## BUILD TABLE ####################################
+###############################################################################
+printf "Method\tC_bytes\tC_Time\tC_mem\tD_Time\tD_mem\tcmp?\n";
+printf "HUMAN2|HUMAN---------------------------------------\n";
+printf "GeCo\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GECO_REF_HUMAN $C_GECO_REF_HUMAN $MC_GECO_REF_HUMAN $D_GECO_REF_HUMAN $MD_GECO_REF_HUMAN $V_GECO_REF_HUMAN;
+printf "HUMAN|CHIMPANZE------------------------------------\n";
+printf "GeCo\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GECO_REF_CHIMPANZE $C_GECO_REF_CHIMPANZE $MC_GECO_REF_CHIMPANZE $D_GECO_REF_CHIMPANZE $MD_GECO_REF_CHIMPANZE $V_GECO_REF_CHIMPANZE;
+printf "RICE5|RICE7----------------------------------------\n";
+printf "GeCo\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GECO_REF_RICE $C_GECO_REF_RICE $MC_GECO_REF_RICE $D_GECO_REF_RICE $MD_GECO_REF_RICE $V_GECO_REF_RICE;
+###############################################################################
+#
+###############################################################################
 #################################### FASTA ####################################
 ###############################################################################
 #
