@@ -1561,7 +1561,7 @@ ProgMemoryStart "./quip" &
 MEMPID=$!
 rm -f NA12877_S1.dec
 (time ./quip -r humanDZ.fna \ 
--d OUT.qp > NA12877_S1.dec ) &> ../../results/D_QUIP_SAM_NA12877_S1
+-d -c OUT.qp > NA12877_S1.dec ) &> ../../results/D_QUIP_SAM_NA12877_S1
 ProgMemoryStop $MEMPID "../../results/MD_QUIP_SAM_NA12877_S1";
 cmp NA12877_S1.dec NA12877_S1.bam &> ../../results/V_QUIP_SAM_NA12877_S1
 mv NA12877_S1.bam ../../datasets/
