@@ -136,20 +136,3 @@ printf "REF:%s|TAR:%s---------------------------------------\n" $REF $TAR;
 printf "IDoComp\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_IDOCOMP_1 $C_IDOCOMP_1 $MC_IDOCOMP_1 $D_IDOCOMP_1 $MD_IDOCOMP_1 $V_IDOCOMP_1;
 ###############################################################################
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
