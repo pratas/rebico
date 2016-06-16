@@ -94,6 +94,33 @@ cd progs/green
 cd ../../
 fi
 #==============================================================================
+###############################################################################
+############################## BUILD TABLE ####################################
+###############################################################################
+printf "Method\tC_bytes\tC_Time\tC_mem\tD_Time\tD_mem\tcmp?\n";
+REF="HSCHM8";
+TAR="HS8";
+BC_IDOCOMP_1=`cat results/BC_IDOCOMP_$TAR-$REF | awk '{ print $5; }'`;
+C_IDOCOMP_1=`cat results/C_IDOCOMP_$TAR-$REF | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+MC_IDOCOMP_1=`cat results/MC_IDOCOMP_$TAR-$REF`;
+D_IDOCOMP_1=`cat results/D_IDOCOMP_$TAR-$REF | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+MD_IDOCOMP_1=`cat results/MD_IDOCOMP_$TAR-$REF`;
+V_IDOCOMP_1=`cat results/V_IDOCOMP_$TAR-$REF | wc -l`;
+printf "REF:%s|TAR:%s---------------------------------------\n" $REF $TAR;
+printf "IDoComp\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_IDOCOMP_1 $C_IDOCOMP_1 $MC_IDOCOMP_1 $D_IDOCOMP_1 $MD_IDOCOMP_1 $V_IDOCOMP_1;
+###############################################################################
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
