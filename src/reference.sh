@@ -14,7 +14,7 @@ function RunIDoComp {
   MEMPID=$!
   (./generateSA.sh ref sa ) &> TIME_SA
   TIMEOFSA=`cat TIME_SA | grep "..." | awk '{ print $5;}'`
-  ProgMemoryStop $MEMPID "../../results/MC_IDOCOMP_$1-$2";
+  ProgMemoryStop $MEMPID "../../../results/MC_IDOCOMP_$1-$2";
   mv ../$1 tar/$1.fa
   echo "ref/$2.fa tar/$1.fa sa/$2.sa" > f.txt;
   cp ../simulations/iDoComp.run .
@@ -56,6 +56,14 @@ function ProgMemory2 {
 #
 ################################################################################
 # DOWNLOAD
+rm -f GetOSativaV5.sh GetOSativaV7.sh RICE5.fa RICE7.fa
+https://raw.githubusercontent.com/pratas/goose/master/scripts/GetOSativaV5.sh
+https://raw.githubusercontent.com/pratas/goose/master/scripts/GetOSativaV7.sh
+. GetOSativaV5.sh
+. GetOSativaV7.sh
+cat OS5-* > datasets/RICE5.fa;
+cat OS7-* > datasets/RICE7.fa;
+#
 rm -f HS11.fa.gz HS16.fa.gz HS8.fa.gz HSCHM11.fa.gz HSCHM8.fa.gz HSK16.fa.gz PT11.fa.gz
 wget ftp://ftp.ncbi.nlm.nih.gov/genomes/Homo_sapiens/Assembled_chromosomes/seq/hs_ref_GRCh38.p7_chr8.fa.gz -O HS8.fa.gz
 wget ftp://ftp.ncbi.nlm.nih.gov/genomes/Homo_sapiens/Assembled_chromosomes/seq/hs_alt_CHM1_1.1_chr8.fa.gz -O HSCHM8.fa.gz
@@ -101,13 +109,15 @@ echo "done!";
 #
 # RUN =========================================================================
 if [[ "$RUN_IDOCOMP" -eq "1" ]]; then
-echo "Running iDoComp";
+echo "Running iDoComp ...";
 mkdir -p results
 cd progs/idocomp
-
-# reference: HSCHM8, target HS8
+# target $1, reference $2:
 RunIDoComp "HS8" "HSCHM8"
-
+RunIDoComp "HS11" "HSCHM11"
+RunIDoComp "HS11" "PT11"
+RunIDoComp "HSK16" "HS16"
+RunIDoComp "RICE5" "RICE7"
 # 
 cd ../../
 echo "Done!";
@@ -124,14 +134,54 @@ fi
 ############################## BUILD TABLE ####################################
 ###############################################################################
 printf "Method\tC_bytes\tC_Time\tC_mem\tD_Time\tD_mem\tcmp?\n";
-REF="HSCHM8";
 TAR="HS8";
-BC_IDOCOMP_1=`cat results/BC_IDOCOMP_$TAR-$REF | awk '{ print $5; }'`;
-C_IDOCOMP_1=`cat results/C_IDOCOMP_$TAR-$REF | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+REF="HSCHM8";
+BC_IDOCOMP_1=`cat results/BC_IDOCOMP_$TAR-$REF | awk '{ print $1; }'`;
+C_IDOCOMP_1=`cat results/C_IDOCOMP_$TAR-$REF | tail -n 1 | awk '{ print $3;}'`;
 MC_IDOCOMP_1=`cat results/MC_IDOCOMP_$TAR-$REF`;
-D_IDOCOMP_1=`cat results/D_IDOCOMP_$TAR-$REF | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
-MD_IDOCOMP_1=`cat results/MD_IDOCOMP_$TAR-$REF`;
+D_IDOCOMP_1=`cat results/DT_IDOCOMP_$TAR-$REF`;
+MD_IDOCOMP_1=`cat results/MC_IDOCOMP_$TAR-$REF`;
 V_IDOCOMP_1=`cat results/V_IDOCOMP_$TAR-$REF | wc -l`;
+printf "REF:%s|TAR:%s---------------------------------------\n" $REF $TAR;
+printf "IDoComp\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_IDOCOMP_1 $C_IDOCOMP_1 $MC_IDOCOMP_1 $D_IDOCOMP_1 $MD_IDOCOMP_1 $V_IDOCOMP_1;
+TAR="HS11";
+REF="HSCHM11";
+BC_IDOCOMP_2=`cat results/BC_IDOCOMP_$TAR-$REF | awk '{ print $1; }'`;
+C_IDOCOMP_2=`cat results/C_IDOCOMP_$TAR-$REF | tail -n 1 | awk '{ print $3;}'`;
+MC_IDOCOMP_2=`cat results/MC_IDOCOMP_$TAR-$REF`;
+D_IDOCOMP_2=`cat results/DT_IDOCOMP_$TAR-$REF`;
+MD_IDOCOMP_2=`cat results/MC_IDOCOMP_$TAR-$REF`;
+V_IDOCOMP_2=`cat results/V_IDOCOMP_$TAR-$REF | wc -l`;
+printf "REF:%s|TAR:%s---------------------------------------\n" $REF $TAR;
+printf "IDoComp\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_IDOCOMP_1 $C_IDOCOMP_1 $MC_IDOCOMP_1 $D_IDOCOMP_1 $MD_IDOCOMP_1 $V_IDOCOMP_1;
+TAR="HS11";
+REF="PT11";
+BC_IDOCOMP_3=`cat results/BC_IDOCOMP_$TAR-$REF | awk '{ print $1; }'`;
+C_IDOCOMP_3=`cat results/C_IDOCOMP_$TAR-$REF | tail -n 1 | awk '{ print $3;}'`;
+MC_IDOCOMP_3=`cat results/MC_IDOCOMP_$TAR-$REF`;
+D_IDOCOMP_3=`cat results/DT_IDOCOMP_$TAR-$REF`;
+MD_IDOCOMP_3=`cat results/MC_IDOCOMP_$TAR-$REF`;
+V_IDOCOMP_3=`cat results/V_IDOCOMP_$TAR-$REF | wc -l`;
+printf "REF:%s|TAR:%s---------------------------------------\n" $REF $TAR;
+printf "IDoComp\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_IDOCOMP_1 $C_IDOCOMP_1 $MC_IDOCOMP_1 $D_IDOCOMP_1 $MD_IDOCOMP_1 $V_IDOCOMP_1;
+TAR="HSK16";
+REF="HS16";
+BC_IDOCOMP_4=`cat results/BC_IDOCOMP_$TAR-$REF | awk '{ print $1; }'`;
+C_IDOCOMP_4=`cat results/C_IDOCOMP_$TAR-$REF | tail -n 1 | awk '{ print $3;}'`;
+MC_IDOCOMP_4=`cat results/MC_IDOCOMP_$TAR-$REF`;
+D_IDOCOMP_4=`cat results/DT_IDOCOMP_$TAR-$REF`;
+MD_IDOCOMP_4=`cat results/MC_IDOCOMP_$TAR-$REF`;
+V_IDOCOMP_4=`cat results/V_IDOCOMP_$TAR-$REF | wc -l`;
+printf "REF:%s|TAR:%s---------------------------------------\n" $REF $TAR;
+printf "IDoComp\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_IDOCOMP_1 $C_IDOCOMP_1 $MC_IDOCOMP_1 $D_IDOCOMP_1 $MD_IDOCOMP_1 $V_IDOCOMP_1;
+TAR="RICE5";
+REF="RICE7";
+BC_IDOCOMP_5=`cat results/BC_IDOCOMP_$TAR-$REF | awk '{ print $1; }'`;
+C_IDOCOMP_5=`cat results/C_IDOCOMP_$TAR-$REF | tail -n 1 | awk '{ print $3;}'`;
+MC_IDOCOMP_5=`cat results/MC_IDOCOMP_$TAR-$REF`;
+D_IDOCOMP_5=`cat results/DT_IDOCOMP_$TAR-$REF`;
+MD_IDOCOMP_5=`cat results/MC_IDOCOMP_$TAR-$REF`;
+V_IDOCOMP_5=`cat results/V_IDOCOMP_$TAR-$REF | wc -l`;
 printf "REF:%s|TAR:%s---------------------------------------\n" $REF $TAR;
 printf "IDoComp\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_IDOCOMP_1 $C_IDOCOMP_1 $MC_IDOCOMP_1 $D_IDOCOMP_1 $MD_IDOCOMP_1 $V_IDOCOMP_1;
 ###############################################################################
