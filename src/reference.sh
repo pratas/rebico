@@ -1,3 +1,5 @@
+RUN_IDOCOMP=1;
+RUN_GREEN=1;
 #
 function RunIDoComp {
   # 1 - TARGET
@@ -79,13 +81,19 @@ mkdir -p results
 cd progs/idocomp
 
 # reference: HSCHM8, target HS8
-RunIDoComp HS8 HSCHM8
+RunIDoComp "HS8" "HSCHM8"
+
 # 
+cd ../../
+fi
+#==============================================================================
+if [[ "$RUN_GREEN" -eq "1" ]]; then
+mkdir -p results
+cd progs/green
 
-
-
-
-
+cd ../../
+fi
+#==============================================================================
 
 
 
