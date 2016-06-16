@@ -31,6 +31,28 @@ function RunIDoComp {
   rm -f $2 $1;
   cd ..
   }
+# MEMORY1 =====================================================================
+function ProgMemoryStart {
+  echo "0" > mem_ps;
+  while true
+    do
+    ps aux | grep $1 | awk '{ print $6; }' | sort -V | tail -n 1 >> mem_ps;
+    sleep 5;
+    done
+  }
+function ProgMemoryStop {
+  kill $1 >/dev/null 2>&1
+  cat mem_ps | sort -V | tail -n 1 > $2;
+  }
+# MEMORY2 =====================================================================
+function ProgMemory2 {
+  valgrind --tool=massif --pages-as-heap=yes --massif-out-file=massif.out ./$1;
+  cat massif.out | \
+  grep mem_heap_B | \
+  sed -e 's/mem_heap_B=\(.*\)/\1/' | \
+  sort -g | \
+  tail -n 1
+  }
 #
 ################################################################################
 # DOWNLOAD
@@ -48,6 +70,7 @@ wget ftp://ftp.kobic.re.kr/pub/KOBIC-KoreanGenome/fasta/chromosome_16.fa.gz -O H
 wget ftp://ftp.ncbi.nlm.nih.gov/genomes/Pan_troglodytes/Assembled_chromosomes/seq/ptr_ref_Pan_tro_3.0_chr11.fa.gz -O PT11.fa.gz
 #
 # PARSE =======================================================================
+echo "parsing ..."
 echo ">X" > HEADER
 #
 zcat HS8.fa.gz | grep -v ">" | tr -d -c "ACGT" > XTMP
@@ -74,9 +97,11 @@ mv HSK16 datasets/
 zcat PT11.fa.gz | grep -v ">" | tr -d -c "ACGT" > XTMP
 cat HEADER XTMP > PT11;
 mv PT11 datasets/
+echo "done!";
 #
 # RUN =========================================================================
 if [[ "$RUN_IDOCOMP" -eq "1" ]]; then
+echo "Running iDoComp";
 mkdir -p results
 cd progs/idocomp
 
@@ -85,6 +110,7 @@ RunIDoComp "HS8" "HSCHM8"
 
 # 
 cd ../../
+echo "Done!";
 fi
 #==============================================================================
 if [[ "$RUN_GREEN" -eq "1" ]]; then
