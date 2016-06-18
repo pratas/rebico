@@ -152,10 +152,10 @@ if [[ "$PARSE" -eq "1" ]]; then
   zcat PA11.fa.gz | grep -v ">" | tr -d -c "ACGT" > XTMP
   cat HEADER XTMP > datasets/PA11;
   #
-  zcat datasets/RICE5.fa | grep -v ">" | tr -d -c "ACGT" > XTMP
+  cat datasets/RICE5.fa | grep -v ">" | tr -d -c "ACGT" > XTMP
   cat HEADER XTMP > datasets/RICE5
   #
-  zcat datasets/RICE7.fa | grep -v ">" | tr -d -c "ACGT" > XTMP
+  cat datasets/RICE7.fa | grep -v ">" | tr -d -c "ACGT" > XTMP
   cat HEADER XTMP > datasets/RICE7
   echo "done!";
   fi
