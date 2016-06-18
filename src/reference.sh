@@ -103,9 +103,9 @@ function ProgMemory2 {
 ################################################################################
 # DOWNLOAD
 if [[ "$DOWNLOAD" -eq "1" ]]; then
-  rm -f GetOSativaV5.sh GetOSativaV7.sh RICE5.fa RICE7.fa
-  https://raw.githubusercontent.com/pratas/goose/master/scripts/GetOSativaV5.sh
-  https://raw.githubusercontent.com/pratas/goose/master/scripts/GetOSativaV7.sh
+  rm -f GetOSativaV5.sh GetOSativaV7.sh RICE5.fa RICE7.fa *.fa.gz OS5-* OS7-*
+  wget https://raw.githubusercontent.com/pratas/goose/master/scripts/GetOSativaV5.sh
+  wget https://raw.githubusercontent.com/pratas/goose/master/scripts/GetOSativaV7.sh
   . GetOSativaV5.sh
   . GetOSativaV7.sh
   cat OS5-* > datasets/RICE5.fa;
