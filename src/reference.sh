@@ -1,9 +1,30 @@
+# XXX: RUN install.sh first!
 #INSTALL=1;
 DOWNLOAD=1;
 PARSE=1;
+RUN_GDC2=1;
 RUN_IDOCOMP=1;
 RUN_GREEN=1;
 RUN_GECO=1;
+#
+function RunGDC2 {
+  # 1 - TARGET
+  # 2 - REFERENCE
+  cp ../../datasets/$1 .
+  cp ../../datasets/$2 .
+  ProgMemoryStart "GDC2" &
+  MEMPID=$!
+  rm -f xxx*
+  (time ./GDC2 c xxx $2 $1 ) &> ../../results/C_GDC_$1-$2
+  ls -la xxx.gdc2_rc > ../../results/BC_GDC_$1-$2
+  ProgMemoryStop $MEMPID "../../results/MC_GDC_$1-$2";
+  ProgMemoryStart "GDC2" &
+  MEMPID=$!
+  (time ./GDC2 d xxx ) &> ../../results/D_GDC_$1-$2
+  ProgMemoryStop $MEMPID "../../results/MD_GDC_$1-$2";
+  cmp $1 $1.ori &> ../../results/V_GDC_$1-$2
+  rm -f $2 $1;
+  }
 #
 function RunGReEn {
   PARAM=" -v -i -k 16 -f 5 ";
@@ -27,7 +48,7 @@ function RunGReEn {
   }
 #
 function RunGeCo {
-  PARAM=" -v -l 14 ";
+  PARAM=" -v -l 15 ";
   # 1 - TARGET
   # 2 - REFERENCE
   cp ../../datasets/$1 .
@@ -56,17 +77,16 @@ function RunIDoComp {
   rm -fr sa ref tar
   mkdir sa ref tar;
   cp ../$2 ref/$2.fa
-  ProgMemoryStart "generateSA.sh" & # THE MAXIMUM PEAK IS REACHED HERE
+  ProgMemoryStart ".run" & # THE MAXIMUM PEAK IS REACHED HERE
   MEMPID=$!
   (./generateSA.sh ref sa ) &> TIME_SA
   TIMEOFSA=`cat TIME_SA | grep "..." | awk '{ print $5;}'`
-  ProgMemoryStop $MEMPID "../../../results/MC_IDOCOMP_$1-$2";
   mv ../$1 tar/$1.fa
   echo "ref/$2.fa tar/$1.fa sa/$2.sa" > f.txt;
   cp ../simulations/iDoComp.run .
   (./iDoComp.run c f.txt OUT ) &> ../../../results/C_IDOCOMP_$1-$2
-  cat ../../../results/C_IDOCOMP_$1-$2 | grep "Compressed Size:" \
-  | awk '{ print $3; }' > ../../../results/BC_IDOCOMP_$1-$2
+  ProgMemoryStop $MEMPID "../../../results/MC_IDOCOMP_$1-$2";
+  cat ../../../results/C_IDOCOMP_$1-$2 | grep "Compressed Size:" | awk '{ print $3; }' > ../../../results/BC_IDOCOMP_$1-$2
   CTIME=`cat ../../../results/C_IDOCOMP_$1-$2 | grep "CPU T" | awk '{ print $4;}'`
   echo "$TIMEOFSA+$CTIME" | bc -l > ../../../results/CT_IDOCOMP_$1-$2
   echo "ref/$2.fa out.fa" > f.txt;
@@ -103,17 +123,18 @@ function ProgMemory2 {
 ################################################################################
 # DOWNLOAD
 if [[ "$DOWNLOAD" -eq "1" ]]; then
+  rm *.fa.gz OS5-* OS7-* -f
   rm -f GetOSativaV5.sh GetOSativaV7.sh RICE5.fa RICE7.fa
-  https://raw.githubusercontent.com/pratas/goose/master/scripts/GetOSativaV5.sh
-  https://raw.githubusercontent.com/pratas/goose/master/scripts/GetOSativaV7.sh
+  wget https://raw.githubusercontent.com/pratas/goose/master/scripts/GetOSativaV5.sh
+  wget https://raw.githubusercontent.com/pratas/goose/master/scripts/GetOSativaV7.sh
   . GetOSativaV5.sh
   . GetOSativaV7.sh
   cat OS5-* > datasets/RICE5.fa;
-  cat OS7-* > datasets/RICE7.fa;  
+  cat OS7-* > datasets/RICE7.fa;
   #
   rm -f HS11.fa.gz HS16.fa.gz HS8.fa.gz HSCHM11.fa.gz HSCHM8.fa.gz HSK16.fa.gz PT11.fa.gz
   wget ftp://ftp.ncbi.nlm.nih.gov/genomes/Homo_sapiens/Assembled_chromosomes/seq/hs_ref_GRCh38.p7_chr8.fa.gz -O HS8.fa.gz
-  wget ftp://ftp.ncbi.nlm.nih.gov/genomes/Homo_sapiens/Assembled_chromosomes/seq/hs_alt_CHM1_1.1_chr8.fa.gz -O HSCHM8.fa.gz  
+  wget ftp://ftp.ncbi.nlm.nih.gov/genomes/Homo_sapiens/Assembled_chromosomes/seq/hs_alt_CHM1_1.1_chr8.fa.gz -O HSCHM8.fa.gz
   #
   wget ftp://ftp.ncbi.nlm.nih.gov/genomes/Homo_sapiens/Assembled_chromosomes/seq/hs_ref_GRCh38.p7_chr11.fa.gz -O HS11.fa.gz
   wget ftp://ftp.ncbi.nlm.nih.gov/genomes/Homo_sapiens/Assembled_chromosomes/seq/hs_alt_CHM1_1.1_chr11.fa.gz -O HSCHM11.fa.gz
@@ -123,6 +144,7 @@ if [[ "$DOWNLOAD" -eq "1" ]]; then
   #
   # HUMAN 11 ALREADY DOWNLOADED
   wget ftp://ftp.ncbi.nlm.nih.gov/genomes/Pan_troglodytes/Assembled_chromosomes/seq/ptr_ref_Pan_tro_3.0_chr11.fa.gz -O PT11.fa.gz
+  wget ftp://ftp.ncbi.nlm.nih.gov/genomes/Pongo_abelii/CHR_11/pab_ref_P_pygmaeus_2.0.2_chr11.fa.gz -O PA11.fa.gz
   #
 fi
 # PARSE =======================================================================
@@ -133,7 +155,7 @@ if [[ "$PARSE" -eq "1" ]]; then
   zcat HS8.fa.gz | grep -v ">" | tr -d -c "ACGT" > XTMP
   cat HEADER XTMP > datasets/HS8;
   zcat HSCHM8.fa.gz | grep -v ">" | tr -d -c "ACGT" > XTMP
-  cat HEADER XTMP > datasets/HSCHM8; 
+  cat HEADER XTMP > datasets/HSCHM8;
   #
   zcat HS11.fa.gz | grep -v ">" | tr -d -c "ACGT" > XTMP
   cat HEADER XTMP > datasets/HS11;
@@ -146,17 +168,35 @@ if [[ "$PARSE" -eq "1" ]]; then
   cat HEADER XTMP > datasets/HSK16;
   #
   zcat PT11.fa.gz | grep -v ">" | tr -d -c "ACGT" > XTMP
-  cat HEADER XTMP > datasets/PT11;  
+  cat HEADER XTMP > datasets/PT11;
+  zcat PA11.fa.gz | grep -v ">" | tr -d -c "ACGT" > XTMP
+  cat HEADER XTMP > datasets/PA11;
   #
-  zcat datasets/RICE5.fa | grep -v ">" | tr -d -c "ACGT" > XTMP
-  cat HEADER XTMP > datasets/RICE5.fa
+  cat datasets/RICE5.fa | grep -v ">" | tr -d -c "ACGT" > XTMP
+  cat HEADER XTMP > datasets/RICE5
   #
-  zcat datasets/RICE7.fa | grep -v ">" | tr -d -c "ACGT" > XTMP
-  cat HEADER XTMP > datasets/RICE7.fa
+  cat datasets/RICE7.fa | grep -v ">" | tr -d -c "ACGT" > XTMP
+  cat HEADER XTMP > datasets/RICE7
   echo "done!";
   fi
 #
 # RUN =========================================================================
+if [[ "$RUN_GDC2" -eq "1" ]]; then
+  echo "Running GDC2 ...";
+  mkdir -p results
+  cd progs/gdc2
+  # target $1, reference $2:
+  RunGDC2 "HS8" "HSCHM8"
+  RunGDC2 "HS11" "HSCHM11"
+  RunGDC2 "HS11" "PT11"
+  RunGDC2 "HS11" "PA11"
+  RunGDC2 "HSK16" "HS16"
+  RunGDC2 "RICE5" "RICE7"
+  # 
+  cd ../../
+  echo "Done!";
+fi
+#==============================================================================
 if [[ "$RUN_IDOCOMP" -eq "1" ]]; then
   echo "Running iDoComp ...";
   mkdir -p results
@@ -165,6 +205,7 @@ if [[ "$RUN_IDOCOMP" -eq "1" ]]; then
   RunIDoComp "HS8" "HSCHM8"
   RunIDoComp "HS11" "HSCHM11"
   RunIDoComp "HS11" "PT11"
+  RunIDoComp "HS11" "PA11"
   RunIDoComp "HSK16" "HS16"
   RunIDoComp "RICE5" "RICE7"
   # 
@@ -180,6 +221,7 @@ if [[ "$RUN_GECO" -eq "1" ]]; then
   RunGeCo "HS8" "HSCHM8"
   RunGeCo "HS11" "HSCHM11"
   RunGeCo "HS11" "PT11"
+  RunGeCo "HS11" "PA11"
   RunGeCo "HSK16" "HS16"
   RunGeCo "RICE5" "RICE7"
   # 
@@ -195,6 +237,7 @@ if [[ "$RUN_GREEN" -eq "1" ]]; then
   RunGReEn "HS8" "HSCHM8"
   RunGReEn "HS11" "HSCHM11"
   RunGReEn "HS11" "PT11"
+  RunGReEn "HS11" "PA11"
   RunGReEn "HSK16" "HS16"
   RunGReEn "RICE5" "RICE7"
   # 
@@ -202,59 +245,5 @@ if [[ "$RUN_GREEN" -eq "1" ]]; then
   echo "Done!";
 fi
 #==============================================================================
-###############################################################################
-############################## BUILD TABLE ####################################
-###############################################################################
-printf "Method\tC_bytes\tC_Time\tC_mem\tD_Time\tD_mem\tcmp?\n";
-TAR="HS8";
-REF="HSCHM8";
-BC_IDOCOMP_1=`cat results/BC_IDOCOMP_$TAR-$REF`;
-C_IDOCOMP_1=`cat results/C_IDOCOMP_$TAR-$REF | tail -n 1 | awk '{ print $3;}'`;
-MC_IDOCOMP_1=`cat results/MC_IDOCOMP_$TAR-$REF`;
-D_IDOCOMP_1=`cat results/DT_IDOCOMP_$TAR-$REF`;
-MD_IDOCOMP_1=`cat results/MC_IDOCOMP_$TAR-$REF`;
-V_IDOCOMP_1=`cat results/V_IDOCOMP_$TAR-$REF | wc -l`;
-printf "REF:%s|TAR:%s---------------------------------------\n" $REF $TAR;
-printf "IDoComp\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_IDOCOMP_1 $C_IDOCOMP_1 $MC_IDOCOMP_1 $D_IDOCOMP_1 $MD_IDOCOMP_1 $V_IDOCOMP_1;
-TAR="HS11";
-REF="HSCHM11";
-BC_IDOCOMP_2=`cat results/BC_IDOCOMP_$TAR-$REF`;
-C_IDOCOMP_2=`cat results/C_IDOCOMP_$TAR-$REF | tail -n 1 | awk '{ print $3;}'`;
-MC_IDOCOMP_2=`cat results/MC_IDOCOMP_$TAR-$REF`;
-D_IDOCOMP_2=`cat results/DT_IDOCOMP_$TAR-$REF`;
-MD_IDOCOMP_2=`cat results/MC_IDOCOMP_$TAR-$REF`;
-V_IDOCOMP_2=`cat results/V_IDOCOMP_$TAR-$REF | wc -l`;
-printf "REF:%s|TAR:%s---------------------------------------\n" $REF $TAR;
-printf "IDoComp\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_IDOCOMP_2 $C_IDOCOMP_2 $MC_IDOCOMP_2 $D_IDOCOMP_2 $MD_IDOCOMP_2 $V_IDOCOMP_2;
-TAR="HS11";
-REF="PT11";
-BC_IDOCOMP_3=`cat results/BC_IDOCOMP_$TAR-$REF`;
-C_IDOCOMP_3=`cat results/C_IDOCOMP_$TAR-$REF | tail -n 1 | awk '{ print $3;}'`;
-MC_IDOCOMP_3=`cat results/MC_IDOCOMP_$TAR-$REF`;
-D_IDOCOMP_3=`cat results/DT_IDOCOMP_$TAR-$REF`;
-MD_IDOCOMP_3=`cat results/MC_IDOCOMP_$TAR-$REF`;
-V_IDOCOMP_3=`cat results/V_IDOCOMP_$TAR-$REF | wc -l`;
-printf "REF:%s|TAR:%s---------------------------------------\n" $REF $TAR;
-printf "IDoComp\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_IDOCOMP_3 $C_IDOCOMP_3 $MC_IDOCOMP_3 $D_IDOCOMP_3 $MD_IDOCOMP_3 $V_IDOCOMP_3;
-TAR="HSK16";
-REF="HS16";
-BC_IDOCOMP_4=`cat results/BC_IDOCOMP_$TAR-$REF`;
-C_IDOCOMP_4=`cat results/C_IDOCOMP_$TAR-$REF | tail -n 1 | awk '{ print $3;}'`;
-MC_IDOCOMP_4=`cat results/MC_IDOCOMP_$TAR-$REF`;
-D_IDOCOMP_4=`cat results/DT_IDOCOMP_$TAR-$REF`;
-MD_IDOCOMP_4=`cat results/MC_IDOCOMP_$TAR-$REF`;
-V_IDOCOMP_4=`cat results/V_IDOCOMP_$TAR-$REF | wc -l`;
-printf "REF:%s|TAR:%s---------------------------------------\n" $REF $TAR;
-printf "IDoComp\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_IDOCOMP_4 $C_IDOCOMP_4 $MC_IDOCOMP_4 $D_IDOCOMP_4 $MD_IDOCOMP_4 $V_IDOCOMP_4;
-TAR="RICE5";
-REF="RICE7";
-BC_IDOCOMP_5=`cat results/BC_IDOCOMP_$TAR-$REF`;
-C_IDOCOMP_5=`cat results/C_IDOCOMP_$TAR-$REF | tail -n 1 | awk '{ print $3;}'`;
-MC_IDOCOMP_5=`cat results/MC_IDOCOMP_$TAR-$REF`;
-D_IDOCOMP_5=`cat results/DT_IDOCOMP_$TAR-$REF`;
-MD_IDOCOMP_5=`cat results/MC_IDOCOMP_$TAR-$REF`;
-V_IDOCOMP_5=`cat results/V_IDOCOMP_$TAR-$REF | wc -l`;
-printf "REF:%s|TAR:%s---------------------------------------\n" $REF $TAR;
-printf "IDoComp\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_IDOCOMP_5 $C_IDOCOMP_5 $MC_IDOCOMP_5 $D_IDOCOMP_5 $MD_IDOCOMP_5 $V_IDOCOMP_5;
 ###############################################################################
 
