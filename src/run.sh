@@ -4,6 +4,8 @@
 RUN_DNACOMPACT=1;
 RUN_GECO=1;
 RUN_COGI=1;
+RUN_GZIP_NORMAL=1;
+RUN_LZMA_NORMAL=1;
 ###############################################################################
 # FASTA
 RUN_MFCOMPRESS=1;
@@ -76,6 +78,18 @@ function compGzip {
   (time gunzip $1.gz ) &> ../../results/D_GZIP_$2
   ProgMemoryStop $MEMPID "../../results/MD_GZIP_$2";
   }
+# LZMA ========================================================================
+function compLzma {
+  ProgMemoryStart "lzma" &
+  MEMPID=$!
+  (time lzma $1 ) &> ../../results/C_LZMA_$2
+  ls -la $1.lzma > ../../results/BC_LZMA_$2
+  ProgMemoryStop $MEMPID "../../results/MC_LZMA_$2";
+  ProgMemoryStart "lzma" &
+  MEMPID=$!
+  (time lzma -d $1.lzma ) &> ../../results/D_LZMA_$2
+  ProgMemoryStop $MEMPID "../../results/MD_LZMA_$2";
+  }
 ###############################################################################
 ############################### CHECK DATASETS ################################
 ###############################################################################
@@ -112,7 +126,7 @@ FExists "datasets/ERR317482.bam"
 ###   [+] rice5.seq
 ###
 ###############################################################################
-if [[ "$RUN_GZIP" -eq "1" ]]; then
+if [[ "$RUN_GZIP_NORMAL" -eq "1" ]]; then
 mkdir -p results
 mkdir -p progs/gzip
 cd progs/gzip
@@ -123,6 +137,22 @@ cat ../../datasets/rice5.fna | grep -v ">" | tr -d -c "ACGT" > rice5.seq
 compGzip "human.seq" "HUMAN"
 compGzip "chimpanze.seq" "CHIMPANZE"
 compGzip "rice5.seq" "RICE"
+#
+rm -f human.seq chimpanze.seq rice5.seq
+cd ../../
+fi
+###############################################################################
+if [[ "$RUN_LZMA_NORMAL" -eq "1" ]]; then
+mkdir -p results
+mkdir -p progs/lzma
+cd progs/lzma
+cat ../../datasets/human.fna  | grep -v ">" | tr -d -c "ACGT" > human.seq
+cat ../../datasets/chimpanze.fna | grep -v ">" | tr -d -c "ACGT" > chimpanze.seq
+cat ../../datasets/rice5.fna | grep -v ">" | tr -d -c "ACGT" > rice5.seq
+# 
+compLzma "human.seq" "HUMAN"
+compLzma "chimpanze.seq" "CHIMPANZE"
+compLzma "rice5.seq" "RICE"
 #
 rm -f human.seq chimpanze.seq rice5.seq
 cd ../../
