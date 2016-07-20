@@ -11,6 +11,8 @@ RUN_LZMA_NORMAL=1;
 RUN_MFCOMPRESS=1;
 RUN_DELIMINATE=1;
 RUN_LEON=1;
+RUN_GZIP_FASTA=1;
+RUN_LZMA_FASTA=1;
 ###############################################################################
 # FASTQ
 RUN_FQZCOMP=1;
@@ -298,6 +300,48 @@ fi
 ###   [+] camera.fa (42 GB)
 ###
 ##############################################################################
+if [[ "$RUN_GZIP_FASTA" -eq "1" ]]; then
+mkdir -p results
+mkdir -p progs/gzip
+cd progs/gzip
+mv ../../datasets/human.fna .
+mv ../../datasets/chimpanze.fna .
+mv ../../datasets/rice5.fna .
+mv ../../datasets/camera.fa .
+# 
+compGzip "human.fna" "HUMAN_FASTA"
+compGzip "chimpanze.fna" "CHIMPANZE_FASTA"
+compGzip "rice5.fna" "RICE_FASTA"
+compGzip "camera.fa" "CAMERA_FASTA"
+#
+mv camera.fa ../../datasets/
+mv rice5.fna ../../datasets/
+mv chimpanze.fna ../../datasets/
+mv human.fna ../../datasets/
+cd ../../
+fi
+###############################################################################
+if [[ "$RUN_LZMA_FASTA" -eq "1" ]]; then
+mkdir -p results
+mkdir -p progs/lzma
+cd progs/lzma
+mv ../../datasets/human.fna .
+mv ../../datasets/chimpanze.fna .
+mv ../../datasets/rice5.fna .
+mv ../../datasets/camera.fa .
+# 
+compLzma "human.fna" "HUMAN_FASTA"
+compLzma "chimpanze.fna" "CHIMPANZE_FASTA"
+compLzma "rice5.fna" "RICE_FASTA"
+compLzma "camera.fa" "CAMERA_FASTA"
+#
+mv camera.fa ../../datasets/
+mv rice5.fna ../../datasets/
+mv chimpanze.fna ../../datasets/
+mv human.fna ../../datasets/
+cd ../../
+fi
+###############################################################################
 if [[ "$RUN_DELIMINATE" -eq "1" ]]; then
 mkdir -p results
 cd progs/deliminate
