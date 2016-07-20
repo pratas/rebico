@@ -22,12 +22,16 @@ RUN_ORCOM=1;
 RUN_DSRC=1;
 RUN_FQC=1;
 RUN_LWFQZIP=1;
+RUN_GZIP_FASTQ=1;
+RUN_LZMA_FASTQ=1;
 ###############################################################################
 # SAM/BAM
 RUN_SAMCOMP=1;
 RUN_DEEZ=1;
 RUN_NGC=1;
 RUN_QUIP_SAM=1;
+RUN_GZIP_SAM=1;
+RUN_LZMA_SAM=1;
 ###############################################################################
 mkdir -p results
 ###############################################################################
@@ -564,6 +568,48 @@ fi
 ###   [+] ERR194146_1.fastq (205 GB)
 ###   [+] ERR194146_2.fastq (205 GB)
 ###
+###############################################################################
+if [[ "$RUN_GZIP_FASTQ" -eq "1" ]]; then
+mkdir -p results
+mkdir -p progs/gzip
+cd progs/gzip
+mv ../../datasets/ERR174310_1.fastq .
+mv ../../datasets/ERR174310_2.fastq .
+mv ../../datasets/ERR194146_1.fastq .
+mv ../../datasets/ERR194146_2.fastq .
+# 
+compGzip "ERR174310_1.fastq" "ERR174310_1_FASTQ"
+compGzip "ERR174310_2.fastq" "ERR174310_1_FASTQ"
+compGzip "ERR194146_1.fastq" "ERR194146_1_FASTQ"
+compGzip "ERR194146_2.fastq" "ERR194146_2_FASTQ"
+#
+mv ERR174310_1.fastq ../../datasets/
+mv ERR174310_2.fastq ../../datasets/
+mv ERR194146_1.fastq ../../datasets/
+mv ERR194146_2.fastq ../../datasets/
+cd ../../
+fi
+###############################################################################
+if [[ "$RUN_LZMA_FASTQ" -eq "1" ]]; then
+mkdir -p results
+mkdir -p progs/lzma
+cd progs/lzma
+mv ../../datasets/ERR174310_1.fastq .
+mv ../../datasets/ERR174310_2.fastq .
+mv ../../datasets/ERR194146_1.fastq .
+mv ../../datasets/ERR194146_2.fastq .
+# 
+compLzma "ERR174310_1.fastq" "ERR174310_1_FASTQ"
+compLzma "ERR174310_2.fastq" "ERR174310_1_FASTQ"
+compLzma "ERR194146_1.fastq" "ERR194146_1_FASTQ"
+compLzma "ERR194146_2.fastq" "ERR194146_2_FASTQ"
+#
+mv ERR174310_1.fastq ../../datasets/
+mv ERR174310_2.fastq ../../datasets/
+mv ERR194146_1.fastq ../../datasets/
+mv ERR194146_2.fastq ../../datasets/
+cd ../../
+fi
 ###############################################################################
 if [[ "$RUN_ORCOM" -eq "1" ]]; then
 #
