@@ -42,7 +42,7 @@ function FExists {
   file="$1"
   if [ ! -e "$file" ];
     then
-    echo "ERROR: File $file does not exist!";
+    echo "WARNING: File $file does not exist!";
     return;
     fi
   }
