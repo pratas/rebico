@@ -1120,6 +1120,48 @@ fi
 ###   [+] ERR317482.bam (6.1 GB)
 ###
 ##############################################################################
+if [[ "$RUN_GZIP_BAM" -eq "1" ]]; then
+mkdir -p results
+mkdir -p progs/gzip
+cd progs/gzip
+mv ../../datasets/NA12877_S1.bam .
+mv ../../datasets/NA12878_S1.bam .
+mv ../../datasets/NA12882_S1.bam .
+mv ../../datasets/ERR317482.bam .
+# 
+compGzip "NA12877_S1.bam" "NA12877_S1_BAM"
+compGzip "NA12878_S1.bam" "NA12878_S1_BAM"
+compGzip "NA12882_S1.bam" "NA12882_S1_BAM"
+compGzip "ERR317482.bam" "ERR317482_BAM"
+#
+mv NA12877_S1.bam ../../datasets/
+mv NA12878_S1.bam ../../datasets/
+mv NA12882_S1.bam ../../datasets/
+mv ERR317482.bam ../../datasets/
+cd ../../
+fi
+###############################################################################
+if [[ "$RUN_LZMA_BAM" -eq "1" ]]; then
+mkdir -p results
+mkdir -p progs/lzma
+cd progs/lzma
+mv ../../datasets/NA12877_S1.bam .
+mv ../../datasets/NA12878_S1.bam .
+mv ../../datasets/NA12882_S1.bam .
+mv ../../datasets/ERR317482.bam .
+# 
+compLzma "NA12877_S1.bam" "NA12877_S1_BAM"
+compLzma "NA12878_S1.bam" "NA12878_S1_BAM"
+compLzma "NA12882_S1.bam" "NA12882_S1_BAM"
+compLzma "ERR317482.bam" "ERR317482_BAM"
+#
+mv NA12877_S1.bam ../../datasets/
+mv NA12878_S1.bam ../../datasets/
+mv NA12882_S1.bam ../../datasets/
+mv ERR317482.bam ../../datasets/
+cd ../../
+fi
+###############################################################################
 if [[ "$RUN_NGC" -eq "1" ]]; then
 # http://www.cibiv.at/~niko/ngc/download.html
 mkdir -p results
