@@ -1,35 +1,35 @@
 #!/bin/bash
 ###############################################################################
 # SEQ : NORMAL
-RUN_DNACOMPACT=1;
-RUN_GECO=1;
-RUN_COGI=1;
+RUN_DNACOMPACT=0;
+RUN_GECO=0;
+RUN_COGI=0;
 RUN_GZIP_NORMAL=1;
 RUN_LZMA_NORMAL=1;
 ###############################################################################
 # FASTA
-RUN_MFCOMPRESS=1;
-RUN_DELIMINATE=1;
-RUN_LEON=1;
+RUN_MFCOMPRESS=0;
+RUN_DELIMINATE=0;
+RUN_LEON=0;
 RUN_GZIP_FASTA=1;
 RUN_LZMA_FASTA=1;
 ###############################################################################
 # FASTQ
-RUN_FQZCOMP=1;
-RUN_QUIP=1;
-RUN_SCALCE=1;
-RUN_ORCOM=1;
-RUN_DSRC=1;
-RUN_FQC=1;
-RUN_LWFQZIP=1;
+RUN_FQZCOMP=0;
+RUN_QUIP=0;
+RUN_SCALCE=0;
+RUN_ORCOM=0;
+RUN_DSRC=0;
+RUN_FQC=0;
+RUN_LWFQZIP=0;
 RUN_GZIP_FASTQ=1;
 RUN_LZMA_FASTQ=1;
 ###############################################################################
 # SAM/BAM
-RUN_SAMCOMP=1;
-RUN_DEEZ=1;
-RUN_NGC=1;
-RUN_QUIP_SAM=1;
+RUN_SAMCOMP=0;
+RUN_DEEZ=0;
+RUN_NGC=0;
+RUN_QUIP_SAM=0;
 RUN_GZIP_SAM=1;
 RUN_LZMA_SAM=1;
 ###############################################################################
