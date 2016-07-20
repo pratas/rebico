@@ -64,6 +64,18 @@ function ProgMemory2 {
 function ProgTime {
   time ./$1
   }
+# GZIP ========================================================================
+function compGzip {
+  ProgMemoryStart "gzip" &
+  MEMPID=$!
+  (time gzip $1 ) &> ../../results/C_GZIP_$2
+  ls -la $1.gz > ../../results/BC_GZIP_$2
+  ProgMemoryStop $MEMPID "../../results/MC_GZIP_$2";
+  ProgMemoryStart "gunzip" &
+  MEMPID=$!
+  (time gunzip $1.gz ) &> ../../results/D_GZIP_$2
+  ProgMemoryStop $MEMPID "../../results/MD_GZIP_$2";
+  }
 ###############################################################################
 ############################### CHECK DATASETS ################################
 ###############################################################################
@@ -99,6 +111,22 @@ FExists "datasets/ERR317482.bam"
 ###   [+] chimpanze.seq
 ###   [+] rice5.seq
 ###
+###############################################################################
+if [[ "$RUN_GZIP" -eq "1" ]]; then
+mkdir -p results
+mkdir -p progs/gzip
+cd progs/gzip
+cat ../../datasets/human.fna  | grep -v ">" | tr -d -c "ACGT" > human.seq
+cat ../../datasets/chimpanze.fna | grep -v ">" | tr -d -c "ACGT" > chimpanze.seq
+cat ../../datasets/rice5.fna | grep -v ">" | tr -d -c "ACGT" > rice5.seq
+# 
+compGzip "human.seq" "HUMAN"
+compGzip "chimpanze.seq" "CHIMPANZE"
+compGzip "rice5.seq" "RICE"
+#
+rm -f human.seq chimpanze.seq rice5.seq
+cd ../../
+fi
 ###############################################################################
 if [[ "$RUN_COGI" -eq "1" ]]; then
 mkdir -p results
