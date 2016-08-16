@@ -118,12 +118,18 @@ printf "Method\tC_bytes\tC_Time\tC_mem\tD_Time\tD_mem\tcmp?\n";
 printf "HUMAN----------------------------------------------\n";
 printf "GeCo\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GECO_HUMAN $C_GECO_HUMAN $MC_GECO_HUMAN $D_GECO_HUMAN $MD_GECO_HUMAN $V_GECO_HUMAN;
 printf "DNACompact\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DNACOMPACT_HUMAN $C_DNACOMPACT_HUMAN $MC_DNACOMPACT_HUMAN $D_DNACOMPACT_HUMAN $MD_DNACOMPACT_HUMAN $V_DNACOMPACT_HUMAN;
+printf "GZIP\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GZIP_HUMAN $C_GZIP_HUMAN $MC_GZIP_HUMAN $D_GZIP_HUMAN $MD_GZIP_HUMAN $V_GZIP_HUMAN;
+printf "LZMA\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_LZMA_HUMAN $C_LZMA_HUMAN $MC_LZMA_HUMAN $D_LZMA_HUMAN $MD_LZMA_HUMAN $V_LZMA_HUMAN;
 printf "CHIMPANZE------------------------------------------\n";
 printf "GeCo\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GECO_CHIMPANZE $C_GECO_CHIMPANZE $MC_GECO_CHIMPANZE $D_GECO_CHIMPANZE $MD_GECO_CHIMPANZE $V_GECO_CHIMPANZE;
 printf "DNACompact\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DNACOMPACT_CHIMPANZE $C_DNACOMPACT_CHIMPANZE $MC_DNACOMPACT_CHIMPANZE $D_DNACOMPACT_CHIMPANZE $MD_DNACOMPACT_CHIMPANZE $V_DNACOMPACT_CHIMPANZE;
+printf "GZIP\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GZIP_CHIMPANZE $C_GZIP_CHIMPANZE $MC_GZIP_CHIMPANZE $D_GZIP_CHIMPANZE $MD_GZIP_CHIMPANZE $V_GZIP_CHIMPANZE;
+printf "LZMA\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_LZMA_CHIMPANZE $C_LZMA_CHIMPANZE $MC_LZMA_CHIMPANZE $D_LZMA_CHIMPANZE $MD_LZMA_CHIMPANZE $V_LZMA_CHIMPANZE;
 printf "RICE-----------------------------------------------\n";
 printf "GeCo\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GECO_RICE $C_GECO_RICE $MC_GECO_RICE $D_GECO_RICE $MD_GECO_RICE $V_GECO_RICE;
 printf "DNACompact\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DNACOMPACT_RICE $C_DNACOMPACT_RICE $MC_DNACOMPACT_RICE $D_DNACOMPACT_RICE $MD_DNACOMPACT_RICE $V_DNACOMPACT_RICE;
+printf "GZIP\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GZIP_RICE $C_GZIP_RICE $MC_GZIP_RICE $D_GZIP_RICE $MD_GZIP_RICE $V_GZIP_RICE;
+printf "LZMA\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_LZMA_RICE $C_LZMA_RICE $MC_LZMA_RICE $D_LZMA_RICE $MD_LZMA_RICE $V_LZMA_RICE;
 ###############################################################################
 #
 ###############################################################################
