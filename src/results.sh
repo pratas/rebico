@@ -57,6 +57,60 @@ V_DNACOMPACT_HUMAN=`cat results/V_DNACOMPACT_HUMAN | wc -l`;
 V_DNACOMPACT_CHIMPANZE=`cat results/V_DNACOMPACT_CHIMPANZE | wc -l`;
 V_DNACOMPACT_RICE=`cat results/V_DNACOMPACT_RICE | wc -l`;
 #
+# GZIP ########################################################################
+#
+# BC, BYTES ON COMPRESSION ====================================================
+BC_GZIP_HUMAN=`cat results/BC_GZIP_HUMAN | awk '{ print $5; }'`;
+BC_GZIP_CHIMPANZE=`cat results/BC_GZIP_CHIMPANZE | awk '{ print $5; }'`;
+BC_GZIP_RICE=`cat results/BC_GZIP_RICE | awk '{ print $5; }'`;
+# C, COMPRESSION TIME =========================================================
+C_GZIP_HUMAN=`cat results/C_GZIP_HUMAN | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_GZIP_CHIMPANZE=`cat results/C_GZIP_CHIMPANZE | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_GZIP_RICE=`cat results/C_GZIP_RICE | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MC, COMPRESSION MEMORY ======================================================
+MC_GZIP_HUMAN=`cat results/MC_GZIP_HUMAN`;
+MC_GZIP_CHIMPANZE=`cat results/MC_GZIP_CHIMPANZE`;
+MC_GZIP_RICE=`cat results/MC_GZIP_RICE`;
+# D, DECOMPRESSION TIME =======================================================
+D_GZIP_HUMAN=`cat results/D_GZIP_HUMAN | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_GZIP_CHIMPANZE=`cat results/D_GZIP_CHIMPANZE | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_GZIP_RICE=`cat results/D_GZIP_RICE | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MD, DECOMPRESSION MEMORY ====================================================
+MD_GZIP_HUMAN=`cat results/MD_GZIP_HUMAN`;
+MD_GZIP_CHIMPANZE=`cat results/MD_GZIP_CHIMPANZE`;
+MD_GZIP_RICE=`cat results/MD_GZIP_RICE`;
+# V, DECOMPRESSION HELD WITH SUCCESS? =========================================
+V_GZIP_HUMAN=`cat results/V_GZIP_HUMAN | wc -l`;
+V_GZIP_CHIMPANZE=`cat results/V_GZIP_CHIMPANZE | wc -l`;
+V_GZIP_RICE=`cat results/V_GZIP_RICE | wc -l`;
+#
+# LZMA ########################################################################
+#
+# BC, BYTES ON COMPRESSION ====================================================
+BC_LZMA_HUMAN=`cat results/BC_LZMA_HUMAN | awk '{ print $5; }'`;
+BC_LZMA_CHIMPANZE=`cat results/BC_LZMA_CHIMPANZE | awk '{ print $5; }'`;
+BC_LZMA_RICE=`cat results/BC_LZMA_RICE | awk '{ print $5; }'`;
+# C, COMPRESSION TIME =========================================================
+C_LZMA_HUMAN=`cat results/C_LZMA_HUMAN | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_LZMA_CHIMPANZE=`cat results/C_LZMA_CHIMPANZE | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_LZMA_RICE=`cat results/C_LZMA_RICE | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MC, COMPRESSION MEMORY ======================================================
+MC_LZMA_HUMAN=`cat results/MC_LZMA_HUMAN`;
+MC_LZMA_CHIMPANZE=`cat results/MC_LZMA_CHIMPANZE`;
+MC_LZMA_RICE=`cat results/MC_LZMA_RICE`;
+# D, DECOMPRESSION TIME =======================================================
+D_LZMA_HUMAN=`cat results/D_LZMA_HUMAN | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_LZMA_CHIMPANZE=`cat results/D_LZMA_CHIMPANZE | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_LZMA_RICE=`cat results/D_LZMA_RICE | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MD, DECOMPRESSION MEMORY ====================================================
+MD_LZMA_HUMAN=`cat results/MD_LZMA_HUMAN`;
+MD_LZMA_CHIMPANZE=`cat results/MD_LZMA_CHIMPANZE`;
+MD_LZMA_RICE=`cat results/MD_LZMA_RICE`;
+# V, DECOMPRESSION HELD WITH SUCCESS? =========================================
+V_LZMA_HUMAN=`cat results/V_LZMA_HUMAN | wc -l`;
+V_LZMA_CHIMPANZE=`cat results/V_LZMA_CHIMPANZE | wc -l`;
+V_LZMA_RICE=`cat results/V_LZMA_RICE | wc -l`;
+#
 ###############################################################################
 ############################## BUILD TABLE ####################################
 ###############################################################################
