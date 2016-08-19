@@ -510,6 +510,81 @@ V_FQC_ERR174310_1=`cat results/V_FQC_ERR174310_1 | wc -l`;
 V_FQC_ERR174310_2=`cat results/V_FQC_ERR174310_2 | wc -l`;
 V_FQC_ERR194146_1=`cat results/V_FQC_ERR194146_1 | wc -l`;
 V_FQC_ERR194146_2=`cat results/V_FQC_ERR194146_2 | wc -l`;
+
+
+
+BC_FQZCOMP_ERR174310_1=`cat results/BC_FQZCOMP_ERR174310_1 | awk '{ print $5; }'`;
+BC_FQZCOMP_ERR174310_2=`cat results/BC_FQZCOMP_ERR174310_2 | awk '{ print $5; }'`;
+BC_FQZCOMP_ERR194146_1=`cat results/BC_FQZCOMP_ERR194146_1 | awk '{ print $5; }'`;
+BC_FQZCOMP_ERR194146_2=`cat results/BC_FQZCOMP_ERR194146_2 | awk '{ print $5; }'`;
+###############################################################################
+#
+# GZIP ########################################################################
+#
+# BC, BYTES ON COMPRESSION ====================================================
+BC_GZIP_ERR174310_1_FASTQ=`cat results/BC_GZIP_ERR174310_1_FASTQ | awk '{ print $5; }'`;
+BC_GZIP_ERR174310_2_FASTQ=`cat results/BC_GZIP_ERR174310_2_FASTQ | awk '{ print $5; }'`;
+BC_GZIP_ERR194146_1_FASTQ=`cat results/BC_GZIP_ERR194146_1_FASTQ | awk '{ print $5; }'`;
+BC_GZIP_ERR194146_2_FASTQ=`cat results/BC_GZIP_ERR194146_2_FASTQ | awk '{ print $5; }'`;
+# C, COMPRESSION TIME =========================================================
+C_GZIP_ERR174310_1_FASTQ=`cat results/C_GZIP_ERR174310_1_FASTQ | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_GZIP_ERR174310_2_FASTQ=`cat results/C_GZIP_ERR174310_2_FASTQ | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_GZIP_ERR194146_1_FASTQ=`cat results/C_GZIP_ERR194146_1_FASTQ | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_GZIP_ERR194146_2_FASTQ=`cat results/C_GZIP_ERR194146_2_FASTQ | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MC, COMPRESSION MEMORY ======================================================
+MC_GZIP_ERR174310_1_FASTQ=`cat results/MC_GZIP_ERR174310_1_FASTQ`;
+MC_GZIP_ERR174310_2_FASTQ=`cat results/MC_GZIP_ERR174310_2_FASTQ`;
+MC_GZIP_ERR194146_1_FASTQ=`cat results/MC_GZIP_ERR194146_1_FASTQ`;
+MC_GZIP_ERR194146_2_FASTQ=`cat results/MC_GZIP_ERR194146_2_FASTQ`;
+# D, DECOMPRESSION TIME =======================================================
+D_GZIP_ERR174310_1_FASTQ=`cat results/D_GZIP_ERR174310_1_FASTQ | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_GZIP_ERR174310_2_FASTQ=`cat results/D_GZIP_ERR174310_2_FASTQ | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_GZIP_ERR194146_1_FASTQ=`cat results/D_GZIP_ERR194146_1_FASTQ | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_GZIP_ERR194146_2_FASTQ=`cat results/D_GZIP_ERR194146_2_FASTQ | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MD, DECOMPRESSION MEMORY ====================================================
+MD_GZIP_ERR174310_1_FASTQ=`cat results/MD_GZIP_ERR174310_1_FASTQ`;
+MD_GZIP_ERR174310_2_FASTQ=`cat results/MD_GZIP_ERR174310_2_FASTQ`;
+MD_GZIP_ERR194146_1_FASTQ=`cat results/MD_GZIP_ERR194146_1_FASTQ`;
+MD_GZIP_ERR194146_2_FASTQ=`cat results/MD_GZIP_ERR194146_2_FASTQ`;
+# V, DECOMPRESSION HELD WITH SUCCESS? =========================================
+V_GZIP_ERR174310_1_FASTQ=`cat results/V_GZIP_ERR174310_1_FASTQ | wc -l`;
+V_GZIP_ERR174310_2_FASTQ=`cat results/V_GZIP_ERR174310_2_FASTQ | wc -l`;
+V_GZIP_ERR194146_1_FASTQ=`cat results/V_GZIP_ERR194146_1_FASTQ | wc -l`;
+V_GZIP_ERR194146_2_FASTQ=`cat results/V_GZIP_ERR194146_2_FASTQ | wc -l`;
+###############################################################################
+#
+# LZMA ########################################################################
+#
+# BC, BYTES ON COMPRESSION ====================================================
+BC_LZMA_ERR174310_1_FASTQ=`cat results/BC_LZMA_ERR174310_1_FASTQ | awk '{ print $5; }'`;
+BC_LZMA_ERR174310_2_FASTQ=`cat results/BC_LZMA_ERR174310_2_FASTQ | awk '{ print $5; }'`;
+BC_LZMA_ERR194146_1_FASTQ=`cat results/BC_LZMA_ERR194146_1_FASTQ | awk '{ print $5; }'`;
+BC_LZMA_ERR194146_2_FASTQ=`cat results/BC_LZMA_ERR194146_2_FASTQ | awk '{ print $5; }'`;
+# C, COMPRESSION TIME =========================================================
+C_LZMA_ERR174310_1_FASTQ=`cat results/C_LZMA_ERR174310_1_FASTQ | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_LZMA_ERR174310_2_FASTQ=`cat results/C_LZMA_ERR174310_2_FASTQ | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_LZMA_ERR194146_1_FASTQ=`cat results/C_LZMA_ERR194146_1_FASTQ | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_LZMA_ERR194146_2_FASTQ=`cat results/C_LZMA_ERR194146_2_FASTQ | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MC, COMPRESSION MEMORY ======================================================
+MC_LZMA_ERR174310_1_FASTQ=`cat results/MC_LZMA_ERR174310_1_FASTQ`;
+MC_LZMA_ERR174310_2_FASTQ=`cat results/MC_LZMA_ERR174310_2_FASTQ`;
+MC_LZMA_ERR194146_1_FASTQ=`cat results/MC_LZMA_ERR194146_1_FASTQ`;
+MC_LZMA_ERR194146_2_FASTQ=`cat results/MC_LZMA_ERR194146_2_FASTQ`;
+# D, DECOMPRESSION TIME =======================================================
+D_LZMA_ERR174310_1_FASTQ=`cat results/D_LZMA_ERR174310_1_FASTQ | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_LZMA_ERR174310_2_FASTQ=`cat results/D_LZMA_ERR174310_2_FASTQ | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_LZMA_ERR194146_1_FASTQ=`cat results/D_LZMA_ERR194146_1_FASTQ | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_LZMA_ERR194146_2_FASTQ=`cat results/D_LZMA_ERR194146_2_FASTQ | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MD, DECOMPRESSION MEMORY ====================================================
+MD_LZMA_ERR174310_1_FASTQ=`cat results/MD_LZMA_ERR174310_1_FASTQ`;
+MD_LZMA_ERR174310_2_FASTQ=`cat results/MD_LZMA_ERR174310_2_FASTQ`;
+MD_LZMA_ERR194146_1_FASTQ=`cat results/MD_LZMA_ERR194146_1_FASTQ`;
+MD_LZMA_ERR194146_2_FASTQ=`cat results/MD_LZMA_ERR194146_2_FASTQ`;
+# V, DECOMPRESSION HELD WITH SUCCESS? =========================================
+V_LZMA_ERR174310_1_FASTQ=`cat results/V_LZMA_ERR174310_1_FASTQ | wc -l`;
+V_LZMA_ERR174310_2_FASTQ=`cat results/V_LZMA_ERR174310_2_FASTQ | wc -l`;
+V_LZMA_ERR194146_1_FASTQ=`cat results/V_LZMA_ERR194146_1_FASTQ | wc -l`;
+V_LZMA_ERR194146_2_FASTQ=`cat results/V_LZMA_ERR194146_2_FASTQ | wc -l`;
 #
 ###############################################################################
 ############################## BUILD TABLE ####################################

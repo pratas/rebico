@@ -579,7 +579,7 @@ mv ../../datasets/ERR194146_1.fastq .
 mv ../../datasets/ERR194146_2.fastq .
 # 
 compGzip "ERR174310_1.fastq" "ERR174310_1_FASTQ"
-compGzip "ERR174310_2.fastq" "ERR174310_1_FASTQ"
+compGzip "ERR174310_2.fastq" "ERR174310_2_FASTQ"
 compGzip "ERR194146_1.fastq" "ERR194146_1_FASTQ"
 compGzip "ERR194146_2.fastq" "ERR194146_2_FASTQ"
 #
@@ -600,7 +600,7 @@ mv ../../datasets/ERR194146_1.fastq .
 mv ../../datasets/ERR194146_2.fastq .
 # 
 compLzma "ERR174310_1.fastq" "ERR174310_1_FASTQ"
-compLzma "ERR174310_2.fastq" "ERR174310_1_FASTQ"
+compLzma "ERR174310_2.fastq" "ERR174310_2_FASTQ"
 compLzma "ERR194146_1.fastq" "ERR194146_1_FASTQ"
 compLzma "ERR194146_2.fastq" "ERR194146_2_FASTQ"
 #
