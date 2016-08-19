@@ -596,24 +596,32 @@ printf "Quip\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_QUIP_ERR174310_1 $C_QUIP_ERR174310_
 printf "DSRC\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DSRC_ERR174310_1 $C_DSRC_ERR174310_1 $MC_DSRC_ERR174310_1 $D_DSRC_ERR174310_1 $MD_DSRC_ERR174310_1 $V_DSRC_ERR174310_1;
 printf "SCALCE\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_SCALCE_ERR174310_1 $C_SCALCE_ERR174310_1 $MC_SCALCE_ERR174310_1 $D_SCALCE_ERR174310_1 $MD_SCALCE_ERR174310_1 $V_SCALCE_ERR174310_1;
 printf "FQC\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_FQC_ERR174310_1 $C_FQC_ERR174310_1 $MC_FQC_ERR174310_1 $D_FQC_ERR174310_1 $MD_FQC_ERR174310_1 $V_FQC_ERR174310_1;
+printf "GZIP\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GZIP_ERR174310_1_FASTQ $C_GZIP_ERR174310_1_FASTQ $MC_GZIP_ERR174310_1_FASTQ $D_GZIP_ERR174310_1_FASTQ $MD_GZIP_ERR174310_1_FASTQ $V_GZIP_ERR174310_1_FASTQ;
+printf "LZMA\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_LZMA_ERR174310_1_FASTQ $C_LZMA_ERR174310_1_FASTQ $MC_LZMA_ERR174310_1_FASTQ $D_LZMA_ERR174310_1_FASTQ $MD_LZMA_ERR174310_1_FASTQ $V_LZMA_ERR174310_1_FASTQ;
 printf "ERR174310_2----------------------------------------\n";
 printf "FQZCOMP\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_FQZCOMP_ERR174310_2 $C_FQZCOMP_ERR174310_2 $MC_FQZCOMP_ERR174310_2 $D_FQZCOMP_ERR174310_2 $MD_FQZCOMP_ERR174310_2 $V_FQZCOMP_ERR174310_2;
 printf "Quip\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_QUIP_ERR174310_2 $C_QUIP_ERR174310_2 $MC_QUIP_ERR174310_2 $D_QUIP_ERR174310_2 $MD_QUIP_ERR174310_2 $V_QUIP_ERR174310_2;
 printf "DSRC\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DSRC_ERR174310_2 $C_DSRC_ERR174310_2 $MC_DSRC_ERR174310_2 $D_DSRC_ERR174310_2 $MD_DSRC_ERR174310_2 $V_DSRC_ERR174310_2;
 printf "SCALCE\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_SCALCE_ERR174310_2 $C_SCALCE_ERR174310_2 $MC_SCALCE_ERR174310_2 $D_SCALCE_ERR174310_2 $MD_SCALCE_ERR174310_2 $V_SCALCE_ERR174310_2;
 printf "FQC\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_FQC_ERR174310_2 $C_FQC_ERR174310_2 $MC_FQC_ERR174310_2 $D_FQC_ERR174310_2 $MD_FQC_ERR174310_2 $V_FQC_ERR174310_2;
+printf "GZIP\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GZIP_ERR174310_2_FASTQ $C_GZIP_ERR174310_2_FASTQ $MC_GZIP_ERR174310_2_FASTQ $D_GZIP_ERR174310_2_FASTQ $MD_GZIP_ERR174310_2_FASTQ $V_GZIP_ERR174310_2_FASTQ;
+printf "LZMA\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_LZMA_ERR174310_2_FASTQ $C_LZMA_ERR174310_2_FASTQ $MC_LZMA_ERR174310_2_FASTQ $D_LZMA_ERR174310_2_FASTQ $MD_LZMA_ERR174310_2_FASTQ $V_LZMA_ERR174310_2_FASTQ;
 printf "ERR194146_1----------------------------------------\n";
 printf "FQZCOMP\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_FQZCOMP_ERR194146_1 $C_FQZCOMP_ERR194146_1 $MC_FQZCOMP_ERR194146_1 $D_FQZCOMP_ERR194146_1 $MD_FQZCOMP_ERR194146_1 $V_FQZCOMP_ERR194146_1;
 printf "Quip\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_QUIP_ERR194146_1 $C_QUIP_ERR194146_1 $MC_QUIP_ERR194146_1 $D_QUIP_ERR194146_1 $MD_QUIP_ERR194146_1 $V_QUIP_ERR194146_1;
 printf "DSRC\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DSRC_ERR194146_1 $C_DSRC_ERR194146_1 $MC_DSRC_ERR194146_1 $D_DSRC_ERR194146_1 $MD_DSRC_ERR194146_1 $V_DSRC_ERR194146_1;
 printf "SCALCE\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_SCALCE_ERR194146_1 $C_SCALCE_ERR194146_1 $MC_SCALCE_ERR194146_1 $D_SCALCE_ERR194146_1 $MD_SCALCE_ERR194146_1 $V_SCALCE_ERR194146_1;
 printf "FQC\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_FQC_ERR194146_1 $C_FQC_ERR194146_1 $MC_FQC_ERR194146_1 $D_FQC_ERR194146_1 $MD_FQC_ERR194146_1 $V_FQC_ERR194146_1;
+printf "GZIP\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GZIP_ERR194146_1_FASTQ $C_GZIP_ERR194146_1_FASTQ $MC_GZIP_ERR194146_1_FASTQ $D_GZIP_ERR194146_1_FASTQ $MD_GZIP_ERR194146_1_FASTQ $V_GZIP_ERR194146_1_FASTQ;
+printf "LZMA\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_LZMA_ERR194146_1_FASTQ $C_LZMA_ERR194146_1_FASTQ $MC_LZMA_ERR194146_1_FASTQ $D_LZMA_ERR194146_1_FASTQ $MD_LZMA_ERR194146_1_FASTQ $V_LZMA_ERR194146_1_FASTQ;
 printf "ERR194146_2----------------------------------------\n";
 printf "FQZCOMP\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_FQZCOMP_ERR194146_2 $C_FQZCOMP_ERR194146_2 $MC_FQZCOMP_ERR194146_2 $D_FQZCOMP_ERR194146_2 $MD_FQZCOMP_ERR194146_2 $V_FQZCOMP_ERR194146_2;
 printf "Quip\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_QUIP_ERR194146_2 $C_QUIP_ERR194146_2 $MC_QUIP_ERR194146_2 $D_QUIP_ERR194146_2 $MD_QUIP_ERR194146_2 $V_QUIP_ERR194146_2;
 printf "DSRC\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DSRC_ERR194146_2 $C_DSRC_ERR194146_2 $MC_DSRC_ERR194146_2 $D_DSRC_ERR194146_2 $MD_DSRC_ERR194146_2 $V_DSRC_ERR194146_2;
 printf "SCALCE\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_SCALCE_ERR194146_2 $C_SCALCE_ERR194146_2 $MC_SCALCE_ERR194146_2 $D_SCALCE_ERR194146_2 $MD_SCALCE_ERR194146_2 $V_SCALCE_ERR194146_2;
 printf "FQC\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_FQC_ERR194146_2 $C_FQC_ERR194146_2 $MC_FQC_ERR194146_2 $D_FQC_ERR194146_2 $MD_FQC_ERR194146_2 $V_FQC_ERR194146_2;
+printf "GZIP\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GZIP_ERR194146_2_FASTQ $C_GZIP_ERR194146_2_FASTQ $MC_GZIP_ERR194146_2_FASTQ $D_GZIP_ERR194146_2_FASTQ $MD_GZIP_ERR194146_2_FASTQ $V_GZIP_ERR194146_2_FASTQ;
+printf "LZMA\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_LZMA_ERR194146_2_FASTQ $C_LZMA_ERR194146_2_FASTQ $MC_LZMA_ERR194146_2_FASTQ $D_LZMA_ERR194146_2_FASTQ $MD_LZMA_ERR194146_2_FASTQ $V_LZMA_ERR194146_2_FASTQ;
 ###############################################################################
 #
 ###############################################################################
@@ -689,7 +697,7 @@ V_SAMCOMP_NA12882_S1=`cat results/V_SAMCOMP_NA12882_S1 | wc -l`;
 V_SAMCOMP_ERR317482=`cat results/V_SAMCOMP_ERR317482 | wc -l`;
 ###############################################################################
 #
-# QUIP_SAM ########################################################################
+# QUIP_SAM ####################################################################
 #
 # BC, BYTES ON COMPRESSION ====================================================
 BC_QUIP_SAM_NA12877_S1=`cat results/BC_QUIP_SAM_NA12877_S1 | awk '{ print $5; }'`;
@@ -723,6 +731,75 @@ V_QUIP_SAM_NA12882_S1=`cat results/V_QUIP_SAM_NA12882_S1 | wc -l`;
 V_QUIP_SAM_ERR317482=`cat results/V_QUIP_SAM_ERR317482 | wc -l`;
 #
 ###############################################################################
+#
+# GZIP ########################################################################
+#
+# BC, BYTES ON COMPRESSION ====================================================
+BC_GZIP_NA12877_S1_BAM=`cat results/BC_GZIP_NA12877_S1_BAM | awk '{ print $5; }'`;
+BC_GZIP_NA12878_S1_BAM=`cat results/BC_GZIP_NA12878_S1_BAM | awk '{ print $5; }'`;
+BC_GZIP_NA12882_S1_BAM=`cat results/BC_GZIP_NA12882_S1_BAM | awk '{ print $5; }'`;
+BC_GZIP_ERR317482_BAM=`cat results/BC_GZIP_ERR317482_BAM | awk '{ print $5; }'`;
+# C, COMPRESSION TIME =========================================================
+C_GZIP_NA12877_S1_BAM=`cat results/C_GZIP_NA12877_S1_BAM | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_GZIP_NA12878_S1_BAM=`cat results/C_GZIP_NA12878_S1_BAM | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_GZIP_NA12882_S1_BAM=`cat results/C_GZIP_NA12882_S1_BAM | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_GZIP_ERR317482_BAM=`cat results/C_GZIP_ERR317482_BAM | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MC, COMPRESSION MEMORY ======================================================
+MC_GZIP_NA12877_S1_BAM=`cat results/MC_GZIP_NA12877_S1_BAM`;
+MC_GZIP_NA12878_S1_BAM=`cat results/MC_GZIP_NA12878_S1_BAM`;
+MC_GZIP_NA12882_S1_BAM=`cat results/MC_GZIP_NA12882_S1_BAM`;
+MC_GZIP_ERR317482_BAM=`cat results/MC_GZIP_ERR317482_BAM`;
+# D, DECOMPRESSION TIME =======================================================
+D_GZIP_NA12877_S1_BAM=`cat results/D_GZIP_NA12877_S1_BAM | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_GZIP_NA12878_S1_BAM=`cat results/D_GZIP_NA12878_S1_BAM | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_GZIP_NA12882_S1_BAM=`cat results/D_GZIP_NA12882_S1_BAM | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_GZIP_ERR317482_BAM=`cat results/D_GZIP_ERR317482_BAM | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MD, DECOMPRESSION MEMORY ====================================================
+MD_GZIP_NA12877_S1_BAM=`cat results/MD_GZIP_NA12877_S1_BAM`;
+MD_GZIP_NA12878_S1_BAM=`cat results/MD_GZIP_NA12878_S1_BAM`;
+MD_GZIP_NA12882_S1_BAM=`cat results/MD_GZIP_NA12882_S1_BAM`;
+MD_GZIP_ERR317482_BAM=`cat results/MD_GZIP_ERR317482_BAM`;
+# V, DECOMPRESSION HELD WITH SUCCESS? =========================================
+V_GZIP_NA12877_S1_BAM=`cat results/V_GZIP_NA12877_S1_BAM | wc -l`;
+V_GZIP_NA12878_S1_BAM=`cat results/V_GZIP_NA12878_S1_BAM | wc -l`;
+V_GZIP_NA12882_S1_BAM=`cat results/V_GZIP_NA12882_S1_BAM | wc -l`;
+V_GZIP_ERR317482_BAM=`cat results/V_GZIP_ERR317482_BAM | wc -l`;
+###############################################################################
+#
+# LZMA ########################################################################
+#
+# BC, BYTES ON COMPRESSION ====================================================
+BC_LZMA_NA12877_S1_BAM=`cat results/BC_LZMA_NA12877_S1_BAM | awk '{ print $5; }'`;
+BC_LZMA_NA12878_S1_BAM=`cat results/BC_LZMA_NA12878_S1_BAM | awk '{ print $5; }'`;
+BC_LZMA_NA12882_S1_BAM=`cat results/BC_LZMA_NA12882_S1_BAM | awk '{ print $5; }'`;
+BC_LZMA_ERR317482_BAM=`cat results/BC_LZMA_ERR317482_BAM | awk '{ print $5; }'`;
+# C, COMPRESSION TIME =========================================================
+C_LZMA_NA12877_S1_BAM=`cat results/C_LZMA_NA12877_S1_BAM | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_LZMA_NA12878_S1_BAM=`cat results/C_LZMA_NA12878_S1_BAM | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_LZMA_NA12882_S1_BAM=`cat results/C_LZMA_NA12882_S1_BAM | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+C_LZMA_ERR317482_BAM=`cat results/C_LZMA_ERR317482_BAM | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MC, COMPRESSION MEMORY ======================================================
+MC_LZMA_NA12877_S1_BAM=`cat results/MC_LZMA_NA12877_S1_BAM`;
+MC_LZMA_NA12878_S1_BAM=`cat results/MC_LZMA_NA12878_S1_BAM`;
+MC_LZMA_NA12882_S1_BAM=`cat results/MC_LZMA_NA12882_S1_BAM`;
+MC_LZMA_ERR317482_BAM=`cat results/MC_LZMA_ERR317482_BAM`;
+# D, DECOMPRESSION TIME =======================================================
+D_LZMA_NA12877_S1_BAM=`cat results/D_LZMA_NA12877_S1_BAM | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_LZMA_NA12878_S1_BAM=`cat results/D_LZMA_NA12878_S1_BAM | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_LZMA_NA12882_S1_BAM=`cat results/D_LZMA_NA12882_S1_BAM | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+D_LZMA_ERR317482_BAM=`cat results/D_LZMA_ERR317482_BAM | tail -n 2 | head -n 1 | awk '{ print $2;}'`;
+# MD, DECOMPRESSION MEMORY ====================================================
+MD_LZMA_NA12877_S1_BAM=`cat results/MD_LZMA_NA12877_S1_BAM`;
+MD_LZMA_NA12878_S1_BAM=`cat results/MD_LZMA_NA12878_S1_BAM`;
+MD_LZMA_NA12882_S1_BAM=`cat results/MD_LZMA_NA12882_S1_BAM`;
+MD_LZMA_ERR317482_BAM=`cat results/MD_LZMA_ERR317482_BAM`;
+# V, DECOMPRESSION HELD WITH SUCCESS? =========================================
+V_LZMA_NA12877_S1_BAM=`cat results/V_LZMA_NA12877_S1_BAM | wc -l`;
+V_LZMA_NA12878_S1_BAM=`cat results/V_LZMA_NA12878_S1_BAM | wc -l`;
+V_LZMA_NA12882_S1_BAM=`cat results/V_LZMA_NA12882_S1_BAM | wc -l`;
+V_LZMA_ERR317482_BAM=`cat results/V_LZMA_ERR317482_BAM | wc -l`;
+#
+###############################################################################
 ############################## BUILD TABLE ####################################
 ###############################################################################
 printf "\n\nMethod\tC_bytes\tC_Time\tC_mem\tD_Time\tD_mem\tcmp?\n";
@@ -730,18 +807,26 @@ printf "NA12877_S1-----------------------------------------\n";
 printf "Deez\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DEEZ_NA12877_S1 $C_DEEZ_NA12877_S1 $MC_DEEZ_NA12877_S1 $D_DEEZ_NA12877_S1 $MD_DEEZ_NA12877_S1 $V_DEEZ_NA12877_S1;
 printf "Sam_comp\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_SAMCOMP_NA12877_S1 $C_SAMCOMP_NA12877_S1 $MC_SAMCOMP_NA12877_S1 $D_SAMCOMP_NA12877_S1 $MD_SAMCOMP_NA12877_S1 $V_SAMCOMP_NA12877_S1;
 printf "Quip\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_QUIP_SAM_NA12877_S1 $C_QUIP_SAM_NA12877_S1 $MC_QUIP_SAM_NA12877_S1 $D_QUIP_SAM_NA12877_S1 $MD_QUIP_SAM_NA12877_S1 $V_QUIP_SAM_NA12877_S1;
+printf "GZIP\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GZIP_NA12877_S1_BAM $C_GZIP_NA12877_S1_BAM $MC_GZIP_NA12877_S1_BAM $D_GZIP_NA12877_S1_BAM $MD_GZIP_NA12877_S1_BAM $V_GZIP_NA12877_S1_BAM;
+printf "LZMA\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_LZMA_NA12877_S1_BAM $C_LZMA_NA12877_S1_BAM $MC_LZMA_NA12877_S1_BAM $D_LZMA_NA12877_S1_BAM $MD_LZMA_NA12877_S1_BAM $V_LZMA_NA12877_S1_BAM;
 printf "NA12878_S1-----------------------------------------\n";
 printf "Deez\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DEEZ_NA12878_S1 $C_DEEZ_NA12878_S1 $MC_DEEZ_NA12878_S1 $D_DEEZ_NA12878_S1 $MD_DEEZ_NA12878_S1 $V_DEEZ_NA12878_S1;
 printf "Sam_comp\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_SAMCOMP_NA12878_S1 $C_SAMCOMP_NA12878_S1 $MC_SAMCOMP_NA12878_S1 $D_SAMCOMP_NA12878_S1 $MD_SAMCOMP_NA12878_S1 $V_SAMCOMP_NA12878_S1;
 printf "Quip\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_QUIP_SAM_NA12878_S1 $C_QUIP_SAM_NA12878_S1 $MC_QUIP_SAM_NA12878_S1 $D_QUIP_SAM_NA12878_S1 $MD_QUIP_SAM_NA12878_S1 $V_QUIP_SAM_NA12878_S1;
+printf "GZIP\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GZIP_NA12878_S1_BAM $C_GZIP_NA12878_S1_BAM $MC_GZIP_NA12878_S1_BAM $D_GZIP_NA12878_S1_BAM $MD_GZIP_NA12878_S1_BAM $V_GZIP_NA12878_S1_BAM;
+printf "LZMA\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_LZMA_NA12878_S1_BAM $C_LZMA_NA12878_S1_BAM $MC_LZMA_NA12878_S1_BAM $D_LZMA_NA12878_S1_BAM $MD_LZMA_NA12878_S1_BAM $V_LZMA_NA12878_S1_BAM;
 printf "NA12882_S1-----------------------------------------\n";
 printf "Deez\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DEEZ_NA12882_S1 $C_DEEZ_NA12882_S1 $MC_DEEZ_NA12882_S1 $D_DEEZ_NA12882_S1 $MD_DEEZ_NA12882_S1 $V_DEEZ_NA12882_S1;
 printf "Sam_comp\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_SAMCOMP_NA12882_S1 $C_SAMCOMP_NA12882_S1 $MC_SAMCOMP_NA12882_S1 $D_SAMCOMP_NA12882_S1 $MD_SAMCOMP_NA12882_S1 $V_SAMCOMP_NA12882_S1;
 printf "Quip\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_QUIP_SAM_NA12882_S1 $C_QUIP_SAM_NA12882_S1 $MC_QUIP_SAM_NA12882_S1 $D_QUIP_SAM_NA12882_S1 $MD_QUIP_SAM_NA12882_S1 $V_QUIP_SAM_NA12882_S1;
+printf "GZIP\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GZIP_NA12882_S1_BAM $C_GZIP_NA12882_S1_BAM $MC_GZIP_NA12882_S1_BAM $D_GZIP_NA12882_S1_BAM $MD_GZIP_NA12882_S1_BAM $V_GZIP_NA12882_S1_BAM;
+printf "LZMA\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_LZMA_NA12882_S1_BAM $C_LZMA_NA12882_S1_BAM $MC_LZMA_NA12882_S1_BAM $D_LZMA_NA12882_S1_BAM $MD_LZMA_NA12882_S1_BAM $V_LZMA_NA12882_S1_BAM;
 printf "ERR317482------------------------------------------\n";
 printf "Deez\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_DEEZ_ERR317482 $C_DEEZ_ERR317482 $MC_DEEZ_ERR317482 $D_DEEZ_ERR317482 $MD_DEEZ_ERR317482 $V_DEEZ_ERR317482;
 printf "Sam_comp\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_SAMCOMP_ERR317482 $C_SAMCOMP_ERR317482 $MC_SAMCOMP_ERR317482 $D_SAMCOMP_ERR317482 $MD_SAMCOMP_ERR317482 $V_SAMCOMP_ERR317482;
 printf "Quip\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_QUIP_SAM_ERR317482 $C_QUIP_SAM_ERR317482 $MC_QUIP_SAM_ERR317482 $D_QUIP_SAM_ERR317482 $MD_QUIP_SAM_ERR317482 $V_QUIP_SAM_ERR317482;
+printf "GZIP\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_GZIP_ERR317482_BAM $C_GZIP_ERR317482_BAM $MC_GZIP_ERR317482_BAM $D_GZIP_ERR317482_BAM $MD_GZIP_ERR317482_BAM $V_GZIP_ERR317482_BAM;
+printf "LZMA\\t%s\t%s\t%s\t%s\t%s\t%s\n" $BC_LZMA_ERR317482_BAM $C_LZMA_ERR317482_BAM $MC_LZMA_ERR317482_BAM $D_LZMA_ERR317482_BAM $MD_LZMA_ERR317482_BAM $V_LZMA_ERR317482_BAM;
 ###############################################################################
 
 
