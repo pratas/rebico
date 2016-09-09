@@ -6,6 +6,7 @@ RUN_GDC2=1;
 RUN_IDOCOMP=1;
 RUN_GREEN=1;
 RUN_GECO=1;
+RUN_ERGC=1;
 #
 function RunGDC2 {
   # 1 - TARGET
@@ -97,6 +98,22 @@ function RunIDoComp {
   rm -f $2 $1;
   cd ..
   }
+#
+function RunERGC {
+  # 1 - TARGET
+  # 2 - REFERENCE
+  cp ../../datasets/$1 .
+  cp ../../datasets/$2 .
+  rm -f $1.ergc
+  (time . SCRIPT_ERGC_COMPX $2 $1 $1.ergc ) &> ../../results/C_ERGC_$1-$2
+  ls -la $1.ergc > ../../results/BC_EGRC_$1-$2
+  rm -f $2 $1;
+  (time . SCRIPT_ERGC_DECOMPX $2 $1.ergc OUT ) &> ../../results/D_ERGC_$1-$2
+  }
+function CreateERGC {
+  printf "reference_file=\"\$1\"\ntarget_file=\"\$2\"\ncompressed_file=\"\$3.ergc\"\narchive_file_name=\$compressed_file\".7z\"\nrm -f \$archive_file_name\njava Utilities \$reference_file \$target_file \$compressed_file\n./7za a -t7z \$archive_file_name \$compressed_file -m0=PPMd\nrm -f \$compressed_file\n" > SCRIPT_ERGC_COMPX ;
+  }
+
 # MEMORY1 =====================================================================
 function ProgMemoryStart {
   echo "0" > mem_ps;
