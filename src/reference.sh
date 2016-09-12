@@ -106,7 +106,7 @@ function RunERGC {
   cp ../../datasets/$1 .
   cp ../../datasets/$2 .
   rm -f $1.ergc
-  (time . SCRIPT_ERGC_COMPX $2 $1 $1.ergc ) &> ../../results/C_ERGC_$1-$2
+  (time . SCRIPT_ERGC_COMPX $2 $1 $1 ) &> ../../results/C_ERGC_$1-$2
   ls -la $1.ergc > ../../results/BC_EGRC_$1-$2
   rm -f $2 $1;
   (time . SCRIPT_ERGC_DECOMPX $2 $1.ergc OUT ) &> ../../results/D_ERGC_$1-$2
