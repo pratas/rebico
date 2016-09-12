@@ -114,7 +114,7 @@ function RunERGC {
   rm -f $2 $1;
   ProgMemoryStart "java" &
   MEMPID=$!
-  (time . SCRIPT_ERGC_DECOMPX $2 $1.ergc OUT ) &> ../../results/D_ERGC_$1-$2
+  (time . SCRIPT_ERGC_DECOMPX $2 $1.ergc.7z OUT ) &> ../../results/D_ERGC_$1-$2
   ProgMemoryStop $MEMPID "../../results/MD_ERGC_$1-$2";
   cmp $1 OUT &> ../../results/V_ERGC_$1-$2
   }
