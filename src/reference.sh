@@ -110,10 +110,15 @@ function RunERGC {
   rm -f $2 $1;
   (time . SCRIPT_ERGC_DECOMPX $2 $1.ergc OUT ) &> ../../results/D_ERGC_$1-$2
   }
-function CreateERGC {
+#
+function CreateERGC_C {
   printf "reference_file=\"\$1\"\ntarget_file=\"\$2\"\ncompressed_file=\"\$3.ergc\"\narchive_file_name=\$compressed_file\".7z\"\nrm -f \$archive_file_name\njava Utilities \$reference_file \$target_file \$compressed_file\n./7za a -t7z \$archive_file_name \$compressed_file -m0=PPMd\nrm -f \$compressed_file\n" > SCRIPT_ERGC_COMPX ;
   }
-
+#
+function CreateERGC_D {
+  printf "reference_file=\"\$1\"\ntarget_file=\"\$2\"\ncompressed_file=\"\$3.ergc\"\narchive_file_name=\$compressed_file\".7z\"\nrm -f \$archive_file_name\njava Utilities \$reference_file \$target_file \$compressed_file\n./7za a -t7z \$archive_file_name \$compressed_file -m0=PPMd\nrm -f \$compressed_file\n" > SCRIPT_ERGC_DECOMPX ;
+  }
+#
 # MEMORY1 =====================================================================
 function ProgMemoryStart {
   echo "0" > mem_ps;
@@ -250,6 +255,24 @@ if [[ "$RUN_GREEN" -eq "1" ]]; then
   echo "Running GReEn ...";
   mkdir -p results
   cd progs/green
+  # target $1, reference $2:
+  RunGReEn "HS8" "HSCHM8"
+  RunGReEn "HS11" "HSCHM11"
+  RunGReEn "HS11" "PT11"
+  RunGReEn "HS11" "PA11"
+  RunGReEn "HSK16" "HS16"
+  RunGReEn "RICE5" "RICE7"
+  # 
+  cd ../../
+  echo "Done!";
+fi
+#==============================================================================
+if [[ "$RUN_ERGC" -eq "1" ]]; then
+  echo "Running ERGC ...";
+  mkdir -p results
+  cd progs/ergc
+  CreateERGC_D
+  CreateERGC_C
   # target $1, reference $2:
   RunGReEn "HS8" "HSCHM8"
   RunGReEn "HS11" "HSCHM11"
