@@ -116,7 +116,7 @@ function CreateERGC_C {
   }
 #
 function CreateERGC_D {
-  printf "reference_file=\"\$1\"\ntarget_file=\"\$2\"\ncompressed_file=\"\$3.ergc\"\narchive_file_name=\$compressed_file\".7z\"\nrm -f \$archive_file_name\njava Utilities \$reference_file \$target_file \$compressed_file\n./7za a -t7z \$archive_file_name \$compressed_file -m0=PPMd\nrm -f \$compressed_file\n" > SCRIPT_ERGC_DECOMPX ;
+  printf "reference_file=\"\$1\"\nin_file_name=\"\$2\"\nout_file_name=\"\$3\"\n./7za e \$in_file_name\njava DecompressCG \$reference_file \$in_file_name \$out_file_name\nrm -f \$in_file_name\n" > SCRIPT_ERGC_DECOMPX ; 
   }
 #
 # MEMORY1 =====================================================================
@@ -274,12 +274,12 @@ if [[ "$RUN_ERGC" -eq "1" ]]; then
   CreateERGC_D
   CreateERGC_C
   # target $1, reference $2:
-  RunGReEn "HS8" "HSCHM8"
-  RunGReEn "HS11" "HSCHM11"
-  RunGReEn "HS11" "PT11"
-  RunGReEn "HS11" "PA11"
-  RunGReEn "HSK16" "HS16"
-  RunGReEn "RICE5" "RICE7"
+  RunERGC "HS8" "HSCHM8"
+  RunERGC "HS11" "HSCHM11"
+  RunERGC "HS11" "PT11"
+  RunERGC "HS11" "PA11"
+  RunERGC "HSK16" "HS16"
+  RunERGC "RICE5" "RICE7"
   # 
   cd ../../
   echo "Done!";
