@@ -1,3 +1,4 @@
+#!/bin/bash
 # XXX: RUN install.sh first!
 #INSTALL=1;
 DOWNLOAD=1;
