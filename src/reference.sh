@@ -1,9 +1,32 @@
+#!/bin/bash
+# XXX: RUN install.sh first!
 #INSTALL=1;
 DOWNLOAD=1;
 PARSE=1;
+RUN_GDC2=1;
 RUN_IDOCOMP=1;
 RUN_GREEN=1;
 RUN_GECO=1;
+RUN_ERGC=1;
+#
+function RunGDC2 {
+  # 1 - TARGET
+  # 2 - REFERENCE
+  cp ../../datasets/$1 .
+  cp ../../datasets/$2 .
+  ProgMemoryStart "GDC2" &
+  MEMPID=$!
+  rm -f xxx*
+  (time ./GDC2 c xxx $2 $1 ) &> ../../results/C_GDC_$1-$2
+  ls -la xxx.gdc2_rc > ../../results/BC_GDC_$1-$2
+  ProgMemoryStop $MEMPID "../../results/MC_GDC_$1-$2";
+  ProgMemoryStart "GDC2" &
+  MEMPID=$!
+  (time ./GDC2 d xxx ) &> ../../results/D_GDC_$1-$2
+  ProgMemoryStop $MEMPID "../../results/MD_GDC_$1-$2";
+  cmp $1 $1.ori &> ../../results/V_GDC_$1-$2
+  rm -f $2 $1;
+  }
 #
 function RunGReEn {
   PARAM=" -v -i -k 16 -f 5 ";
@@ -56,17 +79,16 @@ function RunIDoComp {
   rm -fr sa ref tar
   mkdir sa ref tar;
   cp ../$2 ref/$2.fa
-  ProgMemoryStart "generateSA.sh" & # THE MAXIMUM PEAK IS REACHED HERE
+  ProgMemoryStart ".run" & # THE MAXIMUM PEAK IS REACHED HERE
   MEMPID=$!
   (./generateSA.sh ref sa ) &> TIME_SA
   TIMEOFSA=`cat TIME_SA | grep "..." | awk '{ print $5;}'`
-  ProgMemoryStop $MEMPID "../../../results/MC_IDOCOMP_$1-$2";
   mv ../$1 tar/$1.fa
   echo "ref/$2.fa tar/$1.fa sa/$2.sa" > f.txt;
   cp ../simulations/iDoComp.run .
   (./iDoComp.run c f.txt OUT ) &> ../../../results/C_IDOCOMP_$1-$2
-  cat ../../../results/C_IDOCOMP_$1-$2 | grep "Compressed Size:" \
-  | awk '{ print $3; }' > ../../../results/BC_IDOCOMP_$1-$2
+  ProgMemoryStop $MEMPID "../../../results/MC_IDOCOMP_$1-$2";
+  cat ../../../results/C_IDOCOMP_$1-$2 | grep "Compressed Size:" | awk '{ print $3; }' > ../../../results/BC_IDOCOMP_$1-$2
   CTIME=`cat ../../../results/C_IDOCOMP_$1-$2 | grep "CPU T" | awk '{ print $4;}'`
   echo "$TIMEOFSA+$CTIME" | bc -l > ../../../results/CT_IDOCOMP_$1-$2
   echo "ref/$2.fa out.fa" > f.txt;
@@ -77,6 +99,34 @@ function RunIDoComp {
   rm -f $2 $1;
   cd ..
   }
+#
+function RunERGC {
+  # 1 - TARGET
+  # 2 - REFERENCE
+  cp ../../datasets/$1 .
+  cp ../../datasets/$2 .
+  rm -f $1.ergc
+  ProgMemoryStart "java" &
+  MEMPID=$!
+  (time . SCRIPT_ERGC_COMPX $2 $1 $1 ) &> ../../results/C_ERGC_$1-$2
+  ls -la $1.ergc.7z > ../../results/BC_ERGC_$1-$2
+  ProgMemoryStop $MEMPID "../../results/MC_ERGC_$1-$2";
+  rm -f $2 $1;
+  ProgMemoryStart "java" &
+  MEMPID=$!
+  (time . SCRIPT_ERGC_DECOMPX $2 $1.ergc.7z OUT ) &> ../../results/D_ERGC_$1-$2
+  ProgMemoryStop $MEMPID "../../results/MD_ERGC_$1-$2";
+  cmp $1 OUT &> ../../results/V_ERGC_$1-$2
+  }
+#
+function CreateERGC_C {
+  printf "reference_file=\"\$1\"\ntarget_file=\"\$2\"\ncompressed_file=\"\$3.ergc\"\narchive_file_name=\$compressed_file\".7z\"\nrm -f \$archive_file_name\njava Utilities \$reference_file \$target_file \$compressed_file\n./7za a -t7z \$archive_file_name \$compressed_file -m0=PPMd\nrm -f \$compressed_file\n" > SCRIPT_ERGC_COMPX ;
+  }
+#
+function CreateERGC_D {
+  printf "reference_file=\"\$1\"\nin_file_name=\"\$2\"\nout_file_name=\"\$3\"\n./7za e \$in_file_name\njava DecompressCG \$reference_file \$in_file_name \$out_file_name\nrm -f \$in_file_name\n" > SCRIPT_ERGC_DECOMPX ; 
+  }
+#
 # MEMORY1 =====================================================================
 function ProgMemoryStart {
   echo "0" > mem_ps;
@@ -161,6 +211,22 @@ if [[ "$PARSE" -eq "1" ]]; then
   fi
 #
 # RUN =========================================================================
+if [[ "$RUN_GDC2" -eq "1" ]]; then
+  echo "Running GDC2 ...";
+  mkdir -p results
+  cd progs/gdc2
+  # target $1, reference $2:
+  RunGDC2 "HS8" "HSCHM8"
+  RunGDC2 "HS11" "HSCHM11"
+  RunGDC2 "HS11" "PT11"
+  RunGDC2 "HS11" "PA11"
+  RunGDC2 "HSK16" "HS16"
+  RunGDC2 "RICE5" "RICE7"
+  # 
+  cd ../../
+  echo "Done!";
+fi
+#==============================================================================
 if [[ "$RUN_IDOCOMP" -eq "1" ]]; then
   echo "Running iDoComp ...";
   mkdir -p results
@@ -204,6 +270,24 @@ if [[ "$RUN_GREEN" -eq "1" ]]; then
   RunGReEn "HS11" "PA11"
   RunGReEn "HSK16" "HS16"
   RunGReEn "RICE5" "RICE7"
+  # 
+  cd ../../
+  echo "Done!";
+fi
+#==============================================================================
+if [[ "$RUN_ERGC" -eq "1" ]]; then
+  echo "Running ERGC ...";
+  mkdir -p results
+  cd progs/ergc
+  CreateERGC_D
+  CreateERGC_C
+  # target $1, reference $2:
+  RunERGC "HS8" "HSCHM8"
+  RunERGC "HS11" "HSCHM11"
+  RunERGC "HS11" "PT11"
+  RunERGC "HS11" "PA11"
+  RunERGC "HSK16" "HS16"
+  RunERGC "RICE5" "RICE7"
   # 
   cd ../../
   echo "Done!";

@@ -1,39 +1,37 @@
 #!/bin/bash
 ###############################################################################
 # SEQ : NORMAL
-RUN_DNACOMPACT=1;
-RUN_GECO=1;
-RUN_COGI=1;
-###############################################################################
-# SEQ : REFERENCE
-RUN_GECO_REF=1;
-RUN_COGI_REF=1;
-RUN_IDOCOMP=1;
-RUN_FRESCO=1;
-RUN_GREEN=1;
-RUN_GRS=1;
-RUN_GDC2=1;
-RUN_ERGC=1;
+RUN_DNACOMPACT=0;
+RUN_GECO=0;
+RUN_COGI=0;
+RUN_GZIP_NORMAL=1;
+RUN_LZMA_NORMAL=1;
 ###############################################################################
 # FASTA
-RUN_MFCOMPRESS=1;
-RUN_DELIMINATE=1;
-RUN_LEON=1;
+RUN_MFCOMPRESS=0;
+RUN_DELIMINATE=0;
+RUN_LEON=0;
+RUN_GZIP_FASTA=1;
+RUN_LZMA_FASTA=1;
 ###############################################################################
 # FASTQ
-RUN_FQZCOMP=1;
-RUN_QUIP=1;
-RUN_SCALCE=1;
-RUN_ORCOM=1;
-RUN_DSRC=1;
-RUN_FQC=1;
-RUN_LWFQZIP=1;
+RUN_FQZCOMP=0;
+RUN_QUIP=0;
+RUN_SCALCE=0;
+RUN_ORCOM=0;
+RUN_DSRC=0;
+RUN_FQC=0;
+RUN_LWFQZIP=0;
+RUN_GZIP_FASTQ=1;
+RUN_LZMA_FASTQ=1;
 ###############################################################################
 # SAM/BAM
-RUN_SAMCOMP=1;
-RUN_DEEZ=1;
-RUN_NGC=1;
-RUN_QUIP_SAM=1;
+RUN_SAMCOMP=0;
+RUN_DEEZ=0;
+RUN_NGC=0;
+RUN_QUIP_SAM=0;
+RUN_GZIP_BAM=1;
+RUN_LZMA_BAM=1;
 ###############################################################################
 mkdir -p results
 ###############################################################################
@@ -44,7 +42,7 @@ function FExists {
   file="$1"
   if [ ! -e "$file" ];
     then
-    echo "ERROR: File $file does not exist!";
+    echo "WARNING: File $file does not exist!";
     return;
     fi
   }
@@ -73,6 +71,30 @@ function ProgMemory2 {
 # TIME ========================================================================
 function ProgTime {
   time ./$1
+  }
+# GZIP ========================================================================
+function compGzip {
+  ProgMemoryStart "gzip" &
+  MEMPID=$!
+  (time gzip $1 ) &> ../../results/C_GZIP_$2
+  ls -la $1.gz > ../../results/BC_GZIP_$2
+  ProgMemoryStop $MEMPID "../../results/MC_GZIP_$2";
+  ProgMemoryStart "gunzip" &
+  MEMPID=$!
+  (time gunzip $1.gz ) &> ../../results/D_GZIP_$2
+  ProgMemoryStop $MEMPID "../../results/MD_GZIP_$2";
+  }
+# LZMA ========================================================================
+function compLzma {
+  ProgMemoryStart "lzma" &
+  MEMPID=$!
+  (time lzma $1 ) &> ../../results/C_LZMA_$2
+  ls -la $1.lzma > ../../results/BC_LZMA_$2
+  ProgMemoryStop $MEMPID "../../results/MC_LZMA_$2";
+  ProgMemoryStart "lzma" &
+  MEMPID=$!
+  (time lzma -d $1.lzma ) &> ../../results/D_LZMA_$2
+  ProgMemoryStop $MEMPID "../../results/MD_LZMA_$2";
   }
 ###############################################################################
 ############################### CHECK DATASETS ################################
@@ -109,6 +131,38 @@ FExists "datasets/ERR317482.bam"
 ###   [+] chimpanze.seq
 ###   [+] rice5.seq
 ###
+###############################################################################
+if [[ "$RUN_GZIP_NORMAL" -eq "1" ]]; then
+mkdir -p results
+mkdir -p progs/gzip
+cd progs/gzip
+cat ../../datasets/human.fna  | grep -v ">" | tr -d -c "ACGT" > human.seq
+cat ../../datasets/chimpanze.fna | grep -v ">" | tr -d -c "ACGT" > chimpanze.seq
+cat ../../datasets/rice5.fna | grep -v ">" | tr -d -c "ACGT" > rice5.seq
+# 
+compGzip "human.seq" "HUMAN"
+compGzip "chimpanze.seq" "CHIMPANZE"
+compGzip "rice5.seq" "RICE"
+#
+rm -f human.seq chimpanze.seq rice5.seq
+cd ../../
+fi
+###############################################################################
+if [[ "$RUN_LZMA_NORMAL" -eq "1" ]]; then
+mkdir -p results
+mkdir -p progs/lzma
+cd progs/lzma
+cat ../../datasets/human.fna  | grep -v ">" | tr -d -c "ACGT" > human.seq
+cat ../../datasets/chimpanze.fna | grep -v ">" | tr -d -c "ACGT" > chimpanze.seq
+cat ../../datasets/rice5.fna | grep -v ">" | tr -d -c "ACGT" > rice5.seq
+# 
+compLzma "human.seq" "HUMAN"
+compLzma "chimpanze.seq" "CHIMPANZE"
+compLzma "rice5.seq" "RICE"
+#
+rm -f human.seq chimpanze.seq rice5.seq
+cd ../../
+fi
 ###############################################################################
 if [[ "$RUN_COGI" -eq "1" ]]; then
 mkdir -p results
@@ -237,337 +291,6 @@ cmp rice5.seq rice5.seq.fp.y &> ../../results/V_DNACOMPACT_RICE
 rm -f human.seq chimpanze.seq rice5.seq
 cd ../../
 fi
-###############################################################################
-###
-###                          REFERENCE COMPRESSION
-###
-###############################################################################
-###
-### FILES TO COMPRESS:
-###   [+] human2.fna | human.fna
-###   [+] human.fna  | chimpanze.fna
-###   [+] rice5.fna  | rice7.fna
-###
-###############################################################################
-if [[ "$RUN_IDOCOMP" -eq "1" ]]; then
-mkdir -p results
-cd progs/idocomp
-
-# CANNOT ALLOCATE MEMORY FOR SUCH A LONG FILE -> need to split into 900 MB Files
-
-# HUMAN
-cat ../../datasets/human2.fna | grep -v ">" | tr -d -c "ACGT" > human2.seq
-cat ../../datasets/human.fna | grep -v ">" | tr -d -c "ACGT" > human.seq
-echo ">Header" > Header;
-cat Header human2.seq > human2.fa
-cat Header human.seq > human.fa
-rm -f human2.seq human.seq
-cd sais-lite-2.4.1/
-rm -fr sa ref tar
-mkdir sa ref tar;
-cp ../human.fa ref/
-ProgMemoryStart "generateSA.sh" & # THE MAXIMUM PEAK IS REACHED HERE
-MEMPID=$!
-(./generateSA.sh ref sa ) &> TIME_SA
-TIMEOFSA=`cat TIME_SA | grep "..." | awk '{ print $5;}'`
-ProgMemoryStop $MEMPID "../../results/MC_IDOCOMP_RICE";
-mv ../human2.fa tar/
-echo "ref/human.fa tar/human2.fa sa/human.sa" > f.txt;
-cp ../simulations/iDoComp.run .
-(./iDoComp.run c f.txt OUT ) &> ../../../results/C_IDOCOMP_HUMAN
-cat ../../../results/C_IDOCOMP_RICE | grep "Compressed Size:" \
-| awk '{ print $3; }' > ../../../results/BC_IDOCOMP_HUMAN
-CTIME=`cat ../../../results/C_IDOCOMP_HUMAN | grep "CPU T" | awk '{ print $4;}'`
-echo "$TIMEOFSA+$CTIME" | bc -l > ../../../results/CT_IDOCOMP_HUMAN
-echo "ref/human.fa out.fa" > f.txt;
-(./iDoComp.run d f.txt OUT ) &> ../../../results/D_IDOCOMP_HUMAN
-DTIME=`cat ../../../results/D_IDOCOMP_HUMAN | grep "CPU T" | awk '{ print $4;}'`
-echo "$TIMEOFSA+$DTIME" | bc -l > ../../../results/DT_IDOCOMP_HUMAN
-cmp tar/human2.fa out.fa &> ../../../results/V_IDOCOMP_HUMAN
-#rm -f human2.fa human.fa
-
-# CHIMPANZE
-cat ../../datasets/chimpanze.fna | grep -v ">" | tr -d -c "ACGT" > chimpanze.seq
-cat ../../datasets/human.fna | grep -v ">" | tr -d -c "ACGT" > human.seq
-echo ">Header" > Header;
-cat Header chimpanze.seq > chimpanze.fa
-cat Header human.seq > human.fa
-rm -f chimpanze.seq human.seq
-cd sais-lite-2.4.1/
-rm -fr sa ref tar
-mkdir sa ref tar;
-cp ../human.fa ref/
-ProgMemoryStart "generateSA.sh" & # THE MAXIMUM PEAK IS REACHED HERE
-MEMPID=$!
-(./generateSA.sh ref sa ) &> TIME_SA
-TIMEOFSA=`cat TIME_SA | grep "..." | awk '{ print $5;}'`
-ProgMemoryStop $MEMPID "../../results/MC_IDOCOMP_RICE";
-mv ../chimpanze.fa tar/
-echo "ref/human.fa tar/chimpanze.fa sa/human.sa" > f.txt;
-cp ../simulations/iDoComp.run .
-(./iDoComp.run c f.txt OUT ) &> ../../../results/C_IDOCOMP_HUMAN
-cat ../../../results/C_IDOCOMP_RICE | grep "Compressed Size:" \
-| awk '{ print $3; }' > ../../../results/BC_IDOCOMP_HUMAN
-CTIME=`cat ../../../results/C_IDOCOMP_HUMAN | grep "CPU T" | awk '{ print $4;}'`
-echo "$TIMEOFSA+$CTIME" | bc -l > ../../../results/CT_IDOCOMP_HUMAN
-echo "ref/human.fa out.fa" > f.txt;
-(./iDoComp.run d f.txt OUT ) &> ../../../results/D_IDOCOMP_HUMAN
-DTIME=`cat ../../../results/D_IDOCOMP_HUMAN | grep "CPU T" | awk '{ print $4;}'`
-echo "$TIMEOFSA+$DTIME" | bc -l > ../../../results/DT_IDOCOMP_HUMAN
-cmp tar/chimpanze.fa out.fa &> ../../../results/V_IDOCOMP_HUMAN
-#rm -f chimpanze.fa human.fa
-
-# RICE
-cat ../../datasets/rice5.fna | grep -v ">" | tr -d -c "ACGT" > rice5.seq
-cat ../../datasets/rice7.fna | grep -v ">" | tr -d -c "ACGT" > rice7.seq
-echo ">Header" > Header;
-cat Header rice5.seq > rice5.fa
-cat Header rice7.seq > rice7.fa
-rm -f rice5.seq rice7.seq
-cd sais-lite-2.4.1/
-rm -fr sa ref tar
-mkdir sa ref tar;
-cp ../rice7.fa ref/
-ProgMemoryStart "generateSA.sh" & # THE MAXIMUM PEAK IS REACHED HERE
-MEMPID=$!
-(./generateSA.sh ref sa ) &> TIME_SA
-TIMEOFSA=`cat TIME_SA | grep "..." | awk '{ print $5;}'`
-ProgMemoryStop $MEMPID "../../results/MC_IDOCOMP_RICE";
-mv ../rice5.fa tar/
-echo "ref/rice7.fa tar/rice5.fa sa/rice7.sa" > f.txt;
-cp ../simulations/iDoComp.run .
-(./iDoComp.run c f.txt OUT ) &> ../../../results/C_IDOCOMP_RICE
-cat ../../../results/C_IDOCOMP_RICE | grep "Compressed Size:" \
-| awk '{ print $3; }' > ../../../results/BC_IDOCOMP_RICE
-CTIME=`cat ../../../results/C_IDOCOMP_RICE | grep "CPU T" | awk '{ print $4;}'`
-echo "$TIMEOFSA+$CTIME" | bc -l > ../../../results/CT_IDOCOMP_RICE
-echo "ref/rice7.fa out.fa" > f.txt;
-(./iDoComp.run d f.txt OUT ) &> ../../../results/D_IDOCOMP_RICE
-DTIME=`cat ../../../results/D_IDOCOMP_RICE | grep "CPU T" | awk '{ print $4;}'`
-echo "$TIMEOFSA+$DTIME" | bc -l > ../../../results/DT_IDOCOMP_RICE
-cmp tar/rice5.fa out.fa &> ../../../results/V_IDOCOMP_RICE
-#rm -f rice5.fa rice7.fa
-
-cd ../../../
-fi
-###############################################################################
-if [[ "$RUN_GECO_REF" -eq "1" ]]; then
-mkdir -p results
-cd progs/geco
-cat ../../datasets/human.fna  | grep -v ">" | tr -d -c "ACGT" > human.seq
-cat ../../datasets/human2.fna | grep -v ">" | tr -d -c "ACGT" > human2.seq
-cat ../../datasets/chimpanze.fna | grep -v ">" | tr -d -c "ACGT" > chimpanze.seq
-cat ../../datasets/rice5.fna | grep -v ">" | tr -d -c "ACGT" > rice5.seq
-cat ../../datasets/rice7.fna | grep -v ">" | tr -d -c "ACGT" > rice7.seq
-# HUMAN
-ProgMemoryStart "GeCo" &
-MEMPID=$!
-rm -f human2.seq.co
-(time ./GeCo -v -l 14 -r human.seq \
-human2.seq ) &> ../../results/C_GECO_REF_HUMAN
-ls -la human2.seq.co > ../../results/BC_GECO_REF_HUMAN
-ProgMemoryStop $MEMPID "../../results/MC_GECO_REF_HUMAN";
-ProgMemoryStart "GeDe" &
-MEMPID=$!
-rm -f human2.seq.de
-(time ./GeDe -v -r human.seq \
-human2.seq.co ) &> ../../results/D_GECO_REF_HUMAN
-ProgMemoryStop $MEMPID "../../results/MD_GECO_REF_HUMAN";
-cmp human2.seq human2.seq.de &> ../../results/V_GECO_REF_HUMAN
-# CHIMPANZEE
-ProgMemoryStart "GeCo" &
-MEMPID=$!
-rm -f human.seq.co
-(time ./GeCo -v -l 14 -r chimpanze.seq \
-human.seq ) &> ../../results/C_GECO_REF_CHIMPANZE
-ls -la human.seq.co > ../../results/BC_GECO_REF_CHIMPANZE
-ProgMemoryStop $MEMPID "../../results/MC_GECO_REF_CHIMPANZE";
-ProgMemoryStart "GeDe" &
-MEMPID=$!
-rm -f human.seq.de
-(time ./GeDe -v -r chimpanze.seq \
-human.seq.co ) &> ../../results/D_GECO_REF_CHIMPANZE
-ProgMemoryStop $MEMPID "../../results/MD_GECO_REF_CHIMPANZE";
-cmp human.seq human.seq.de &> ../../results/V_GECO_REF_CHIMPANZE
-# RICE
-ProgMemoryStart "GeCo" &
-MEMPID=$!
-rm -f rice5.seq.co
-(time ./GeCo -v -l 14 -r rice7.seq \
-rice5.seq ) &> ../../results/C_GECO_REF_RICE
-ls -la rice5.seq.co > ../../results/BC_GECO_REF_RICE
-ProgMemoryStop $MEMPID "../../results/MC_GECO_REF_RICE";
-ProgMemoryStart "GeDe" &
-MEMPID=$!
-rm -f rice5.seq.de
-(time ./GeDe -v -r rice7.seq \
-rice5.seq.co ) &> ../../results/D_GECO_REF_RICE
-ProgMemoryStop $MEMPID "../../results/MD_GECO_REF_RICE";
-cmp rice5.seq rice5.seq.de &> ../../results/V_GECO_REF_RICE
-#
-rm -f human.seq human2.seq chimpanze.seq rice5.seq rice7.seq
-cd ../../
-fi
-###############################################################################
-if [[ "$RUN_GREEN" -eq "1" ]]; then
-GREEN_PARAMETERS=" -v -i -k 16 -f 5 ";
-mkdir -p results
-cd progs/green
-cat ../../datasets/human.fna  | grep -v ">" | tr -d -c "ACGT" > human.seq
-cat ../../datasets/human2.fna | grep -v ">" | tr -d -c "ACGT" > human2.seq
-cat ../../datasets/chimpanze.fna | grep -v ">" | tr -d -c "ACGT" > chimpanze.seq
-cat ../../datasets/rice5.fna | grep -v ">" | tr -d -c "ACGT" > rice5.seq
-cat ../../datasets/rice7.fna | grep -v ">" | tr -d -c "ACGT" > rice7.seq
-# HUMAN
-ProgMemoryStart "GReEnC" &
-MEMPID=$!
-rm -f human2.seq.co
-(time ./GReEnC $GREEN_PARAMETERS -o human2.seq.co human.seq \
-human2.seq ) &> ../../results/C_GREEN_HUMAN
-ls -la human2.seq.co > ../../results/BC_GREEN_HUMAN
-ProgMemoryStop $MEMPID "../../results/MC_GREEN_HUMAN";
-ProgMemoryStart "GReEnD" &
-MEMPID=$!
-rm -f human2.seq.de
-(time ./GReEnD -o human2.seq.de human.seq \
-human2.seq.co ) &> ../../results/D_GREEN_HUMAN
-ProgMemoryStop $MEMPID "../../results/MD_GREEN_HUMAN";
-cmp human2.seq human2.seq.de &> ../../results/V_GREEN_HUMAN
-# CHIMPANZE
-ProgMemoryStart "GReEnC" &
-MEMPID=$!
-rm -f human.seq.co
-(time ./GReEnC $GREEN_PARAMETERS -o human.seq.co chimpanze.seq \
-human.seq ) &> ../../results/C_GREEN_CHIMPANZE
-ls -la human.seq.co > ../../results/BC_GREEN_CHIMPANZE
-ProgMemoryStop $MEMPID "../../results/MC_GREEN_CHIMPANZE";
-ProgMemoryStart "GReEnD" &
-MEMPID=$!
-rm -f human.seq.de
-(time ./GReEnD -o human.seq.de chimpanze.seq \
-human.seq.co ) &> ../../results/D_GREEN_CHIMPANZE
-ProgMemoryStop $MEMPID "../../results/MD_GREEN_CHIMPANZE";
-cmp human.seq human.seq.de &> ../../results/V_GREEN_CHIMPANZE
-# RICE
-ProgMemoryStart "GReEnC" &
-MEMPID=$!
-rm -f rice5.seq.co
-(time ./GReEnC $GREEN_PARAMETERS -o rice5.seq.co rice7.seq \
-rice5.seq ) &> ../../results/C_GREEN_RICE
-ls -la rice5.seq.co > ../../results/BC_GREEN_RICE
-ProgMemoryStop $MEMPID "../../results/MC_GREEN_RICE";
-ProgMemoryStart "GReEnD" &
-MEMPID=$!
-rm -f rice5.seq.de
-(time ./GReEnD -o rice5.seq.de rice7.seq \
-rice5.seq.co ) &> ../../results/D_GREEN_RICE
-ProgMemoryStop $MEMPID "../../results/MD_GREEN_RICE";
-cmp rice5.seq rice5.seq.de &> ../../results/V_GREEN_RICE
-rm -f human.seq human2.seq chimpanze.seq rice5.seq rice7.seq
-cd ../../
-fi
-###############################################################################
-if [[ "$RUN_COGI" -eq "1" ]]; then
-mkdir -p results
-cd progs/cogi
-cat ../../datasets/human.fna  | grep -v ">" | tr -d -c "ACGT" > human.seq
-cat ../../datasets/human2.fna | grep -v ">" | tr -d -c "ACGT" > human2.seq
-cat ../../datasets/chimpanze.fna | grep -v ">" | tr -d -c "ACGT" > chimpanze.seq
-cat ../../datasets/rice5.fna | grep -v ">" | tr -d -c "ACGT" > rice5.seq
-cat ../../datasets/rice7.fna | grep -v ">" | tr -d -c "ACGT" > rice7.seq
-# XXX: HUMAN: MAP FAIL
-./cogi-compress -ur --hash -n 2 human.seq human2.seq
-./cogi-uncompress -r human.seq -l 60
-# XXX: CHIMPANZE: MAP FAIL
-./cogi-compress -ur --hash -n 2 chimpanze.seq human.seq
-./cogi-uncompress -r chimpanze.seq -l 60
-# RICE:
-# bytes = 80583866 + 9956, time ~ 86s
-# time 26 s
-# cmp 1.fastq rice5.seq # XXX: cmp = different files
-ProgMemoryStart "cogi-compress" &
-MEMPID=$!
-rm -f compressed 1.patch
-(time ./cogi-compress -ur --hash -n 2 rice7.seq \
-rice5.seq ) &> ../../results/C_COGI_RICE
-CBYTES1=`ls -la 1.patch | awk '{ print $5;}'`
-CBYTES2=`ls -la compressed | awk '{ print $5;}'`
-echo "$CBYTES1+$CBYTES2" | bc -l > ../../results/BC_COGI_RICE
-ProgMemoryStop $MEMPID "../../results/MC_COGI_RICE";
-ProgMemoryStart "cogi-uncompress" &
-MEMPID=$!
-rm -f 1.fastq
-(time ./cogi-uncompress -r rice7.seq -l 60 ) &> ../../results/D_COGI_RICE
-ProgMemoryStop $MEMPID "../../results/MD_COGI_RICE";
-cmp 1.seq rice5.seq &> ../../results/V_COGI_RICE
-#
-rm -f human.seq human2.seq chimpanze.seq rice5.seq rice7.seq
-cd ../../
-fi
-###############################################################################
-if [[ "$RUN_DNACOMPACT" -eq "1" ]]; then
-./compact n [-N] infile 
-#Command line options:N is the minimum match length, (default 25)
-./compact n -d infile
-#Default output is infile.y
-#For reference-based compression:
-./compact r c sourcefile reference leftWindowSize rightWindowSize
-#Default leftWindowSize and rightWindowSize are adaptively obtained through 
-#calculating the difference percentage between source sequence and reference 
-#sequence.
-./compact r d sourcefile reference
-fi
-###############################################################################
-if [[ "$RUN_GDC" -eq "1" ]]; then
-mkdir -p results
-cd progs/gdc2
-cp ../../datasets/human.fna . 
-cp ../../datasets/human2.fna . 
-cp ../../datasets/chimpanze.fna . 
-cp ../../datasets/rice5.fna . 
-cp ../../datasets/rice7.fna . 
-# GDC IS FOR COLLECTIONS
-./GDC2 compressed human.fna human2.fna
-./GDC2 d compressed human.fna human2.fna
-# IT CAN BE COMPARED WITH GECO: GECO->compress:{cat human2.fna human.fna}
-# Headers will be minimal, even GDC might not encode headers (= geco)
-rm -f human.seq human2.seq chimpanze.seq rice5.seq rice7.seq
-cd ../../
-fi
-###############################################################################
-if [[ "$RUN_ERGC" -eq "1" ]]; then
-mkdir -p results
-cd progs/ergc
-cp ../../datasets/human.fna . 
-cp ../../datasets/human2.fna . 
-cp ../../datasets/chimpanze.fna . 
-cp ../../datasets/rice5.fna . 
-cp ../../datasets/rice7.fna . 
-mv human.fna ko-131-22.fa #ref
-mv human2.fna ko-224-22.fa #tar
-. SCRIPT_ERGC_COMP
-#chr.ergc.7z #compressed
-
-. SCRIPT_ERGC_DECOMP 
-#final_out_chr.fa # OUT
-
-rm -f human.seq human2.seq chimpanze.seq rice5.seq rice7.seq
-cd ../../
-fi
-###############################################################################
-if [[ "$RUN_FRESCO" -eq "1" ]]; then
-./FRESCO-BIN FRESCO/config.ini COMPRESS /bio/uncompressed/ /bio/compressed/ 
-./FRESCO-BIN FRESCO/config.ini DECOMRESS /bio/compressed/ /bio/decompressed/ 
-fi
-##############################################################################
-if [[ "$RUN_GRS" -eq "1" ]]; then
-cp REF.seq Compress/bin/
-cp TAR.seq Compress/bin/
-cd Compress/bin/
-./GRS.sh REF.seq TAR.seq
-cd ../../
-cp REF.seq Decompress/bin/
-fi
 ##############################################################################
 #
 ##############################################################################
@@ -581,6 +304,48 @@ fi
 ###   [+] camera.fa (42 GB)
 ###
 ##############################################################################
+if [[ "$RUN_GZIP_FASTA" -eq "1" ]]; then
+mkdir -p results
+mkdir -p progs/gzip
+cd progs/gzip
+mv ../../datasets/human.fna .
+mv ../../datasets/chimpanze.fna .
+mv ../../datasets/rice5.fna .
+mv ../../datasets/camera.fa .
+# 
+compGzip "human.fna" "HUMAN_FASTA"
+compGzip "chimpanze.fna" "CHIMPANZE_FASTA"
+compGzip "rice5.fna" "RICE_FASTA"
+compGzip "camera.fa" "CAMERA_FASTA"
+#
+mv camera.fa ../../datasets/
+mv rice5.fna ../../datasets/
+mv chimpanze.fna ../../datasets/
+mv human.fna ../../datasets/
+cd ../../
+fi
+###############################################################################
+if [[ "$RUN_LZMA_FASTA" -eq "1" ]]; then
+mkdir -p results
+mkdir -p progs/lzma
+cd progs/lzma
+mv ../../datasets/human.fna .
+mv ../../datasets/chimpanze.fna .
+mv ../../datasets/rice5.fna .
+mv ../../datasets/camera.fa .
+# 
+compLzma "human.fna" "HUMAN_FASTA"
+compLzma "chimpanze.fna" "CHIMPANZE_FASTA"
+compLzma "rice5.fna" "RICE_FASTA"
+compLzma "camera.fa" "CAMERA_FASTA"
+#
+mv camera.fa ../../datasets/
+mv rice5.fna ../../datasets/
+mv chimpanze.fna ../../datasets/
+mv human.fna ../../datasets/
+cd ../../
+fi
+###############################################################################
 if [[ "$RUN_DELIMINATE" -eq "1" ]]; then
 mkdir -p results
 cd progs/deliminate
@@ -803,6 +568,48 @@ fi
 ###   [+] ERR194146_1.fastq (205 GB)
 ###   [+] ERR194146_2.fastq (205 GB)
 ###
+###############################################################################
+if [[ "$RUN_GZIP_FASTQ" -eq "1" ]]; then
+mkdir -p results
+mkdir -p progs/gzip
+cd progs/gzip
+mv ../../datasets/ERR174310_1.fastq .
+mv ../../datasets/ERR174310_2.fastq .
+mv ../../datasets/ERR194146_1.fastq .
+mv ../../datasets/ERR194146_2.fastq .
+# 
+compGzip "ERR174310_1.fastq" "ERR174310_1_FASTQ"
+compGzip "ERR174310_2.fastq" "ERR174310_2_FASTQ"
+compGzip "ERR194146_1.fastq" "ERR194146_1_FASTQ"
+compGzip "ERR194146_2.fastq" "ERR194146_2_FASTQ"
+#
+mv ERR174310_1.fastq ../../datasets/
+mv ERR174310_2.fastq ../../datasets/
+mv ERR194146_1.fastq ../../datasets/
+mv ERR194146_2.fastq ../../datasets/
+cd ../../
+fi
+###############################################################################
+if [[ "$RUN_LZMA_FASTQ" -eq "1" ]]; then
+mkdir -p results
+mkdir -p progs/lzma
+cd progs/lzma
+mv ../../datasets/ERR174310_1.fastq .
+mv ../../datasets/ERR174310_2.fastq .
+mv ../../datasets/ERR194146_1.fastq .
+mv ../../datasets/ERR194146_2.fastq .
+# 
+compLzma "ERR174310_1.fastq" "ERR174310_1_FASTQ"
+compLzma "ERR174310_2.fastq" "ERR174310_2_FASTQ"
+compLzma "ERR194146_1.fastq" "ERR194146_1_FASTQ"
+compLzma "ERR194146_2.fastq" "ERR194146_2_FASTQ"
+#
+mv ERR174310_1.fastq ../../datasets/
+mv ERR174310_2.fastq ../../datasets/
+mv ERR194146_1.fastq ../../datasets/
+mv ERR194146_2.fastq ../../datasets/
+cd ../../
+fi
 ###############################################################################
 if [[ "$RUN_ORCOM" -eq "1" ]]; then
 #
@@ -1313,6 +1120,48 @@ fi
 ###   [+] ERR317482.bam (6.1 GB)
 ###
 ##############################################################################
+if [[ "$RUN_GZIP_BAM" -eq "1" ]]; then
+mkdir -p results
+mkdir -p progs/gzip
+cd progs/gzip
+mv ../../datasets/NA12877_S1.bam .
+mv ../../datasets/NA12878_S1.bam .
+mv ../../datasets/NA12882_S1.bam .
+mv ../../datasets/ERR317482.bam .
+# 
+compGzip "NA12877_S1.bam" "NA12877_S1_BAM"
+compGzip "NA12878_S1.bam" "NA12878_S1_BAM"
+compGzip "NA12882_S1.bam" "NA12882_S1_BAM"
+compGzip "ERR317482.bam" "ERR317482_BAM"
+#
+mv NA12877_S1.bam ../../datasets/
+mv NA12878_S1.bam ../../datasets/
+mv NA12882_S1.bam ../../datasets/
+mv ERR317482.bam ../../datasets/
+cd ../../
+fi
+###############################################################################
+if [[ "$RUN_LZMA_BAM" -eq "1" ]]; then
+mkdir -p results
+mkdir -p progs/lzma
+cd progs/lzma
+mv ../../datasets/NA12877_S1.bam .
+mv ../../datasets/NA12878_S1.bam .
+mv ../../datasets/NA12882_S1.bam .
+mv ../../datasets/ERR317482.bam .
+# 
+compLzma "NA12877_S1.bam" "NA12877_S1_BAM"
+compLzma "NA12878_S1.bam" "NA12878_S1_BAM"
+compLzma "NA12882_S1.bam" "NA12882_S1_BAM"
+compLzma "ERR317482.bam" "ERR317482_BAM"
+#
+mv NA12877_S1.bam ../../datasets/
+mv NA12878_S1.bam ../../datasets/
+mv NA12882_S1.bam ../../datasets/
+mv ERR317482.bam ../../datasets/
+cd ../../
+fi
+###############################################################################
 if [[ "$RUN_NGC" -eq "1" ]]; then
 # http://www.cibiv.at/~niko/ngc/download.html
 mkdir -p results

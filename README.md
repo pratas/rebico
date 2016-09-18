@@ -17,5 +17,7 @@ To run all, in a Linux environment, type the following:
 . download.sh
 . install.sh
 . run.sh
+. reference.sh
+. reference_table.sh
 . results.sh
 </pre>
