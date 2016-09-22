@@ -171,7 +171,7 @@ cat ../../datasets/human.fna  | grep -v ">" | tr -d -c "ACGT" > human.seq
 cat ../../datasets/chimpanze.fna | grep -v ">" | tr -d -c "ACGT" > chimpanze.seq
 cat ../../datasets/rice5.fna | grep -v ">" | tr -d -c "ACGT" > rice5.seq
 
-# DOIT : THE PROGRAM SEEMS A MESS FOR REFERENCE-FREE COMPRESSION
+# DOIT : PROBLEMS SETTING REFERENCE-FREE COMPRESSION PARAMETERS
 # Authors have been emailed for instructions
 # NO REPLY UNTIL TODAY (8 June, 2016)
 #
