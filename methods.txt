@@ -7,58 +7,62 @@
 NOTICE:
 We have only included methods that could be downloaded and installed from the internet.
 For many methods we needed to develop scripts to automatically download, install and run.
-From the methods that we hadn't success we would appreciate reply from the authors.
+From the methods that we hadn't success, we would appreciate reply from the authors.
 
 
-LZMA - SUCCESSFULLY INSTALLED AND USED
 
-GZIP - SUCCESSFULLY INSTALLED AND USED
+==================================================
+METHOD      >  STATE
+==================================================
+LZMA        >  Successfully installed and used
 
-IDOCOMP - SUCCESSFULLY INSTALLED AND USED.
+GZIP        >  Successfully installed and used
 
-DNACOMPACT - GENOMIC SEQUENCES COMPRESSOR ONLY (WE DID NOT INCLUDE REFERENCE-FREE GENOMIC COMPRESSION IN THE RESULTS).
+IDOCOMP     >  Successfully installed and used
 
-GECO - SUCCESSFULLY INSTALLED AND USED
+DNACOMPACT  >  Genomic sequences compressor only (we did not include reference-free genomic compression in the results)
 
-ERGC - SUCCESSFULLY INSTALLED AND USED
+GECO        >  Successfully installed and used
 
-GREEN - SUCCESSFULLY INSTALLED AND USED
+ERGC        >  Successfully installed and used
 
-COGI - PROBLEMS SETTING REFERENCE-FREE COMPRESSION PARAMETERS, AUTHORS HAVE BEEN EMAILED. NO REPLY UNTIL TODAY (22 SEPTEMBER, 2016)
+GREEN       >  Successfully installed and used
 
-GDC2 - SUCCESSFULLY INSTALLED AND USED
+COGI        >  Problems setting reference-free compression parameters, authors have been emailed. No reply until today (23 september, 2016)
 
-DNAZIP - ERROR ON COMPILATION
+GDC2        >  Successfully installed and used
 
-FRESCO - PROBLEMS SETTINGS PARAMETERS
+DNAZIP      >  Error on compilation
 
-ORCOM - ONLY COMPRESS BASES : UNFAIR TO COMPARE WITH OTHER METHODS. SOME PROBLEMS TRYING MULTITHREADING APPEAR.
+FRESCO      >  Problems settings parameters
 
-DSRC - SUCCESSFULLY INSTALLED AND USED
+ORCOM       >  Only compress bases : unfair to compare with other methods. some problems trying multithreading appear
 
-MFCOMPRESS - SUCCESSFULLY INSTALLED AND USED
+DSRC        >  Successfully installed and used
 
-DELIMINATE - SUCCESSFULLY INSTALLED AND USED
+MFCOMPRESS  >  Successfully installed and used
 
-FQC - PROBLEMS WHILE RUNNING.
+DELIMINATE  >  Successfully installed and used
 
-FQZCOMP - SUCCESSFULLY INSTALLED AND USED
+FQC         >  Problems while running
 
-QUIP - SUCCESSFULLY INSTALLED AND USED
+FQZCOMP     >  Successfully installed and used
 
-GRS - OLD VERSION. WE DECIDED NOT TO INCLUDE
+QUIP        >  Successfully installed and used
 
-NGC - UNABLE TO RUN. UNKNOWN ERROR
+GRS         >  Old version. We decided not to include
 
-ABRC - MISSING FOLLOWING INSTRUCTIONS
+NGC         >  Unable to run. Unknown error
 
-DEEZ - SUCCESSFULLY INSTALLED AND USED
+ABRC        >  Missing following instructions
 
-SCALCE - SUCCESSFULLY INSTALLED AND USED
+DEEZ        >  Successfully installed and used
 
-LWFQZIP - ERROR WHILE RUNNING: SEGMENTATION FAULT.
+SCALCE      >  Successfully installed and used
 
-LEON - IT DOES NOT WORK WITH HUMAN AND CHIMPANZE (IT ENTERS IN A INFINITE LOOP). CAUSE SEEMS TO BE THE SIZE OF THE READ (NUMBER OF BASES BETWEEN HEADERS). IT WORKS ON RICE.
+LWFQZIP     >  Error while running: segmentation fault
 
-SAMCOMP - SUCCESSFULLY INSTALLED AND USED
+LEON        >  It does not work with human and chimpanze (it enters in an infinite loop). Cause seems to be the size of the read (number of bases between headers). it works on rice
+
+SAMCOMP	    >  Successfully installed and used
 
